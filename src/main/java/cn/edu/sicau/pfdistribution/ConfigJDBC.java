@@ -12,16 +12,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ConfigJDBC {
 
-  @Value("${jdbc.driver}")
+  @Value("${spring.datasource.driver-class-name}")
   private String driver;
 
-  @Value("${jdbc.url}")
+  @Value("${spring.datasource.url}")
   private String url;
 
-  @Value("${jdbc.username}")
+  @Value("${spring.datasource.username}")
   private String user;
 
-  @Value("${jdbc.password}")
+  @Value("${spring.datasource.password}")
   private String password;
 
   @Bean(name = "dataSource")
