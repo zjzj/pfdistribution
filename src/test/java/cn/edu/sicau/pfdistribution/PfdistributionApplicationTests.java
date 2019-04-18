@@ -20,7 +20,7 @@ public class PfdistributionApplicationTests {
 
   @Test
   public void updateTest() {
-
+    System.out.println("hello");
 
   }
 }
