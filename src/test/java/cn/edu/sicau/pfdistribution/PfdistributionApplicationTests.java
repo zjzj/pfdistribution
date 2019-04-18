@@ -2,6 +2,8 @@ package cn.edu.sicau.pfdistribution;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,13 +21,15 @@ public class PfdistributionApplicationTests {
   @Autowired
   private ConfigJDBC dataSource;//创建jdbctemplate对象，并使用spring的自动注入完成实例化
 
+  static final Logger logger = LoggerFactory.getLogger(PfdistributionApplicationTests.class);
+
   @Test
   public void updateTest() {
 
 
     try {
       Connection connection = dataSource.getDataSource().getConnection();
-      System.out.println(connection);
+      logger.info("连接成功");
       connection.close();
     } catch (SQLException e) {
       e.printStackTrace();
