@@ -30,6 +30,6 @@ public class SparkApp implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     doWork.work();
-    System.out.println(userDao.getUserById(1));
+
   }
 }
