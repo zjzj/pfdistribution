@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,11 +17,19 @@ import java.sql.SQLException;
 public class PfdistributionApplicationTests {
 
   @Autowired
-  private JdbcTemplate jdbcTemplate;//创建jdbctemplate对象，并使用spring的自动注入完成实例化
+  private ConfigJDBC dataSource;//创建jdbctemplate对象，并使用spring的自动注入完成实例化
 
   @Test
   public void updateTest() {
-    System.out.println("hello");
+
+
+    try {
+      Connection connection = dataSource.getDataSource().getConnection();
+      System.out.println(connection);
+      connection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
 
   }
 }
