@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/dbgirl
+    url: jdbc:mysql://47.107.38.55:32768/dbgirl
     username: root
     password: 123456
 #配置日志
