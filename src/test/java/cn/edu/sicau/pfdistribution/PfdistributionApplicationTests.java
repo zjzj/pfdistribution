@@ -30,6 +30,7 @@ public class PfdistributionApplicationTests {
     try {
       Connection connection = dataSource.getDataSource().getConnection();
       logger.info("连接成功");
+      System.out.println(connection);
       connection.close();
     } catch (SQLException e) {
       e.printStackTrace();
