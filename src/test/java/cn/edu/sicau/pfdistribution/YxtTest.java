@@ -29,7 +29,7 @@ public class YxtTest {
     @Test
     public void testYxtMain() {
         //显示已读数据
-        int i = 0; 
+        int i = 0;
         for (i = 1; i < yxtMain.czzs; i++) {
             if (yxtMain.cz[i] == null)
                 continue;
