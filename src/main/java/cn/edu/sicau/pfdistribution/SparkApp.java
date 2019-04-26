@@ -1,6 +1,7 @@
 package  cn.edu.sicau.pfdistribution;
 
 import cn.edu.sicau.pfdistribution.dao.UserDao;
+import cn.edu.sicau.pfdistribution.service.DoWork;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;

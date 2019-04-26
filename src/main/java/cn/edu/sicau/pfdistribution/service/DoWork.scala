@@ -1,4 +1,4 @@
-package  cn.edu.sicau.pfdistribution;
+package cn.edu.sicau.pfdistribution.service
 
 import org.apache.spark.{SparkConf, SparkContext}
 import org.springframework.stereotype.Service
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
   */
 
 @Service
-case class DoWork() {
+class DoWork() {
   def work() = {
     val conf = new SparkConf().
       setMaster("local[2]").

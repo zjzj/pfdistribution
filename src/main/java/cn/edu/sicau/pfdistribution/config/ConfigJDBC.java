@@ -1,4 +1,4 @@
-package cn.edu.sicau.pfdistribution;
+package cn.edu.sicau.pfdistribution.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.beans.factory.annotation.Value;

@@ -15,6 +15,13 @@ public class yxtReadDatas
     @Autowired
     private JdbcTemplate jdbcTemplate;  //这个是系统自带的
 
+
+
+
+
+
+
+
     //读入运行图基础数据
     public boolean ReadDatas()
     {
