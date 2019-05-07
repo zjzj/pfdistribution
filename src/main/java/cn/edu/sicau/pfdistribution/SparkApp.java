@@ -1,6 +1,6 @@
 package  cn.edu.sicau.pfdistribution;
 
-import cn.edu.sicau.pfdistribution.dao.UserDao;
+import cn.edu.sicau.pfdistribution.dao.yxt.YxtCalcInterface;
 import cn.edu.sicau.pfdistribution.service.DoWork;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -19,7 +19,7 @@ public class SparkApp implements CommandLineRunner {
   private DoWork doWork;
 
   @Autowired
-  private UserDao userDao;
+  public YxtCalcInterface yxtCalcInterface;
 
   public static void main(String[] args){
     SpringApplication app = new SpringApplication(SparkApp.class);
@@ -31,6 +31,6 @@ public class SparkApp implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     doWork.work();
-    System.out.println(userDao.getUserById(1));
+//    System.out.println(userDao.getUserById(1));
   }
 }

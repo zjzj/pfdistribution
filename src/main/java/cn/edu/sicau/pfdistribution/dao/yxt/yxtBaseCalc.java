@@ -3,10 +3,8 @@ package cn.edu.sicau.pfdistribution.dao.yxt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
 @Service
-public class yxtBaseCalc implements yxtCalcInterface
+public class yxtBaseCalc implements YxtCalcInterface
 {
     @Autowired
     YxtMain yxtMain;

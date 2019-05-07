@@ -1,6 +1,6 @@
 package cn.edu.sicau.pfdistribution.dao.yxt;
 
-public interface yxtCalcInterface
+public interface YxtCalcInterface
 {
     //获取两站间里程
     public double GetDistanceOfTwoStation(int czid1,int czid2);
