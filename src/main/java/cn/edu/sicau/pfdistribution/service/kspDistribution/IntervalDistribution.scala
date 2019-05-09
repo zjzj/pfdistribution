@@ -2,31 +2,27 @@ package cn.edu.sicau.pfdistribution.service.kspDistribution
 
 
 import java.io.{File, PrintWriter}
-
 import scala.collection.mutable
 import cn.edu.sicau.pfdistribution.service.kspCalculation.{KSPUtil, ReadExcel}
 import org.apache.spark.{SparkConf, SparkContext}
-
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Map
 
 
 object IntervalDistribution {
-    def main(): Unit = {
-      val writer = new PrintWriter(new File("G:/工作室/铁路客流预测/distributionTest.txt" ))
-      val conf = new SparkConf().setAppName("Distribution").setMaster("local[4]")
+    def main(args: Array[String]): Unit = {
+      val conf = new SparkConf().setAppName("IntervalDistribution").setMaster("local[4]")
       val sc = new SparkContext(conf)
       val rdd = sc.makeRDD(List("二桥公园-_南京地铁1号线 珠江路-_南京地铁1号线"))
       //od对，起点与终点与用空格连接
       val rdd1 = rdd.map(String => odDistributionResult(String))
       val rdd2 = rdd1.reduce((x, y) => x ++ y)
-      val regionMap = odRegion(rdd2)
+      val regionMap=odRegion(rdd2)
       regionMap.keys.foreach { i =>
-        writer.write("Key = " + i)
-        writer.write(" Value = " + regionMap(i))
-        writer.write("\r\n")
-      }
+        print("Key = " + i)
+        println(" Value = " + regionMap(i))
     }
+}
 
     def distribution(map: Map[Array[String], Double], x: Int): Map[Array[String], Double] = {
       val e = Math.E

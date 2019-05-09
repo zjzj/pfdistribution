@@ -1,14 +1,11 @@
 package cn.edu.sicau.pfdistribution.dao.Impl;
-import cn.edu.sicau.pfdistribution.dao.mysqlsave.regionsava;
-import cn.edu.sicau.pfdistribution.dao.mysqlsave.odregion;
-import cn.edu.sicau.pfdistribution.dao.mysqlsave.kspregion;
-import cn.edu.sicau.pfdistribution.dao.mysqlsave.ksproute;
+import cn.edu.sicau.pfdistribution.dao.mysqlsave.regionSavaInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class mysqlsavalmpl implements regionsava {
+public class mysqlsavalmpl implements regionSavaInterface {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;  //这个是系统自带的
