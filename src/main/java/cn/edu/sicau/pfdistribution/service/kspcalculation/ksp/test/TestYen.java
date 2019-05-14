@@ -1,8 +1,8 @@
-package cn.edu.sicau.pfdistribution.service.kspCalculation.ksp.test;
+package cn.edu.sicau.pfdistribution.service.kspcalculation.ksp.test;
 
-import cn.edu.sicau.pfdistribution.service.kspCalculation.Graph;
-import cn.edu.sicau.pfdistribution.service.kspCalculation.ksp.Yen;
-import cn.edu.sicau.pfdistribution.service.kspCalculation.util.Path;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.Graph;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.ksp.Yen;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
 
 import java.util.List;
 

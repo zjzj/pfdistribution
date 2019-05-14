@@ -1,6 +1,6 @@
-package cn.edu.sicau.pfdistribution.service.kspCalculation.util;
+package cn.edu.sicau.pfdistribution.service.kspcalculation.util;
 
-import cn.edu.sicau.pfdistribution.service.kspCalculation.Node;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.Node;
 
 import java.util.HashMap;
 import java.util.Set;

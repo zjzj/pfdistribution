@@ -1,4 +1,4 @@
-package cn.edu.sicau.pfdistribution.service.kspCalculation.util;
+package cn.edu.sicau.pfdistribution.service.kspcalculation.util;
 
 import java.util.HashMap;
 

@@ -1,8 +1,8 @@
-package cn.edu.sicau.pfdistribution.service.kspDistribution
+package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 import java.io.{File, PrintWriter}
 
-import cn.edu.sicau.pfdistribution.service.kspCalculation.{KSPUtil, ReadExcel}
+import cn.edu.sicau.pfdistribution.service.kspcalculation.{KSPUtil, ReadExcel}
 import scala.collection.JavaConverters._
 import scala.collection.mutable
 

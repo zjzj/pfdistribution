@@ -1,4 +1,4 @@
-package cn.edu.sicau.pfdistribution.service.kspCalculation;
+package cn.edu.sicau.pfdistribution.service.kspcalculation;
 
 /**
  * The Edge class implements standard properties and methods for a weighted edge in a directed graph.

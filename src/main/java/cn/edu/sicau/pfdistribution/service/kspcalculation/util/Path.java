@@ -1,6 +1,6 @@
-package cn.edu.sicau.pfdistribution.service.kspCalculation.util;
+package cn.edu.sicau.pfdistribution.service.kspcalculation.util;
 
-import cn.edu.sicau.pfdistribution.service.kspCalculation.Edge;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 
 import java.util.LinkedList;
 import java.util.List;

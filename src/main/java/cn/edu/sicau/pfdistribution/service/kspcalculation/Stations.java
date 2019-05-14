@@ -1,4 +1,4 @@
-package cn.edu.sicau.pfdistribution.service.kspCalculation;
+package cn.edu.sicau.pfdistribution.service.kspcalculation;
 
 import java.util.ArrayList;
 import java.util.HashMap;

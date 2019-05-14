@@ -1,13 +1,13 @@
-package cn.edu.sicau.pfdistribution.service.kspCalculation.util;
+package cn.edu.sicau.pfdistribution.service.kspcalculation.util;
 
 
 /**
  * Created by brandonsmock on 6/1/15.
  */
 
-import cn.edu.sicau.pfdistribution.service.kspCalculation.Edge;
-import cn.edu.sicau.pfdistribution.service.kspCalculation.Graph;
-import cn.edu.sicau.pfdistribution.service.kspCalculation.Node;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.Graph;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.Node;
 
 import java.util.HashMap;
 import java.util.HashSet;

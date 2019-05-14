@@ -1,4 +1,4 @@
-package cn.edu.sicau.pfdistribution.service.kspCalculation;
+package cn.edu.sicau.pfdistribution.service.kspcalculation;
 /**
  * The Node class implements a node in a directed graph keyed on a label of type String, with adjacency lists for
  * representing edges.

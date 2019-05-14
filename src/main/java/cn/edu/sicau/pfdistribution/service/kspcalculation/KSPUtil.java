@@ -1,7 +1,7 @@
-package cn.edu.sicau.pfdistribution.service.kspCalculation;
+package cn.edu.sicau.pfdistribution.service.kspcalculation;
 
-import cn.edu.sicau.pfdistribution.service.kspCalculation.ksp.Eppstein;
-import cn.edu.sicau.pfdistribution.service.kspCalculation.util.Path;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.ksp.Eppstein;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
 
 import java.util.List;
 

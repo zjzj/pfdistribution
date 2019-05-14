@@ -1,4 +1,4 @@
-package cn.edu.sicau.pfdistribution.service.kspCalculation;
+package cn.edu.sicau.pfdistribution.service.kspcalculation;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;

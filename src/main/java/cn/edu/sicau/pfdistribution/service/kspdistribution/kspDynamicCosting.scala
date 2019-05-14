@@ -1,4 +1,4 @@
-package cn.edu.sicau.pfdistribution.service.kspDistribution
+package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 import cn.edu.sicau.pfdistribution.dao.yxt.YxtCalcInterface
 import org.springframework.beans.factory.annotation.Autowired

@@ -1,10 +1,10 @@
-package cn.edu.sicau.pfdistribution.service.kspCalculation.ksp;
+package cn.edu.sicau.pfdistribution.service.kspcalculation.ksp;
 
-import cn.edu.sicau.pfdistribution.service.kspCalculation.Edge;
-import cn.edu.sicau.pfdistribution.service.kspCalculation.Graph;
-import cn.edu.sicau.pfdistribution.service.kspCalculation.util.Dijkstra;
-import cn.edu.sicau.pfdistribution.service.kspCalculation.util.Path;
-import cn.edu.sicau.pfdistribution.service.kspCalculation.util.ShortestPathTree;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.Graph;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Dijkstra;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.util.ShortestPathTree;
 
 import java.util.*;
 
