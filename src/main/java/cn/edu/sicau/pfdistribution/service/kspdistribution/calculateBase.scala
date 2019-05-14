@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable
+import util.control.Breaks._
 import scala.collection.mutable.Map
 
 
@@ -92,10 +93,12 @@ abstract class calculateBase extends calculateInterface{
     val odMap = scala.collection.mutable.Map[String, Double]()
     val intervalTime = getTime()
     for (key <- map.keys) {
-      for (i <- 0 to (key.length - 2)) {
-        var count=0
-        while(count<=intervalTime){
-          count += getTwoSiteTime(key(i),key(i+1))
+      var count = 0
+      var i = 0
+      //        for (i <- 0 to (key.length - 2)) {
+      while (i < key.length - 2) {
+        if (count <= intervalTime) {
+          count += getTwoSiteTime(key(i), key(i + 1))
           val str = key(i) + " " + key(i + 1)
           if (odMap.contains(str)) {
             odMap += (str -> (map(key) + odMap(str)))
@@ -103,22 +106,26 @@ abstract class calculateBase extends calculateInterface{
           else {
             odMap += (str -> map(key))
           }
-        }
+          i += 1
+        } else
+          break()
       }
     }
     return odMap
   }
+
   def getTime():Int={   //返回定义的区间粒度时间
     val int_Time: Int = 15
     return int_Time
   }
   def getTwoSiteTime(siteId1:String,siteId2:String):Int={  //返回两个站点的运行时间
-    val twoSiteTime:Int =2
+    val twoSiteTime:Int =5
     return twoSiteTime
   }
-
-
-
+  def getSiteStopTime(siteId:String):Int={
+    val siteStopTime:Int =2
+    return siteStopTime
+  }
   override def intervalResult(odList: List[String]): mutable.Map[String, Double] = {
     val conf = new SparkConf().setAppName("IntervalDistribution").setMaster("local[4]")
     val sc = new SparkContext(conf)
@@ -126,7 +133,7 @@ abstract class calculateBase extends calculateInterface{
     //od对，起点与终点与用空格连接
     val rdd1 = rdd.map(String => odDistributionResult(String))
     val rdd2 = rdd1.reduce((x, y) => x ++ y)
-    val regionMap=odRegion(rdd2)
+    val regionMap = odRegion(rdd2)
     return regionMap
   }
 }
