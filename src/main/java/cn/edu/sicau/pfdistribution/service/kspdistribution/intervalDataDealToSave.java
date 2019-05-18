@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.*;
 
+/**
+ * @author 谭华波
+ */
 public class intervalDataDealToSave {
 
     @Autowired
     calculateBase calBase;
 
-//    public void kspPathSearchResultSave(){
+    public void main(String[] args){
 //        PathSearchResult = calBase.kspCalculateResult();
-//    }
+    }
 }
