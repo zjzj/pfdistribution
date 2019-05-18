@@ -4,6 +4,12 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class orclTest {
     private static final String DBDRIVER = "oracle.jdbc.driver.OracleDriver";
@@ -14,7 +20,24 @@ public class orclTest {
 
     private static final String PASSWORD = "password";
 
-    public static void main(String[] args) throws Exception {
+    public String selectOD(String inTime,long time) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date =sdf.parse(inTime);
+        if(date.getMinutes() + time >=60){
+            date.setHours(date.getHours() + 1);
+            date.setMinutes((int) (date.getMinutes() + time - 60));
+        }else{
+            date.setMinutes((int) (date.getMinutes() + time));
+        }
+        String outTime=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
+        String testOD="SELECT \"进站点\",\"出站点\",COUNT(*) as 人数\n" +
+                "from \"SCOTT\".\"test_od\"\n" +
+                "where TO_CHAR(\"进站时间\") BETWEEN TO_CHAR(TO_TIMESTAMP('"+inTime+".000000','yyyy-mm-dd hh:mi:ss.ff')) AND TO_CHAR(TO_TIMESTAMP('"+outTime+".000000','yyyy-mm-dd hh:mi:ss.ff'))\n" +
+                "GROUP BY \"进站点\",\"出站点\"\n";
+        return testOD;
+    }
+
+    public List<String> SelectOD(String inTime,long time) throws Exception {
 
         Connection conn = null; // 每一个Connection对象都表示一个连接
 
@@ -77,8 +100,6 @@ public class orclTest {
         Statement sql = conn.createStatement();
         sql.executeUpdate(deleteNotcare);
         sql.executeUpdate(deleteOd);
-        sql.executeUpdate(deleteIn);
-        sql.executeUpdate(deleteOut);
         sql.executeUpdate(creTestod);
         sql.executeUpdate(creTestin);
         sql.executeUpdate(creTestout);
@@ -88,10 +109,19 @@ public class orclTest {
         sql.executeUpdate(deleteNot);
         sql.executeUpdate(deleteIn);
         sql.executeUpdate(deleteOut);
-
-        System.out.println(conn);   // 如果不为null表示已连接
-
+        List<String> strList = new ArrayList<>();
+        ResultSet rs=sql.executeQuery(selectOD(inTime,time));
+        while(rs.next()){                                                      //rs.next()   表示如果结果集rs还有下一条记录，那么返回true；否则，返回false
+            String odIn = rs.getString("进站点");
+            String odOut = rs.getString("出站点");
+            int odPeo = rs.getInt("人数");
+            strList.add(odIn+" "+odOut);
+            //System.out.println(odIn+"--->"+odOut+"--------"+odPeo);
+        }
+        //System.out.println(strList.size());
+        //System.out.println(strList);
+        //System.out.println(conn);   // 如果不为null表示已连接
         conn.close() ;
-
+        return strList;
     }
 }

@@ -210,6 +210,7 @@ class interfaceImplementation() extends calculateBaseInterface{
   }
 
   override def kspCalculateResult():mutable.Map[Array[String], Double] = {
+    @transient
     val conf = new SparkConf().setAppName("kspDistributionResult").setMaster("local[4]")
     val sc = new SparkContext(conf)
     val rdd = sc.makeRDD(getOdList())
@@ -222,7 +223,8 @@ class interfaceImplementation() extends calculateBaseInterface{
   override def intervalResult():mutable.Map[String, Double] = {
     val conf = new SparkConf().setAppName("intervalResult").setMaster("local[4]")
     val sc = new SparkContext(conf)
-    val rdd = sc.makeRDD(getOdList())
+    val odList= getOdList()
+    val rdd = sc.makeRDD(odList)
     //od对，起点与终点与用空格连接
     val odDistributionRdd = rdd.map(String => odDistributionResult(String))   //各个OD的分配结果
     val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合

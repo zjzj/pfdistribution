@@ -3,10 +3,12 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 
 
+import cn.edu.sicau.pfdistribution.orclTest
+
 import scala.collection.mutable
 import cn.edu.sicau.pfdistribution.service.kspcalculation.{KSPUtil, ReadExcel}
 import org.apache.spark.{SparkConf, SparkContext}
-
+import org.springframework.beans.factory.annotation.Autowired
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Map
@@ -14,10 +16,13 @@ import scala.collection.mutable.Map
 
 
 object IntervalDistribution {
+
+  val test = new orclTest
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setAppName("IntervalDistribution").setMaster("local[4]")
     val sc = new SparkContext(conf)
-    val rdd = sc.makeRDD(List("二桥公园-_南京地铁1号线 珠江路-_南京地铁1号线","吉祥庵-_南京地铁1号线 花神庙-_南京地铁1号线  1.0","雨润大街-_南京地铁二号线 孝陵卫-_南京地铁二号线  1.0"))
+    val abc = test.SelectOD("2018-09-01 09:05:21",15)
+    val rdd = sc.makeRDD(abc.asScala)
     //od对，起点与终点与用空格连接
     val rdd1 = rdd.map(String => odDistributionResult(String))
     val rdd2 = rdd1.reduce((x, y) => x ++ y)
