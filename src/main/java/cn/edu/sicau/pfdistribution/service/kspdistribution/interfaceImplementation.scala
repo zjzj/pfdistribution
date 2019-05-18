@@ -11,6 +11,7 @@ import scala.util.control.Breaks.break
 
 class interfaceImplementation() extends calculateBaseInterface{
 
+  val dynamicCosting = new kspDynamicCosting
   override def odPathSearch(targetOd: String):mutable.Map[Array[String],Double] = {
     val aList = targetOd.split(" ")
     val sou = aList(0)
@@ -107,7 +108,7 @@ class interfaceImplementation() extends calculateBaseInterface{
     val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
     val kspUtil = new KSPUtil()
     kspUtil.setGraph(graph)
-    val ksp = kspUtil.computeODPath(sou,tar,2)
+    val ksp = kspUtil.computeODPath(sou,tar,getTransferTimes(targetOd))
     val iter = ksp.iterator()
     val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
@@ -125,6 +126,36 @@ class interfaceImplementation() extends calculateBaseInterface{
       text1 += (myArray -> text.apply(key))
     }
     return distribution(text1, getPassengers(targetOd))
+  }
+
+  //动态路径分配
+  def dynamicOdDistributionResult(targetOd: String): mutable.Map[Array[String],Double] ={
+    // val ksp = EppsteinUtil.getOneODPair("data/cd.txt", "一品天下-2_7", "天府广场-4_1", 2)
+    val aList = targetOd.split(" ")
+    val sou = aList(0)
+    val tar = aList(1)
+    val readExcel = new ReadExcel()
+    val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
+    val kspUtil = new KSPUtil()
+    kspUtil.setGraph(graph)
+    val ksp = kspUtil.computeODPath(sou,tar,getTransferTimes(targetOd))
+    val iter = ksp.iterator()
+    val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
+    var text:mutable.Map[Iterator[String],Double] = mutable.Map()
+    var text1:mutable.Map[Array[String],Double] = mutable.Map()
+    while(iter.hasNext) {
+      val p = iter.next()
+      //      一条路径的站点构成
+      val nodesIter = p.getNodes.iterator()
+      //      println("费用:"  + p.getTotalCost)
+      text += (nodesIter.asScala -> p.getTotalCost)   //静态费用
+      //      println(text.toList)
+    }
+    for (key <- text.keys) {
+      val myArray = key.toArray
+      text1 += (myArray -> text.apply(key))
+    }
+    return distribution(dynamicCosting.cost_Count(text1), getPassengers(targetOd))
   }
 
   override def odRegion(map: mutable.Map[Array[String], Double]): mutable.Map[String, Double] = {
@@ -204,7 +235,7 @@ class interfaceImplementation() extends calculateBaseInterface{
     val sc = new SparkContext(conf)
     val rdd = sc.makeRDD(getOdList())
     //od对，起点与终点与用空格连接
-    val odDistributionRdd = rdd.map(String => odDistributionResult(String))   //各个OD的路径分配结果
+    val odDistributionRdd = rdd.map(String => dynamicOdDistributionResult(String))   //各个OD的路径分配结果
     val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合
     val regionMap = odRegionWithTime(rddIntegration)
     return regionMap
