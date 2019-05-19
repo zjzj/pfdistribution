@@ -2,12 +2,11 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 
 import cn.edu.sicau.pfdistribution.service.kspcalculation.{KSPUtil, ReadExcel}
-import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.collection.mutable
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Map
-import scala.util.control.Breaks.break
+import scala.util.control.Breaks._
 
 class interfaceImplementation() extends calculateBaseInterface{
 
@@ -182,7 +181,7 @@ class interfaceImplementation() extends calculateBaseInterface{
       var i = 0
       //        for (i <- 0 to (key.length - 2)) {
       while (i < key.length - 2) {
-        if (count <= intervalTime) {
+        if (count <= intervalTime) {  //满足条件的区间就累加
           count += getTwoSiteTime(key(i), key(i + 1))
           val str = key(i) + " " + key(i + 1)
           if (odMap.contains(str)) {
@@ -193,56 +192,11 @@ class interfaceImplementation() extends calculateBaseInterface{
           }
           i += 1
         } else
-          break()
+          count += getTwoSiteTime(key(i), key(i + 1))
       }
     }
     return odMap
   }
-
-  override def kspDistributionResult():mutable.Map[Array[String], Double] = {
-    val conf = new SparkConf().setAppName("kspDistributionResult").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val rdd = sc.makeRDD(getOdList())
-    //od对，起点与终点与用空格连接
-    val odDistributionRdd = rdd.map(String => odDistributionResult(String))   //各个OD的路径分配结果
-    val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合
-    return rddIntegration
-  }
-
-  override def kspCalculateResult():mutable.Map[Array[String], Double] = {
-    @transient
-    val conf = new SparkConf().setAppName("kspDistributionResult").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val rdd = sc.makeRDD(getOdList())
-    //od对，起点与终点与用空格连接
-    val odDistributionRdd = rdd.map(String => odPathSearch(String)) //各个OD的路径搜索结果
-    val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y) //对OD分配结果的RDD的整合
-    return rddIntegration
-  }
-
-  override def intervalResult():mutable.Map[String, Double] = {
-    val conf = new SparkConf().setAppName("intervalResult").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val odList= getOdList()
-    val rdd = sc.makeRDD(odList)
-    //od对，起点与终点与用空格连接
-    val odDistributionRdd = rdd.map(String => odDistributionResult(String))   //各个OD的分配结果
-    val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合
-    val regionMap = odRegion(rddIntegration)                              //各个区间的加和结果
-    return regionMap
-  }
-
-  override def intervalResultWithTimeResult(): mutable.Map[String, Double] = {
-    val conf = new SparkConf().setAppName("intervalResultWithTime").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val rdd = sc.makeRDD(getOdList())
-    //od对，起点与终点与用空格连接
-    val odDistributionRdd = rdd.map(String => dynamicOdDistributionResult(String))   //各个OD的路径分配结果
-    val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合
-    val regionMap = odRegionWithTime(rddIntegration)
-    return regionMap
-  }
-
 
   //获得当前OD的客流人数
   def getPassengers(odStr:String):Int={
@@ -273,6 +227,4 @@ class interfaceImplementation() extends calculateBaseInterface{
     val siteStopTime:Int =2
     return siteStopTime
   }
-
-
 }

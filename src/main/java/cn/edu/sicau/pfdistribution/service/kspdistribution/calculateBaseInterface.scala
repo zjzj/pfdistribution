@@ -1,8 +1,5 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
-import java.util
-
-import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.collection.mutable
 import scala.collection.mutable.Map
@@ -26,17 +23,5 @@ trait calculateBaseInterface {
 
   //按照时间粒度，将分配到各个路径下的结果划分到区间上，返回区间断面图
   def odRegionWithTime(map: mutable.Map[Array[String], Double]):mutable.Map[String, Double]
-
-  //各个OD的路径搜索结果
-  def kspCalculateResult():mutable.Map[Array[String], Double]
-
-  //各个OD的路径分配结果
-  def kspDistributionResult():mutable.Map[Array[String], Double]
-
-  //返回区间断面的分配结果
-  def intervalResult():mutable.Map[String, Double]
-
-  //按照不同的时间粒度分配形，生成区间密度断面图
-  def intervalResultWithTimeResult(): mutable.Map[String, Double]
 
 }
