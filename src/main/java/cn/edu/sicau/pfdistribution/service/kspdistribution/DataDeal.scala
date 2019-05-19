@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import scala.collection.mutable
 
-class DataSave {
+class DataDeal {
 
   @Autowired
   val save:regionSaveInterface = null
