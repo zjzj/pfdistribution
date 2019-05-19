@@ -14,6 +14,7 @@ public class mysqlsavalmpl implements regionSavaInterface {
         jdbcTemplate.update("insert into ksproute(ksp) value(?)",ksp);
     }
 
+
     @Override
     public void kspregionadd(String route, double passenger) {
         jdbcTemplate.update("insert into kspregion(route,passenger) value(?,?)",route,passenger);

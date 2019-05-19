@@ -1,7 +1,6 @@
 package  cn.edu.sicau.pfdistribution;
 
 import cn.edu.sicau.pfdistribution.dao.yxt.YxtCalcInterface;
-import cn.edu.sicau.pfdistribution.service.DoWork;
 import cn.edu.sicau.pfdistribution.service.kafka.receiver.KafkaReceiver;
 import cn.edu.sicau.pfdistribution.service.kspdistribution.calculateBase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SparkApp implements CommandLineRunner {
 
-  @Autowired
-  DoWork doWork;
 
   @Autowired
   YxtCalcInterface yxtCalcInterface;
@@ -40,7 +37,7 @@ public class SparkApp implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-      doWork.work();
+
 //    System.out.println(userDao.getUserById(1));
   }
 }

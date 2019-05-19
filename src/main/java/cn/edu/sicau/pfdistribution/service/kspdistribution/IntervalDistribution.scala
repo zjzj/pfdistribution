@@ -67,13 +67,14 @@ object IntervalDistribution {
     val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
+    val passenger = aList(2).toInt
     val readExcel = new ReadExcel()
     val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
     val kspUtil = new KSPUtil()
     kspUtil.setGraph(graph)
     val ksp = kspUtil.computeODPath(sou,tar,2)
     val iter = ksp.iterator()
-    val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
+
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
     while(iter.hasNext) {

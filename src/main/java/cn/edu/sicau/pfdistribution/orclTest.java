@@ -115,7 +115,7 @@ public class orclTest {
             String odIn = rs.getString("进站点");
             String odOut = rs.getString("出站点");
             int odPeo = rs.getInt("人数");
-            strList.add(odIn+" "+odOut);
+            strList.add(odIn+" "+odOut+" "+odPeo);
             //System.out.println(odIn+"--->"+odOut+"--------"+odPeo);
         }
         //System.out.println(strList.size());
