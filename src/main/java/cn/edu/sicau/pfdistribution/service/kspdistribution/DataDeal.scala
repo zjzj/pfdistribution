@@ -1,7 +1,7 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 import cn.edu.sicau.pfdistribution.dao.mysqlsave.RegionSaveInterface
-import cn.edu.sicau.pfdistribution.service.kafka.sender.KafkaSender
+import cn.edu.sicau.pfdistribution.service.kafka.sender.KafkaPfAllocationMessageSender
 import org.springframework.beans.factory.annotation.Autowired
 
 import scala.collection.mutable
@@ -12,7 +12,7 @@ class DataDeal {
   val save:RegionSaveInterface = null
 
   @Autowired
-  val sender:KafkaSender = null
+  val sender:KafkaPfAllocationMessageSender = null
 
   def kspDistributionDataSave(data:mutable.Map[Array[String], Double])= {
     for (key <- data.keys) {

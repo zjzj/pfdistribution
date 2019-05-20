@@ -1,16 +1,18 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
+import java.util.Map
 import org.apache.spark.{SparkConf, SparkContext}
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 import scala.collection.mutable
 
 //该段代码把Object改成Class定义
 @Service
-case class MainDistribution() {
+case class MainDistribution @Autowired() (val calBase: CalculateBaseImplementation) {
 
 //该段代码移植到KafkaReceiver中
-  def triggerTask(calBase: CalculateBaseImplementation, args: Array[String]): Unit = {
+  def triggerTask(args: Map[String,String]): Unit = {
     val result = intervalResultWithTimeResult()
     result.keys.foreach { i =>
       print("Key = " + i)
