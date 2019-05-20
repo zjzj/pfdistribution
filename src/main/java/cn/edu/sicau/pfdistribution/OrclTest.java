@@ -113,10 +113,12 @@ public class OrclTest {
         ResultSet rs=sql.executeQuery(selectOD(inTime,time));
         while(rs.next()){                                                      //rs.next()   表示如果结果集rs还有下一条记录，那么返回true；否则，返回false
             String odIn = rs.getString("进站点");
+            String odIn1=odIn.replace(" ", "");
             String odOut = rs.getString("出站点");
+            String odOut1=odOut.replace(" ", "");
             int odPeo = rs.getInt("人数");
-            strList.add(odIn+" "+odOut+" "+odPeo);
-            //System.out.println(odIn+"--->"+odOut+"--------"+odPeo);
+            strList.add(odIn1+" "+odOut1);
+            //System.out.println(odIn1+"--->"+odOut1+"--------"+odPeo);
         }
         //System.out.println(strList.size());
         //System.out.println(strList);
