@@ -37,6 +37,9 @@ public class OrclTest {
         return testOD;
     }
 
+
+    
+
     public List<String> SelectOD(String inTime,long time) throws Exception {
 
         Connection conn = null; // 每一个Connection对象都表示一个连接
