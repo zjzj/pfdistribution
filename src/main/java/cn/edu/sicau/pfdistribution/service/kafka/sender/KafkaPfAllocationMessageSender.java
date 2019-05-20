@@ -29,6 +29,6 @@ public class KafkaPfAllocationMessageSender {
 
     //发送消息方法
     public ListenableFuture<SendResult<String, String>> send(String topic, Object message) {
-        return kafkaTemplate.send("PF-Allocation-CMD", gson.toJson(message));
+        return kafkaTemplate.send(topic, gson.toJson(message));
     }
 }
