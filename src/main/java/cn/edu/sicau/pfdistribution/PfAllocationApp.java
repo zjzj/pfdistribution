@@ -2,7 +2,7 @@ package  cn.edu.sicau.pfdistribution;
 
 import cn.edu.sicau.pfdistribution.dao.yxt.YxtCalcInterface;
 import cn.edu.sicau.pfdistribution.service.kafka.receiver.KafkaReceiver;
-import cn.edu.sicau.pfdistribution.service.kspdistribution.calculateBase;
+import cn.edu.sicau.pfdistribution.service.kspdistribution.CalculateBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
@@ -16,8 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @SpringBootApplication
-public class SparkApp implements CommandLineRunner {
-
+public class PfAllocationApp implements CommandLineRunner {
 
   @Autowired
   YxtCalcInterface yxtCalcInterface;
@@ -26,10 +25,10 @@ public class SparkApp implements CommandLineRunner {
   KafkaReceiver kafkaReceiver;
 
   @Autowired
-  calculateBase calBase;
+  CalculateBase calBase;
 
   public void main(String[] args){
-    SpringApplication app = new SpringApplication(SparkApp.class);
+    SpringApplication app = new SpringApplication(PfAllocationApp.class);
     app.setBannerMode(Banner.Mode.OFF);
     app.run(args);
   }

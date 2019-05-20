@@ -1,20 +1,23 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 import org.apache.spark.{SparkConf, SparkContext}
+import org.springframework.stereotype.Service
 
 import scala.collection.mutable
 
+//该段代码把Object改成Class定义
+@Service
+case class MainDistribution() {
 
-object mainDistribution {
-
-  val calBase = new interfaceImplementation
-  def main(args: Array[String]): Unit = {
+//该段代码移植到KafkaReceiver中
+  def triggerTask(calBase: CalculateBaseImplementation, args: Array[String]): Unit = {
     val result = intervalResultWithTimeResult()
     result.keys.foreach { i =>
       print("Key = " + i)
       println(" Value = " + result(i))
     }
   }
+
   //各个OD的路径搜索结果
   def kspCalculateResult():mutable.Map[Array[String], Double] = {
     val conf = new SparkConf().setAppName("kspDistributionResult").setMaster("local[4]")

@@ -2,15 +2,17 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 
 import cn.edu.sicau.pfdistribution.service.kspcalculation.{KSPUtil, ReadExcel}
+import org.springframework.stereotype.Service
 
 import scala.collection.mutable
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Map
 import scala.util.control.Breaks._
 
-class interfaceImplementation() extends calculateBaseInterface{
+@Service
+class CalculateBaseImplementation() extends CalculateBaseInterface{
 
-  val dynamicCosting = new kspDynamicCosting
+  val dynamicCosting = new KspDynamicCosting
   override def odPathSearch(targetOd: String):mutable.Map[Array[String],Double] = {
     val aList = targetOd.split(" ")
     val sou = aList(0)

@@ -1,6 +1,6 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
-import cn.edu.sicau.pfdistribution.dao.mysqlsave.regionSaveInterface
+import cn.edu.sicau.pfdistribution.dao.mysqlsave.RegionSaveInterface
 import cn.edu.sicau.pfdistribution.service.kafka.sender.KafkaSender
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -9,7 +9,7 @@ import scala.collection.mutable
 class DataDeal {
 
   @Autowired
-  val save:regionSaveInterface = null
+  val save:RegionSaveInterface = null
 
   @Autowired
   val sender:KafkaSender = null

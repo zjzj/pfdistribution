@@ -6,7 +6,7 @@ import scala.collection.mutable
 
 
 @Service
-class kspDynamicCosting {
+class KspDynamicCosting {
 
   def stationOperatingCosts(beforeSite: String, currentSite: String): Double = {
     val a = getA()

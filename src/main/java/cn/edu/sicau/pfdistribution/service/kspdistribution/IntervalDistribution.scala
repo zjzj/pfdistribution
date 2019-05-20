@@ -1,9 +1,7 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 
-
-
-import cn.edu.sicau.pfdistribution.orclTest
+import cn.edu.sicau.pfdistribution.OrclTest
 
 import scala.collection.mutable
 import cn.edu.sicau.pfdistribution.service.kspcalculation.{KSPUtil, ReadExcel}
@@ -17,7 +15,7 @@ import scala.collection.mutable.Map
 
 object IntervalDistribution {
 
-  val test = new orclTest
+  val test = new OrclTest
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setAppName("IntervalDistribution").setMaster("local[4]")
     val sc = new SparkContext(conf)

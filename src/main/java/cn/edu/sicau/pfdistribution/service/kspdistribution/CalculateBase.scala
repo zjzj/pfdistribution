@@ -10,7 +10,7 @@ import java.util
 import cn.edu.sicau.pfdistribution.service.kspcalculation.{KSPUtil, ReadExcel}
 
 
-class calculateBase{
+class CalculateBase{
 
   //计算单个OD的k路径搜索结果
   def odPathSearch(targetOd:String):mutable.Map[Array[String],Double] = {

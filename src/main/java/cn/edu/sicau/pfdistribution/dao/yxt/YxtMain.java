@@ -4,14 +4,11 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.*;
-import java.util.Arrays;
-
 @Component
 public class YxtMain implements InitializingBean
 {
     @Autowired
-    yxtReadDatas yxtRead;
+    YxtReadDatas yxtRead;
 
     //车站总数
     public  static final int czzs = 2500;

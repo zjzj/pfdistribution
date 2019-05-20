@@ -6,10 +6,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.util.Arrays;
 
 @Repository
-public class yxtReadDatas
+public class YxtReadDatas
 {
 
     @Autowired
@@ -285,9 +284,9 @@ public class yxtReadDatas
                     continue;
 
                 svalue = rs.getString("ARR_TIME");//到达时刻
-                YxtMain.lctz[nlcxh].ddsk[nxh] = timeConvert.ConvertTimeToInt(svalue);
+                YxtMain.lctz[nlcxh].ddsk[nxh] = TimeConvert.ConvertTimeToInt(svalue);
                 svalue = rs.getString("DEP_TIME");//出发时刻
-                YxtMain.lctz[nlcxh].cfsk[nxh] = timeConvert.ConvertTimeToInt(svalue);
+                YxtMain.lctz[nlcxh].cfsk[nxh] = TimeConvert.ConvertTimeToInt(svalue);
                 YxtMain.lctz[nlcxh].yyts[nxh] = rs.getShort("YYTS");
                 YxtMain.lctz[nlcxh].jsts[nxh] = rs.getShort("JSTS");
                 YxtMain.lctz[nlcxh].qjh[nxh] = rs.getInt("QJ_ID");

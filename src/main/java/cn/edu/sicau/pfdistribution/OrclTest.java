@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class orclTest {
+public class OrclTest {
     private static final String DBDRIVER = "oracle.jdbc.driver.OracleDriver";
 
     private static final String DBURL = "jdbc:oracle:thin:@localhost:1521:myorcl";
