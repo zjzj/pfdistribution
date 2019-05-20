@@ -1,5 +1,6 @@
 package cn.edu.sicau.pfdistribution.service.kafka.receiver;
 
+import cn.edu.sicau.pfdistribution.service.kafka.sender.KafkaPfAllocationMessageSender;
 import cn.edu.sicau.pfdistribution.service.kspdistribution.MainDistribution;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,13 +21,17 @@ public class KafkaPfAllocationCmdReceiver {
     @Autowired
     MainDistribution distribution;
 
+    @Autowired
+    KafkaPfAllocationMessageSender sender;
+
     private Gson gson = new GsonBuilder().create();
 
     @KafkaListener(topics = "PF-Allocation-CMD")
     public void processMessage(String msg) {
         Map<String, String> message = gson.fromJson(msg, Map.class);
         log.info("从kafka读取数据" + message);
-        distribution.triggerTask(message);
+        //distribution.triggerTask(message);
+        sender.send("PF-Allocation-CMD",distribution.triggerTask(message));
     }
 
 }

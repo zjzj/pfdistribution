@@ -28,9 +28,9 @@ public class KafkaTriggerController {
         Map message = new HashMap();
         message.put("command",command);
         message.put("startTime",startTime);
-        message.put("endTime",startTime);
+        message.put("endTime",endTime);
         message.put("predictionInterval",predictionInterval);
-;
+
         sender.send("PF-Allocation-CMD", message);
 
         log.info("Message send: " + "PF-Allocation-CMD" + ": " + message );

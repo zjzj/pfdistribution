@@ -11,19 +11,20 @@ import scala.collection.mutable
 @Service
 case class MainDistribution @Autowired() (val calBase: CalculateBaseImplementation) {
 
+  val conf = new SparkConf().setAppName("kspDistributionResult").setMaster("local[4]")
+  val sc = new SparkContext(conf)
+
 //该段代码移植到KafkaReceiver中
-  def triggerTask(args: Map[String,String]): Unit = {
-    val result = intervalResultWithTimeResult()
-    result.keys.foreach { i =>
-      print("Key = " + i)
-      println(" Value = " + result(i))
-    }
+  def triggerTask(args: Map[String,String]): mutable.Map[String, Double]= {
+    val command:String = args("command")
+    if(command.equals("static")){
+      return intervalResult()
+    }else
+      return intervalResultWithTimeResult()
   }
 
   //各个OD的路径搜索结果
   def kspCalculateResult():mutable.Map[Array[String], Double] = {
-    val conf = new SparkConf().setAppName("kspDistributionResult").setMaster("local[4]")
-    val sc = new SparkContext(conf)
     val rdd = sc.makeRDD(calBase.getOdList())
     //od对，起点与终点与用空格连接
     val odDistributionRdd = rdd.map(String => calBase.odPathSearch(String)) //各个OD的路径搜索结果
@@ -32,8 +33,6 @@ case class MainDistribution @Autowired() (val calBase: CalculateBaseImplementati
   }
   //各个OD的路径分配结果
   def kspDistributionResult():mutable.Map[Array[String], Double] = {
-    val conf = new SparkConf().setAppName("kspDistributionResult").setMaster("local[4]")
-    val sc = new SparkContext(conf)
     val rdd = sc.makeRDD(calBase.getOdList())
     //od对，起点与终点与用空格连接
     val odDistributionRdd = rdd.map(String => calBase.odDistributionResult(String))   //各个OD的路径分配结果
@@ -43,8 +42,6 @@ case class MainDistribution @Autowired() (val calBase: CalculateBaseImplementati
 
   //返回区间断面的分配结果（静态）
   def intervalResult():mutable.Map[String, Double] = {
-    val conf = new SparkConf().setAppName("intervalResult").setMaster("local[4]")
-    val sc = new SparkContext(conf)
     val odList= calBase.getOdList()
     val rdd = sc.makeRDD(odList)
     //od对，起点与终点与用空格连接
@@ -56,8 +53,6 @@ case class MainDistribution @Autowired() (val calBase: CalculateBaseImplementati
 
   //按照不同的时间粒度分配形，生成区间密度断面图
   def intervalResultWithTimeResult(): mutable.Map[String, Double] = {
-    val conf = new SparkConf().setAppName("intervalResultWithTimeResult").setMaster("local[4]")
-    val sc = new SparkContext(conf)
     val rdd = sc.makeRDD(calBase.getOdList())
     //od对，起点与终点与用空格连接
     val odDistributionRdd = rdd.map(String => calBase.dynamicOdDistributionResult(String))   //各个OD的路径分配结果
