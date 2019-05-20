@@ -51,22 +51,22 @@ public class OrclTest {
 
         String creTestod="CREATE TABLE \"SCOTT\".\"test_od\" (   \n" +
                 "  \"票卡号\" CHAR(20) ,\n" +
-                "  \"进站点\" CHAR(4) ,\n" +
+                "  \"进站点\" CHAR(100) ,\n" +
                 "  \"进站时间\" TIMESTAMP ,\n" +
-                "  \"出站点\" CHAR(4) ,\n" +
+                "  \"出站点\" CHAR(100) ,\n" +
                 "  \"出站时间\" TIMESTAMP \n" +
                 ")";
 
         String creTestin="CREATE TABLE \"SCOTT\".\"test_in\" (   --创建储存进站数据表\n" +
                 "  \"票卡号\" CHAR(20) ,\n" +
-                "  \"进站点\" CHAR(4) ,\n" +
+                "  \"进站点\" CHAR(100) ,\n" +
                 "  \"进站时间\" TIMESTAMP ,\n" +
                 "\"交易前金额(元)\" CHAR(10)\n" +
                 ")";
 
         String creTestout="CREATE TABLE \"SCOTT\".\"test_out\" (  \n" +
                 "  \"票卡号\" CHAR(20) ,\n" +
-                "  \"出站点\" CHAR(4) ,\n" +
+                "  \"出站点\" CHAR(100) ,\n" +
                 "  \"出站时间\" TIMESTAMP ,\n" +
                 "\"交易前金额(元)\" CHAR(10)\n" +
                 ")";
@@ -117,7 +117,7 @@ public class OrclTest {
             String odOut = rs.getString("出站点");
             String odOut1=odOut.replace(" ", "");
             int odPeo = rs.getInt("人数");
-            strList.add(odIn1+" "+odOut1);
+            strList.add(odIn1+" "+odOut1+" "+odPeo);
             //System.out.println(odIn1+"--->"+odOut1+"--------"+odPeo);
         }
         //System.out.println(strList.size());
