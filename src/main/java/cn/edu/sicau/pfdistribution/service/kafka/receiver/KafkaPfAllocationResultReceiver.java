@@ -17,7 +17,7 @@ public class KafkaPfAllocationResultReceiver {
 
     private Gson gson = new GsonBuilder().create();
 
-    @KafkaListener(topics = "PF-Allocation-Result")
+    @KafkaListener(topics = "yourkafka")
     public void processMessage(String msg) {
         Map<String, String> result = gson.fromJson(msg, Map.class);
         log.info("从kafka读取处理结果数据:" + result);

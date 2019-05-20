@@ -1,6 +1,8 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 
+import java.util
+
 import cn.edu.sicau.pfdistribution.OrclTest
 
 import scala.collection.mutable
@@ -62,7 +64,7 @@ object IntervalDistribution {
   }
 
 
-  def odDistributionResult(targetOd:String): mutable.Map[Array[String],Double] ={
+  def odDistributionResult(targetOd:String): mutable.Map[Array[String], Double] ={
     // val ksp = EppsteinUtil.getOneODPair("data/cd.txt", "一品天下-2_7", "天府广场-4_1", 2)
     val aList = targetOd.split(" ")
     val sou = aList(0)

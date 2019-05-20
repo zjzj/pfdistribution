@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class ConfigJDBC {
+/*
 
   @Value("${spring.datasource.driver-class-name}")
   private String driver;
@@ -33,5 +34,6 @@ public class ConfigJDBC {
     dataSource.setPassword(password);
     return dataSource;
   }
+*/
 
 }

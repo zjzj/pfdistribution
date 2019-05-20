@@ -1,9 +1,10 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
-import java.util.Map
+import java.util
 import org.apache.spark.{SparkConf, SparkContext}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import scala.collection.JavaConverters._
 
 import scala.collection.mutable
 
@@ -15,8 +16,9 @@ case class MainDistribution @Autowired() (val calBase: CalculateBaseImplementati
   val sc = new SparkContext(conf)
 
 //该段代码移植到KafkaReceiver中
-  def triggerTask(args: Map[String,String]): mutable.Map[String, Double]= {
-    val command:String = args("command")
+  def triggerTask(args: util.Map[String,String]): mutable.Map[String, Double]= {
+    val message = args.asScala
+    val command:String = message("command")
     if(command.equals("static")){
       return intervalResult()
     }else

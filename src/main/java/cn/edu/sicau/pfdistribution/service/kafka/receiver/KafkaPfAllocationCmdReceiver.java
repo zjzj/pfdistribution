@@ -26,12 +26,13 @@ public class KafkaPfAllocationCmdReceiver {
 
     private Gson gson = new GsonBuilder().create();
 
-    @KafkaListener(topics = "PF-Allocation-CMD")
+    //topics = "PF-Allocation-CMD"
+    @KafkaListener(topics = "mykafka")
     public void processMessage(String msg) {
         Map<String, String> message = gson.fromJson(msg, Map.class);
         log.info("从kafka读取数据" + message);
         //distribution.triggerTask(message);
-        sender.send("PF-Allocation-CMD",distribution.triggerTask(message));
+        sender.send("mykafka",distribution.triggerTask(message));
     }
 
 }

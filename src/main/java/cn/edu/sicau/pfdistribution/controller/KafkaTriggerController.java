@@ -31,7 +31,7 @@ public class KafkaTriggerController {
         message.put("endTime",endTime);
         message.put("predictionInterval",predictionInterval);
 
-        sender.send("PF-Allocation-CMD", message);
+        sender.send("mykafka", message);
 
         log.info("Message send: " + "PF-Allocation-CMD" + ": " + message );
 
