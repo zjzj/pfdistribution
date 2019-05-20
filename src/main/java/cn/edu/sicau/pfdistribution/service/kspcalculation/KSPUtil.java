@@ -3,6 +3,7 @@ package cn.edu.sicau.pfdistribution.service.kspcalculation;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.ksp.Eppstein;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
 
+
 import java.util.List;
 
 public class KSPUtil {
@@ -17,12 +18,18 @@ public class KSPUtil {
      * @param k 路径条数
      * @return
      */
-    public List<Path> computeODPath(String source, String target, List<Edge>abandonEdges, int k){
+    public List<Path> computeDynamicODPath(String source, String target, List<Edge>abandonEdges, int k){
         Eppstein eppsteinAlgorithm = new Eppstein();
         initialGraph(abandonEdges);
         List<Path>ksp = eppsteinAlgorithm.ksp(graph, source, target, k);
         return ksp;
     }
+    public List<Path> computeODPath(String source, String target, int k){
+        Eppstein eppsteinAlgorithm = new Eppstein();
+        List<Path>ksp = eppsteinAlgorithm.ksp(graph, source, target, k);
+        return ksp;
+    }
+
 
     public boolean initAllSection(List<Edge> abandonEdges){
         //初始化全网拓扑图

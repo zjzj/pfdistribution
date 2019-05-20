@@ -1,6 +1,6 @@
 package cn.edu.sicau.pfdistribution.dao.mysqlsave;
 
-public interface regionSavaInterface {
+public interface RegionSaveInterface {
     //保存路径
     public void ksprouteadd(String ksp);
     //保存路径和分配的人数

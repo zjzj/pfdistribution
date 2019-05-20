@@ -7,34 +7,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
-import cn.edu.sicau.pfdistribution.service.kafka.data.Message;
+import org.springframework.util.concurrent.ListenableFuture;
 
-import java.util.Date;
+import java.util.Map;
 
 @Component
 @Slf4j
-public class KafkaSender {
-    Logger log = LoggerFactory.getLogger(getClass());
+public class KafkaPfAllocationMessageSender {
 
     private KafkaTemplate<String, String> kafkaTemplate;
 
     //自动注入
     @Autowired
-    public KafkaSender(KafkaTemplate kafkaTemplate) {
+    public KafkaPfAllocationMessageSender(KafkaTemplate kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
     private Gson gson = new GsonBuilder().create();
 
     //发送消息方法
-    public void send(String msg) {
-        Message message = new Message();
-        message.setId(System.currentTimeMillis());
-        message.setMsg(msg);
-        message.setSendTime(new Date());
-        System.out.println("存进去一个数据");
-        log.info("+++++++++++++++++++++  message = {}", gson.toJson(message));
-        kafkaTemplate.send("mykafka", gson.toJson(message));
+    public ListenableFuture<SendResult<String, String>> send(String topic, Object message) {
+        return kafkaTemplate.send("PF-Allocation-CMD", gson.toJson(message));
     }
 }

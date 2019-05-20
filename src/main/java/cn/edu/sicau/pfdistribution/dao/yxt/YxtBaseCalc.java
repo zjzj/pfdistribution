@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class yxtBaseCalc implements YxtCalcInterface
+public class YxtBaseCalc implements YxtCalcInterface
 {
     @Autowired
     YxtMain yxtMain;
