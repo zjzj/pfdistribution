@@ -12,7 +12,7 @@ import scala.collection.mutable
 @Service
 case class MainDistribution @Autowired() (val calBase: CalculateBaseImplementation) {
 
-  val conf = new SparkConf().setAppName("kspDistributionResult").setMaster("local[4]")
+  val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[4]")
   val sc = new SparkContext(conf)
 
 //该段代码移植到KafkaReceiver中
@@ -23,6 +23,11 @@ case class MainDistribution @Autowired() (val calBase: CalculateBaseImplementati
       return intervalResult()
     }else
       return intervalResultWithTimeResult()
+  }
+
+  //rest接口调用
+  def getDistribution(od:String):util.Map[Array[String], Double] = {
+      return calBase.dynamicOdDistributionResult(od).asJava
   }
 
   //各个OD的路径搜索结果

@@ -1,9 +1,9 @@
-#spring:
-#  datasource:
-#    driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://10.2.132.41:3306/odregion
-#    username: root
-#    password: 123456
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.2.132.41:3306/odregion
+    username: root
+    password: 123456
 #配置日志
 logging:
   #配置日志文件路径
