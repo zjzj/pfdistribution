@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://10.2.132.41:3306/odregion
+    url: jdbc:mysql://47.107.38.55:32768/dbgirl
     username: root
     password: 123456
 #配置日志
