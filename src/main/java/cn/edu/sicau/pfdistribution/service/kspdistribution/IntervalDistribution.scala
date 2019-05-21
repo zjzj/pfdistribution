@@ -17,7 +17,7 @@ import scala.collection.mutable.Map
 
 object IntervalDistribution {
 
-  //  val test = new OracleLink
+  //  val test = new OrclTest
 
   val calBase = new CalculateBase()
 

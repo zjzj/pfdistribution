@@ -1,8 +1,6 @@
 package cn.edu.sicau.pfdistribution.service.kafka.receiver;
 
-import cn.edu.sicau.pfdistribution.service.kspdistribution.DataWriterTest;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,5 +28,4 @@ public class KafkaPfAllocationResultReceiver {
             log.info("从kafka读取处理结果数据:" + key + ">>>>>>>>" + result.get(key));
         }
     }
-
 }

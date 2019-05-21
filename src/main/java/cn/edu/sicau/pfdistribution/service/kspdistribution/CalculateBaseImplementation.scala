@@ -100,17 +100,17 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     return kspMap
   }
   override def odDistributionResult(targetOd: String): mutable.Map[Array[String],Double] ={
-    // val ksp = EppsteinUtil.getOneODPair("data/cd.txt", "一品天下-2_7", "天府广场-4_1", 2)
     val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
+//    val passengers = aList(2).
+    val passengers = 1000
     val readExcel = new ReadExcel()
     val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
     val kspUtil = new KSPUtil()
     kspUtil.setGraph(graph)
     val ksp = kspUtil.computeODPath(sou,tar,getTransferTimes(targetOd))
     val iter = ksp.iterator()
-    val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
     while(iter.hasNext) {
@@ -125,22 +125,22 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
       val myArray = key.toArray
       text1 += (myArray -> text.apply(key))
     }
-    return distribution(text1, getPassengers(targetOd))
+    return distribution(text1, passengers)
   }
 
   //动态路径分配
   def dynamicOdDistributionResult(targetOd: String): mutable.Map[Array[String],Double] ={
-    // val ksp = EppsteinUtil.getOneODPair("data/cd.txt", "一品天下-2_7", "天府广场-4_1", 2)
     val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
+//    val passengers = aList(2).toInt
+val passengers = 1000
     val readExcel = new ReadExcel()
     val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
     val kspUtil = new KSPUtil()
     kspUtil.setGraph(graph)
     val ksp = kspUtil.computeODPath(sou,tar,getTransferTimes(targetOd))
     val iter = ksp.iterator()
-    val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
     while(iter.hasNext) {
@@ -155,7 +155,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
       val myArray = key.toArray
       text1 += (myArray -> text.apply(key))
     }
-    return distribution(dynamicCosting.cost_Count(text1), getPassengers(targetOd))
+    return distribution(dynamicCosting.cost_Count(text1), passengers)
   }
 
   override def odRegion(map: mutable.Map[Array[String], Double]): mutable.Map[String, Double] = {
@@ -201,10 +201,10 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
 
   //获得当前OD的客流人数
 
-  def getPassengers(odStr:String):Int={
+/*  def getPassengers(odStr:String):Int={
     val passengers:Int = 1000
     return passengers
-  }
+  }*/
 
   //获得分配系数
 

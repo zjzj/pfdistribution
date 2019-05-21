@@ -22,7 +22,7 @@ public class OracleLink {
 
     private static final String PASSWORD = "password";
 
-    public String selectOD(String inTime,long time) throws ParseException {
+    public String selectOD(String inTime, long time) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date =sdf.parse(inTime);
         if(date.getMinutes() + time >=60){
