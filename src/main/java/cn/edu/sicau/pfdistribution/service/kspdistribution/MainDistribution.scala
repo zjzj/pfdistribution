@@ -45,8 +45,17 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementatio
   }
 
   //rest接口调用
-  def getDistribution(od:String):util.Map[Array[String], Double] = {
-      return calBase.dynamicOdPathSearch(od).asJava
+  def getDistribution(od:String):Map[String, Double] = {
+    val data:mutable.Map[Array[String],Double] = calBase.dynamicOdPathSearch(od)
+    var result: Map[String, Double] = Map()
+    for (key <- data.keys) {
+      var str:String = ""
+      for (i <- 0 to (key.length - 2)) {
+        str = str + i
+      }
+      result += (str -> data(key))
+    }
+    return result
   }
 
 
