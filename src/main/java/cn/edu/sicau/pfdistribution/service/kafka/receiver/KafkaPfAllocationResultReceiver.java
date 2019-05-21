@@ -2,6 +2,7 @@ package cn.edu.sicau.pfdistribution.service.kafka.receiver;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -19,8 +20,11 @@ public class KafkaPfAllocationResultReceiver {
 
     @KafkaListener(topics = "yourkafka")
     public void processMessage(String msg) {
-        Map<String, String> result = gson.fromJson(msg, Map.class);
-        log.info("从kafka读取处理结果数据:" + result);
+        Map<String, String> result = gson.fromJson(msg,new TypeToken<Map<String,String>>(){}.getType());
+        for (String key : result.keySet()) {
+//            log.info("从kafka读取处理结果数据:" + key + ">>>>>>>>" + result.get(key));
+            System.out.println("从kafka读取处理结果数据:" + key + ">>>>>>>>" + result.get(key));
+        }
     }
 
 }

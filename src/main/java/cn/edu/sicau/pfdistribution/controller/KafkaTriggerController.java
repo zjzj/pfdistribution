@@ -25,7 +25,7 @@ public class KafkaTriggerController {
 
     @RequestMapping("kafkaCmdTrigger")
     public String trigger(String command, String startTime, String endTime, String predictionInterval){
-        Map message = new HashMap();
+        Map<String,String> message = new HashMap();
         message.put("command",command);
         message.put("startTime",startTime);
         message.put("endTime",endTime);

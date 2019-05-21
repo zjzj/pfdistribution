@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 import scala.collection.JavaConverters._
 
 import scala.collection.mutable
+import scala.collection.JavaConversions.mapAsScalaMap
 
 //该段代码把Object改成Class定义
 @Service
@@ -16,13 +17,25 @@ case class MainDistribution @Autowired() (val calBase: CalculateBaseImplementati
   val sc = new SparkContext(conf)
 
 //该段代码移植到KafkaReceiver中
-  def triggerTask(args: util.Map[String,String]): mutable.Map[String, Double]= {
-    val message = args.asScala
-    val command:String = message("command")
+  def triggerTask(args: Map[String,String]): java.util.Map[String, String]= {
+//    val messages: scala.collection.mutable.Map[String, String] = args
+    val command:String = args("command")
     if(command.equals("static")){
-      return intervalResult()
+      val result:mutable.Map[String, Double] = intervalResult()
+      val abc:mutable.Map[String, String] = mapTransfer(result)
+      return abc.asJava
     }else
-      return intervalResultWithTimeResult()
+      return mapTransfer(intervalResultWithTimeResult()).asJava
+  }
+
+  def mapTransfer(map:mutable.Map[String, Double]):mutable.Map[String, String]={
+    var transfer:mutable.Map[String, String] = mutable.Map()
+    for(key <- map.keys){
+      val K:Int = map(key).toInt
+      val V:String = K.toString
+      transfer += (key -> V)
+    }
+    return transfer
   }
 
   //rest接口调用

@@ -3,6 +3,7 @@ package cn.edu.sicau.pfdistribution.service.kafka.sender;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.spark.sql.execution.columnar.MAP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class KafkaPfAllocationMessageSender {
     private Gson gson = new GsonBuilder().create();
 
     //发送消息方法
-    public ListenableFuture<SendResult<String, String>> send(String topic, Object message) {
+    public ListenableFuture<SendResult<String, String>> send(String topic, Map message) {//Object message
         return kafkaTemplate.send(topic, gson.toJson(message));
     }
 }
