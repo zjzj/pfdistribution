@@ -25,6 +25,7 @@ public class KspServiceImpl implements KspService {
         int i=0;
         Set<Array> set=resultMap.keySet();
         for(List odStations:set){
+            
             KspSearchResult kspSearchResult = new KspSearchResult(Integer.toString(i),odStations);
             kspSearchResults.add(kspSearchResult);
         }
