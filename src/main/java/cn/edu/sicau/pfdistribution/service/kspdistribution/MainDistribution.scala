@@ -15,6 +15,7 @@ case class MainDistribution @Autowired() (val calBase:CalculateBase) {
 
   val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
   val sc = new SparkContext(conf)
+  
 
 //该段代码移植到KafkaReceiver中
   def triggerTask(args: Map[String,String]): java.util.Map[String, String]= {
