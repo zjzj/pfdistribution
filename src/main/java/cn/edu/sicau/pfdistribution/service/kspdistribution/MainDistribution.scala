@@ -46,7 +46,7 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementatio
 
   //rest接口调用
   def getDistribution(od:String):util.Map[Array[String], Double] = {
-      return calBase.dynamicOdDistributionResult(od).asJava
+      return calBase.dynamicOdPathSearch(od).asJava
   }
 
 
@@ -54,7 +54,7 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementatio
   def kspCalculateResult():mutable.Map[Array[String], Double] = {
     val rdd = sc.makeRDD(calBase.getOdList())
     //od对，起点与终点与用空格连接
-    val odDistributionRdd = rdd.map(String => calBase.odPathSearch(String)) //各个OD的路径搜索结果
+    val odDistributionRdd = rdd.map(String => calBase.dynamicOdPathSearch(String)) //各个OD的路径搜索结果
     val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y) //对OD分配结果的RDD的整合
     return rddIntegration
   }

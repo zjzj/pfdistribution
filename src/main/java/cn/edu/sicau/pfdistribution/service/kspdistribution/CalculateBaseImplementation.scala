@@ -13,7 +13,7 @@ import scala.collection.mutable.Map
 @Service
 class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCosting) extends CalculateBaseInterface with Serializable {
 
-  override def odPathSearch(targetOd: String):mutable.Map[Array[String],Double] = {
+  override def dynamicOdPathSearch(targetOd: String):mutable.Map[Array[String],Double] = {
     val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
@@ -23,7 +23,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     kspUtil.setGraph(graph)
     val ksp = kspUtil.computeODPath(sou,tar,getTransferTimes(targetOd))
     val iter = ksp.iterator()
-    //    val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
+    val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
     while(iter.hasNext) {
@@ -38,7 +38,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
       val myArray = key.toArray
       text1 += (myArray -> text.apply(key))
     }
-    return text1
+    return dynamicCosting.cost_Count(text1)
   }
 
   override def getTransferTimes(targetOd: String):Int={
