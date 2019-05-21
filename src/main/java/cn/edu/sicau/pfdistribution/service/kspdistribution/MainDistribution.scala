@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service
 import scala.collection.JavaConverters._
 
 import scala.collection.mutable
-import scala.collection.JavaConversions.mapAsScalaMap
+
 
 //该段代码把Object改成Class定义
 @Service
-case class MainDistribution @Autowired() (val calBase: CalculateBaseImplementation) {
+case class MainDistribution @Autowired() (val calBase:CalculateBase) {
 
-  val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[4]")
+  val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
   val sc = new SparkContext(conf)
 
 //该段代码移植到KafkaReceiver中

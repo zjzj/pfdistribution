@@ -11,6 +11,8 @@ import scala.collection.mutable.Map
 @Service
 class CalculateBaseImplementation() extends CalculateBaseInterface{
 
+
+  @transient
   val dynamicCosting = new KspDynamicCosting
   override def odPathSearch(targetOd: String):mutable.Map[Array[String],Double] = {
     val aList = targetOd.split(" ")
@@ -98,7 +100,6 @@ class CalculateBaseImplementation() extends CalculateBaseInterface{
     }
     return kspMap
   }
-
   override def odDistributionResult(targetOd: String): mutable.Map[Array[String],Double] ={
     // val ksp = EppsteinUtil.getOneODPair("data/cd.txt", "一品天下-2_7", "天府广场-4_1", 2)
     val aList = targetOd.split(" ")
