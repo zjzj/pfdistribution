@@ -14,7 +14,7 @@ import scala.collection.mutable
 
 //该段代码把Object改成Class定义
 @Service
-case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementation)extends Serializable {
+case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementation,val odList: GetOdList)extends Serializable {
 
   @transient
   val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")

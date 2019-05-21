@@ -120,7 +120,6 @@ public class OracleLink {
             strList.add(odIn1+" "+odOut1+" "+odPeo);
             //System.out.println(odIn1+"--->"+odOut1+"--------"+odPeo);
         }
-        //System.out.println(strList.size());
         //System.out.println(strList);
         //System.out.println(conn);   // 如果不为null表示已连接
         conn.close() ;
