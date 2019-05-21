@@ -25,7 +25,7 @@ public class sendTest {
   @Test
   public void sendTest() {
 
-    test.trigger("static","a","b","15");
+    test.trigger("static","2018-09-01 09:00:19","60","15");
 
 //    try {
 ////      Connection connection = dataSource.getDataSource().getConnection();

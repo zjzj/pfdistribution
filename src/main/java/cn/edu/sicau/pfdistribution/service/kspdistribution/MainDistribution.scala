@@ -14,7 +14,7 @@ import scala.collection.mutable
 
 //该段代码把Object改成Class定义
 @Service
-case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementation,val getOdList: GetOdList)extends Serializable {
+case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementation)extends Serializable { //,val getOdList: GetOdList
 
   @transient
   val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
@@ -25,7 +25,7 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementatio
   def triggerTask(args: Map[String,String]): java.util.Map[String, String]= {
 //    val messages: scala.collection.mutable.Map[String, String] = args
     val command:String = args("command")
-    val odList:scala.collection.mutable.Buffer[String] = getOdList.getList(args("startTime"),args("timeInterval").toLong).asScala
+//    val odList:scala.collection.mutable.Buffer[String] = getOdList.getList(args("startTime"),args("timeInterval").toLong).asScala
     if(command.equals("static")){
       val result:mutable.Map[String, Double] = intervalResult()
       val abc:mutable.Map[String, String] = mapTransfer(result)
