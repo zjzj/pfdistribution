@@ -18,9 +18,13 @@ public class KafkaPfAllocationResultReceiver {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
-    private Gson gson = new GsonBuilder().create();
+    @Autowired
+    private DataWriterTest writer;
 
-    private DataWriterTest writer = new DataWriterTest();
+    @Autowired
+    private Gson gson;
+
+//    private Gson gson = new GsonBuilder().create();
 
     @KafkaListener(topics = "yourkafka")
     public void processMessage(String msg) {
