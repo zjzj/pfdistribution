@@ -24,9 +24,9 @@ public class KspServiceImpl implements KspService {
         Map resultMap=mainDistribution.getDistribution(swjtu_dto.getStartStation()+" "+swjtu_dto.getEndStation());
         int i=0;
         Set<Array> set=resultMap.keySet();
-        for(List odStations:set){
-            
-            KspSearchResult kspSearchResult = new KspSearchResult(Integer.toString(i),odStations);
+        for(Array odStations:set){
+            List result=Arrays.asList(odStations);
+            KspSearchResult kspSearchResult = new KspSearchResult(Integer.toString(i),result);
             kspSearchResults.add(kspSearchResult);
         }
         return kspSearchResults;
