@@ -1,7 +1,7 @@
 package cn.edu.sicau.pfdistribution.service.Web;
 
-import cn.edu.sicau.pfdistribution.Entity.KspSearchResult;
-import cn.edu.sicau.pfdistribution.Entity.SWJTU_DTO;
+import cn.edu.sicau.pfdistribution.entity.KspSearchResult;
+import cn.edu.sicau.pfdistribution.entity.SWJTU_DTO;
 import cn.edu.sicau.pfdistribution.service.kspdistribution.MainDistribution;
 
 import org.springframework.beans.factory.annotation.Autowired;

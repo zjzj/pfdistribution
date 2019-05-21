@@ -21,15 +21,13 @@ public class KafkaPfAllocationResultReceiver {
     @Autowired
     private Gson gson;
 
-    private DataWriterTest writer = new DataWriterTest();
+//    private Gson gson = new GsonBuilder().create();
 
     @KafkaListener(topics = "yourkafka")
     public void processMessage(String msg) {
         Map<String, String> result = gson.fromJson(msg,new TypeToken<Map<String,String>>(){}.getType());
         for (String key : result.keySet()) {
             log.info("从kafka读取处理结果数据:" + key + ">>>>>>>>" + result.get(key));
-            writer.write(result);
-//            System.out.println("从kafka读取处理结果数据:" + key + ">>>>>>>>" + result.get(key));
         }
     }
 

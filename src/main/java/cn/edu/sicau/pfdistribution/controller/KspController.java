@@ -1,8 +1,8 @@
 package cn.edu.sicau.pfdistribution.controller;
 
-import cn.edu.sicau.pfdistribution.Entity.KspData;
-import cn.edu.sicau.pfdistribution.Entity.KspSearchResult;
-import cn.edu.sicau.pfdistribution.Entity.SWJTU_DTO;
+import cn.edu.sicau.pfdistribution.entity.KspData;
+import cn.edu.sicau.pfdistribution.entity.KspSearchResult;
+import cn.edu.sicau.pfdistribution.entity.SWJTU_DTO;
 import cn.edu.sicau.pfdistribution.Utils.ResultMsg;
 import cn.edu.sicau.pfdistribution.Utils.ResultStatusCode;
 import cn.edu.sicau.pfdistribution.service.Web.KspService;

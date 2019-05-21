@@ -5,7 +5,7 @@ import scala.collection.mutable.Map
 
 trait CalculateBaseInterface {
   //计算单个OD的k路径搜索结果
-  def odPathSearch(targetOd:String):mutable.Map[Array[String],Double]
+  def dynamicOdPathSearch(targetOd:String):mutable.Map[Array[String],Double]
 
   //获得换乘次数（集体内容待定）
   def getTransferTimes(targetOd:String):Int

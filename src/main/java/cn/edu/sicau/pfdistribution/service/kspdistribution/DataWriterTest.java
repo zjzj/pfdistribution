@@ -1,12 +1,15 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution;
 
 
+import org.springframework.stereotype.Service;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 
+@Service
 public class DataWriterTest {
     public void write(Map<String, String> args) {
         try {
@@ -20,7 +23,7 @@ public class DataWriterTest {
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
             for (String key : args.keySet()) {
-                bw.write(key + ">>>>>>>>" + args.get(key)+"\n");
+                bw.write(key + ">>>>>>>" + args.get(key));
             }
             bw.close();
 

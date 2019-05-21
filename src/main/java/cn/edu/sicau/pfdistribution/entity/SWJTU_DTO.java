@@ -1,4 +1,4 @@
-package cn.edu.sicau.pfdistribution.Entity;
+package cn.edu.sicau.pfdistribution.entity;
 
 public class SWJTU_DTO {
     private String startTime;

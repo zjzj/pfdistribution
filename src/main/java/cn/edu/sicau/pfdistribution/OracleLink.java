@@ -1,5 +1,7 @@
 package cn.edu.sicau.pfdistribution;
 
+import org.springframework.stereotype.Service;
+
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.Connection;
@@ -10,7 +12,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Service
 public class OracleLink {
     private static final String DBDRIVER = "oracle.jdbc.driver.OracleDriver";
 
@@ -120,7 +122,6 @@ public class OracleLink {
             strList.add(odIn1+" "+odOut1+" "+odPeo);
             //System.out.println(odIn1+"--->"+odOut1+"--------"+odPeo);
         }
-        //System.out.println(strList.size());
         //System.out.println(strList);
         //System.out.println(conn);   // 如果不为null表示已连接
         conn.close() ;
