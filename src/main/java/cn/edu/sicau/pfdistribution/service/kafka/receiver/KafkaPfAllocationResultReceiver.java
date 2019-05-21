@@ -18,7 +18,8 @@ public class KafkaPfAllocationResultReceiver {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
-    private Gson gson = new GsonBuilder().create();
+    @Autowired
+    private Gson gson;
 
     private DataWriterTest writer = new DataWriterTest();
 

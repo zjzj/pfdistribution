@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequestMapping("/")
+
 @RestController
 public class KafkaTriggerController {
 
@@ -23,7 +23,7 @@ public class KafkaTriggerController {
     @Autowired
     KafkaPfAllocationResultReceiver receiver;
 
-    @RequestMapping("kafkaCmdTrigger")
+    @RequestMapping("/kafkaCmdTrigger")
     public String trigger(String command, String startTime, String endTime, String predictionInterval){
         Map<String,String> message = new HashMap();
         message.put("command",command);

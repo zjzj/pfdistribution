@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 @Service
@@ -21,10 +22,10 @@ public class KspServiceImpl implements KspService {
 
         List<KspSearchResult> kspSearchResults = new ArrayList<KspSearchResult>();
         Map resultMap=mainDistribution.getDistribution(swjtu_dto.getStartStation()+" "+swjtu_dto.getEndStation());
-        Iterator it = resultMap.keySet().iterator();
-        for(int i=1;it.hasNext();i++){
-            List result= Arrays.asList(resultMap.get(it.next()));
-            KspSearchResult kspSearchResult = new KspSearchResult(Integer.toString(i),result);
+        int i=0;
+        Set<Array> set=resultMap.keySet();
+        for(List odStations:set){
+            KspSearchResult kspSearchResult = new KspSearchResult(Integer.toString(i),odStations);
             kspSearchResults.add(kspSearchResult);
         }
         return kspSearchResults;
