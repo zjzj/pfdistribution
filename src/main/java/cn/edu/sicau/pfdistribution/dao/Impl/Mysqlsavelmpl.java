@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class Mysqlsavelmpl implements RegionSaveInterface {
+public class  Mysqlsavelmpl implements RegionSaveInterface {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;  //这个是系统自带的
