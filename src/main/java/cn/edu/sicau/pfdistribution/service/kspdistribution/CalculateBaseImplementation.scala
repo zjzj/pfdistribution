@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 import scala.collection.mutable
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Map
-import scala.util.control.Breaks._
 
 @Service
 class CalculateBaseImplementation() extends CalculateBaseInterface{
@@ -201,30 +200,36 @@ class CalculateBaseImplementation() extends CalculateBaseInterface{
   }
 
   //获得当前OD的客流人数
+  @transient
   def getPassengers(odStr:String):Int={
     val passengers:Int = 1000
     return passengers
   }
 
   //获得分配系数
+  @transient
   def getDistributionCoefficient():Double={
     val coeff:Double = 3.2
     return coeff
   }
 
   //获得OD列表
+  @transient
   def getOdList():List[String] ={
     val odList:List[String] = List("二桥公园-_南京地铁1号线 珠江路-_南京地铁1号线","吉祥庵-_南京地铁1号线 花神庙-_南京地铁1号线  1.0","雨润大街-_南京地铁二号线 孝陵卫-_南京地铁二号线  1.0")
     return odList
   }
+  @transient
   def getTime():Int={   //返回定义的区间粒度时间
     val int_Time: Int = 15
     return int_Time
   }
+  @transient
   def getTwoSiteTime(siteId1:String,siteId2:String):Int={  //返回两个站点的运行时间
     val twoSiteTime:Int =5
     return twoSiteTime
   }
+  @transient
   def getSiteStopTime(siteId:String):Int={   //获得两站间停止时间
     val siteStopTime:Int =2
     return siteStopTime

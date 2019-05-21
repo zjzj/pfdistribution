@@ -15,27 +15,30 @@ import scala.collection.mutable.Map
 
 
 
-object IntervalDistribution {
+object IntervalDistribution{
 
-  val test = new OracleLink
-  def main(args: Array[String]): Unit = {
+//  val test = new OracleLink
+
+
+/*  def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setAppName("IntervalDistribution").setMaster("local[4]")
     val sc = new SparkContext(conf)
-    val abc = test.SelectOD("2018-09-01 09:00:19",60)
+    val abc = test.SelectOD("2018-09-01 09:00:19", 60)
     val buffer: scala.collection.mutable.Buffer[String] = abc.asScala
     val rdd = sc.makeRDD(buffer)
     //od对，起点与终点与用空格连接
     val rdd1 = rdd.map(String => odDistributionResult(String))
     //返回分配区间结果整合
     val rdd2 = rdd1.reduce((x, y) => x ++ y)
-    val regionMap=odRegion(rdd2)
+    val regionMap = odRegion(rdd2)
     regionMap.keys.foreach { i =>
       print("Key = " + i)
       println(" Value = " + regionMap(i))
     }
-  }
+  }*/
+}
 
-  def distribution(map: Map[Array[String], Double], x: Int): Map[Array[String], Double] = {
+ /* def distribution(map: Map[Array[String], Double], x: Int): Map[Array[String], Double] = {
     val e = Math.E
     val Q = -3.2
     var p = 0.0
@@ -110,5 +113,5 @@ object IntervalDistribution {
     return odMap
   }
 }
-
+*/
 

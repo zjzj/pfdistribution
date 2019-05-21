@@ -14,21 +14,21 @@ case class KspStaticDistribution() {
 //  def kspDistributionTest(): Unit = {
 //    var oDMap:mutable.Map[Array[String],Double] = mutable.Map()
 //    oDMap = odDistributionResult("二桥公园-_南京地铁1号线 珠江路-_南京地铁1号线")
-//    val writer = new PrintWriter(new File("G:/工作室/铁路客流预测/distributionTest.txt" ))
+//    val DataWriterTest = new PrintWriter(new File("G:/工作室/铁路客流预测/distributionTest.txt" ))
 //
 //    for(key <- oDMap.keys){
 //      while(key.hasNext){
 ////        print(key.next())
 ////        print("+")
-//        writer.write(key.next())
-//        writer.write(" ")
+//        DataWriterTest.write(key.next())
+//        DataWriterTest.write(" ")
 //
 //      }
 ////      println(oDMap(key))
-//      writer.write(oDMap(key).formatted("%.0f"))
-//      writer.write("\n")
+//      DataWriterTest.write(oDMap(key).formatted("%.0f"))
+//      DataWriterTest.write("\n")
 //    }
-//    writer.close()
+//    DataWriterTest.close()
 //  }
 //  def distribution(map:mutable.Map[Array[String],Double], x:Int): mutable.Map[Array[String],Double] = {
 //    val e=Math.E

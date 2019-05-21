@@ -10,12 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PfdistributionApplicationTests {
+public class sendTest {
 
   @Autowired
   private ConfigJDBC dataSource;//创建jdbctemplate对象，并使用spring的自动注入完成实例化
@@ -23,7 +20,7 @@ public class PfdistributionApplicationTests {
   @Autowired
   public KafkaTriggerController test;
 
-  static final Logger logger = LoggerFactory.getLogger(PfdistributionApplicationTests.class);
+  static final Logger logger = LoggerFactory.getLogger(sendTest.class);
 
   @Test
   public void sendTest() {

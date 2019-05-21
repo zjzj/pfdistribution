@@ -240,7 +240,7 @@ public class Graph {
             e.printStackTrace();
         } finally {
             try {
-                // Close the writer regardless of what happens...
+                // Close the DataWriterTest regardless of what happens...
                 writer.close();
             } catch (Exception e) {
             }
