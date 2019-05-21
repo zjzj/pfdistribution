@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service
 import scala.collection.mutable.Map
 
 @Service
-case class CalculateBase @Autowired() (val dynamicCosting:KspDynamicCosting){
-
+case class CalculateBase(){
+//  @Autowired() (val dynamicCosting:KspDynamicCosting)
 //  @transient
-//  val dynamicCosting = new KspDynamicCosting
+  val dynamicCosting = new KspDynamicCosting
   def odPathSearch(targetOd: String):mutable.Map[Array[String],Double] = {
     val aList = targetOd.split(" ")
     val sou = aList(0)

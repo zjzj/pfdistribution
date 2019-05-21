@@ -15,9 +15,27 @@ import scala.collection.mutable.Map
 
 
 
-object IntervalDistribution{
+object IntervalDistribution {
 
-//  val test = new OracleLink
+  //  val test = new OracleLink
+
+  val calBase = new CalculateBase()
+
+  val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
+  val sc = new SparkContext(conf)
+
+  def main(args: Array[String]): Unit = {
+    val odList = calBase.getOdList()
+    val rdd = sc.makeRDD(odList)
+    //od对，起点与终点与用空格连接
+    val odDistributionRdd = rdd.map(String => calBase.odDistributionResult(String)) //各个OD的分配结果
+    val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y) //对OD分配结果的RDD的整合
+    val regionMap = calBase.odRegion(rddIntegration)
+    regionMap.keys.foreach { i =>
+      print("Key = " + i)
+      println(" Value = " + regionMap(i))
+    }
+  }
 
 
 /*  def main(args: Array[String]): Unit = {

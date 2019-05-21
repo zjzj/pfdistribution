@@ -34,15 +34,6 @@ public class KafkaPfAllocationCmdReceiver {
 
     private Gson gson = new GsonBuilder().create();
 
-    public static scala.collection.immutable.Map<String, String> toScalaImmutableMap(java.util.Map<String, String> javaMap) {
-        final java.util.List<scala.Tuple2<String, String>> list = new java.util.ArrayList<>(javaMap.size());
-        for (final java.util.Map.Entry<String, String> entry : javaMap.entrySet()) {
-            list.add(scala.Tuple2.apply(entry.getKey(), entry.getValue()));
-        }
-        final scala.collection.Seq<Tuple2<String, String>> seq = scala.collection.JavaConverters.asScalaBufferConverter(list).asScala().toSeq();
-        return (scala.collection.immutable.Map<String, String>) scala.collection.immutable.Map$.MODULE$.apply(seq);
-    }
-
     //topics = "PF-Allocation-CMD"
     @KafkaListener(topics = "mykafka")
     public void processMessage(String msg) {
