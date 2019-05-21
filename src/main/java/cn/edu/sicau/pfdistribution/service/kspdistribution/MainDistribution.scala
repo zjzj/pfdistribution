@@ -51,7 +51,7 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementatio
     for (key <- data.keys) {
       var str:String = ""
       for (i <- 0 to (key.length - 2)) {
-        str = str + i
+        str = str + "," +i
       }
       result += (str -> data(key))
     }

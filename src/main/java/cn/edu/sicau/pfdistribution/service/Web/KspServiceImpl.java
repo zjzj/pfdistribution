@@ -21,10 +21,10 @@ public class KspServiceImpl implements KspService {
     public List<KspSearchResult> findKsp(SWJTU_DTO swjtu_dto) {
 
         List<KspSearchResult> kspSearchResults = new ArrayList<KspSearchResult>();
-        Map resultMap=mainDistribution.getDistribution(swjtu_dto.getStartStation()+" "+swjtu_dto.getEndStation());
+        Map resultMap= (Map) mainDistribution.getDistribution(swjtu_dto.getStartStation()+" "+swjtu_dto.getEndStation());
         int i=0;
-        Set<Array> set=resultMap.keySet();
-        for(Array odStations:set){
+        Set<String> set=resultMap.keySet();
+        for(String odStations:set){
             List result=Arrays.asList(odStations);
             KspSearchResult kspSearchResult = new KspSearchResult(Integer.toString(i),result);
             kspSearchResults.add(kspSearchResult);
