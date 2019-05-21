@@ -1,9 +1,7 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
-
 import scala.collection.mutable
 import scala.collection.mutable.Map
-
 
 trait CalculateBaseInterface {
   //计算单个OD的k路径搜索结果

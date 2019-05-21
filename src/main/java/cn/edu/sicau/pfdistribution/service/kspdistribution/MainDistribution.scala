@@ -1,5 +1,8 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
+
+import java.io._
+
 import java.util
 import org.apache.spark.{SparkConf, SparkContext}
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,11 +14,12 @@ import scala.collection.mutable
 
 //该段代码把Object改成Class定义
 @Service
-case class MainDistribution @Autowired() (val calBase:CalculateBase) {
+case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementation)extends Serializable {
 
+  @transient
   val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
+  @transient
   val sc = new SparkContext(conf)
-
 
 //该段代码移植到KafkaReceiver中
   def triggerTask(args: Map[String,String]): java.util.Map[String, String]= {

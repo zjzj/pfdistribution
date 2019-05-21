@@ -3,10 +3,10 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 import org.springframework.stereotype.Service
 
 import scala.collection.mutable
-
+import java.io._
 
 @Service
-class KspDynamicCosting {
+class KspDynamicCosting extends Serializable {
 
   def stationOperatingCosts(beforeSite: String, currentSite: String): Double = {
     val a = getA()
@@ -83,47 +83,52 @@ class KspDynamicCosting {
     val a = 1
     return a
   }
+
   def getB():Double={
     val b = 1
     return b
   }
   //获得列车最大座位数
+
   def getSeat():Int = {
     val seat = 200
     return seat
   }
   //列车最大乘客数
+
   def getMaxPassengers():Int={
     val max_p = 1468
     return max_p
   }
   //获得区间载客量
+
   def intervalPassenger():Int={
     val passengers = 1000
     return passengers
   }
   //获得站点停站时间
+
   def getSiteStopTime(currentSite: String):Int={
     val stopTime:Int = 2 * 60 //秒
     return stopTime
   }
 
-  //获得两站间运行时间
   def getTwoSiteTime(beforeSite: String,currentSite: String):Int={
     val time:Int = 5*60
     return time
   }
 
   //获得换乘时间
+
   def transferTime():Int={  //具体参数需确认
     val time = 24*60
     return time
   }
 
-  //判断是否换乘
+/*  //判断是否换乘
   def DetermineWhetherToTransfer(beforeSite: String,nextSite: String):Boolean={
 
 
     return false
-  }
+  }*/
 }
