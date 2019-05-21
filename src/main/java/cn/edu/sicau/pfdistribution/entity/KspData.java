@@ -1,4 +1,4 @@
-package cn.edu.sicau.pfdistribution.Entity;
+package cn.edu.sicau.pfdistribution.entity;
 
 import java.util.List;
 
