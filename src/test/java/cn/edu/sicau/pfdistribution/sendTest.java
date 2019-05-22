@@ -25,16 +25,7 @@ public class sendTest {
   @Test
   public void sendTest() {
 
-    test.trigger("static","2018-09-01 09:00:19","60","15");
-
-//    try {
-////      Connection connection = dataSource.getDataSource().getConnection();
-////      logger.info("连接成功");
-////      System.out.println(connection);
-////      connection.close();
-////    } catch (SQLException e) {
-////      e.printStackTrace();
-////    }
+    test.trigger("dynamic","2018-09-01 09:00:19","60","15");
 
   }
 }
