@@ -2,7 +2,6 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 
 import java.io._
-
 import java.util
 import org.apache.spark.{SparkConf, SparkContext}
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +13,7 @@ import scala.collection.mutable
 
 //该段代码把Object改成Class定义
 @Service
-case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementation,val getOdList: GetOdList)extends Serializable { //,val getOdList: GetOdList
+case class MainDistribution @Autowired() (val calBase:CalculateBaseInterface,val getOdList: GetOdList,val getParameter:GetParameter)extends Serializable { //,val getOdList: GetOdList
 
   @transient
   val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
@@ -24,13 +23,15 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementatio
 //该段代码移植到KafkaReceiver中
   def triggerTask(args: Map[String,String]): java.util.Map[String, String]= {
     val command:String = args("command")
+    val time  = args("timeInterval")
+    val odList = getParameter.getOdList()
 //    val odList:scala.collection.mutable.Buffer[String] = getOdList.getList(args("startTime"),args("timeInterval").toLong).asScala
     if(command.equals("static")){
-      val result:mutable.Map[String, Double] = intervalResult()
+      val result:mutable.Map[String, Double] = intervalResult(odList)
       val abc:mutable.Map[String, String] = mapTransfer(result)
       return abc.asJava
     }else
-      return mapTransfer(intervalResultWithTimeResult()).asJava
+      return mapTransfer(intervalResultWithTimeResult(odList,time.toInt)).asJava
   }
 
   def mapTransfer(map:mutable.Map[String, Double]):mutable.Map[String, String]={
@@ -50,7 +51,7 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementatio
     for (key <- data.keys) {
       var str:String = ""
       for (i <- 0 to (key.length - 2)) {
-        str = str + "," +i
+        str = key(i) + "," + str
       }
       result += (str -> data(key))
     }
@@ -59,16 +60,16 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementatio
 
 
   //各个OD的路径搜索结果
-  def kspCalculateResult():mutable.Map[Array[String], Double] = {
-    val rdd = sc.makeRDD(calBase.getOdList())
+  def kspCalculateResult(odList:List[String]):mutable.Map[Array[String], Double] = {
+    val rdd = sc.makeRDD(odList)
     //od对，起点与终点与用空格连接
     val odDistributionRdd = rdd.map(String => calBase.dynamicOdPathSearch(String)) //各个OD的路径搜索结果
     val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y) //对OD分配结果的RDD的整合
     return rddIntegration
   }
   //各个OD的路径分配结果
-  def kspDistributionResult():mutable.Map[Array[String], Double] = {
-    val rdd = sc.makeRDD(calBase.getOdList())
+  def kspDistributionResult(odList:List[String]):mutable.Map[Array[String], Double] = {
+    val rdd = sc.makeRDD(odList)
     //od对，起点与终点与用空格连接
     val odDistributionRdd = rdd.map(String => calBase.odDistributionResult(String))   //各个OD的路径分配结果
     val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合
@@ -76,8 +77,7 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementatio
   }
 
   //返回区间断面的分配结果（静态）
-  def intervalResult():mutable.Map[String, Double] = {
-    val odList= calBase.getOdList()
+  def intervalResult(odList:List[String]):mutable.Map[String, Double] = {
     val rdd = sc.makeRDD(odList)
     //od对，起点与终点与用空格连接
     val odDistributionRdd = rdd.map(String => calBase.odDistributionResult(String))   //各个OD的分配结果
@@ -87,12 +87,12 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseImplementatio
   }
 
   //按照不同的时间粒度分配形，生成区间密度断面图
-  def intervalResultWithTimeResult(): mutable.Map[String, Double] = {
-    val rdd = sc.makeRDD(calBase.getOdList())
+  def intervalResultWithTimeResult(odList:List[String],interval:Int): mutable.Map[String, Double] = {
+    val rdd = sc.makeRDD(odList)
     //od对，起点与终点与用空格连接
     val odDistributionRdd = rdd.map(String => calBase.dynamicOdDistributionResult(String))   //各个OD的路径分配结果
     val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合
-    val regionMap = calBase.odRegionWithTime(rddIntegration)
+    val regionMap = calBase.odRegionWithTime(rddIntegration,interval:Int)
     return regionMap
   }
 

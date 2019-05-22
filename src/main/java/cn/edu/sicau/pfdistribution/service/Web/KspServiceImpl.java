@@ -22,7 +22,10 @@ public class KspServiceImpl implements KspService {
         Map map = (Map) mainDistribution.getDistribution(swjtu_dto.getStartStation()+" "+swjtu_dto.getEndStation());
         Iterator it=map.keySet().iterator();
         for(int i=1;it.hasNext();i++){
-            KspSearchResult kspSearchResult = new KspSearchResult(Integer.toString(i),it.next().toString());
+            List<String> odstations=new ArrayList<String>();
+            String odstation=it.next().toString();
+            odstations=Arrays.asList(odstation.split(","));
+            KspSearchResult kspSearchResult = new KspSearchResult(Integer.toString(i),odstations);
             kspSearchResults.add(kspSearchResult);
         }
         return kspSearchResults;

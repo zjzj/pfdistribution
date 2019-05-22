@@ -1,7 +1,7 @@
 package cn.edu.sicau.pfdistribution.Utils;
 
 public enum ResultStatusCode {
-    OK(0, "success"),
+    OK(200, "success"),
     SYSTEM_ERR(30001, "System error");
 
     private int errcode;

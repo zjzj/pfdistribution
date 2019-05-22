@@ -1,13 +1,14 @@
 package cn.edu.sicau.pfdistribution.entity;
 
+import java.util.List;
+
 public class KspSearchResult {
     private String type;
-    private String stationList;
+    private List<String> stationList;
 
-    public KspSearchResult(String type, String stationList) {
+    public KspSearchResult(String type, List<String> stationList) {
         this.type = type;
         this.stationList = stationList;
-
     }
 
     public String getType() {
@@ -18,11 +19,11 @@ public class KspSearchResult {
         this.type = type;
     }
 
-    public String getStationList() {
+    public List<String> getStationList() {
         return stationList;
     }
 
-    public void setStationList(String stationList) {
+    public void setStationList(List<String> stationList) {
         this.stationList = stationList;
     }
 }
