@@ -1,4 +1,4 @@
-package cn.edu.sicau.pfdistribution.Entity;
+package cn.edu.sicau.pfdistribution.entity;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ public class KspSearchResult {
     public KspSearchResult(String type, List<String> stationList) {
         this.type = type;
         this.stationList = stationList;
-
     }
 
     public String getType() {

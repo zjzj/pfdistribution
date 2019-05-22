@@ -33,7 +33,7 @@ class DataDeal {
     for (key <- data.keys) {
       val a:Int = data(key).toInt
       val message:String = key+","+a.toString
-      sender.send(message)
+      //sender.send(message)
     }
   }
 

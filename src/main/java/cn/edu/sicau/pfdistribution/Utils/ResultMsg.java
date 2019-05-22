@@ -1,32 +1,37 @@
 package cn.edu.sicau.pfdistribution.Utils;
 
 public class ResultMsg {
-    private int errcode;
-    private String errmsg;
-    private Object Data;
+    private int status;
+    private String msg;
+    private Object data;
 
-    public ResultMsg(int ErrCode, String ErrMsg, Object Data)
-    {
-        this.errcode = ErrCode;
-        this.errmsg = ErrMsg;
-        this.Data = Data;
+    public ResultMsg(int status, String msg, Object data) {
+        this.status = status;
+        this.msg = msg;
+        this.data = data;
     }
-    public int getErrcode() {
-        return errcode;
+
+    public int getStatus() {
+        return status;
     }
-    public void setErrcode(int errcode) {
-        this.errcode = errcode;
+
+    public void setStatus(int status) {
+        this.status = status;
     }
-    public String getErrmsg() {
-        return errmsg;
+
+    public String getMsg() {
+        return msg;
     }
-    public void setErrmsg(String errmsg) {
-        this.errmsg = errmsg;
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
+
     public Object getData() {
-        return Data;
+        return data;
     }
-    public void setData(Object Data) {
-        this.Data = Data;
+
+    public void setData(Object data) {
+        this.data = data;
     }
 }

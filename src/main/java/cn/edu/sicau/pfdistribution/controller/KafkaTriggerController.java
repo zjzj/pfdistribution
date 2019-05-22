@@ -24,13 +24,14 @@ public class KafkaTriggerController {
     KafkaPfAllocationResultReceiver receiver;
 
     @RequestMapping("kafkaCmdTrigger")
-    public String hello(String command, String startTime, String predictionInterval){
-        Map message = new HashMap();
+    public String trigger(String command, String startTime, String timeInterval, String predictionInterval){
+        Map<String,String> message = new HashMap();
         message.put("command",command);
         message.put("startTime",startTime);
+        message.put("timeInterval",timeInterval);
         message.put("predictionInterval",predictionInterval);
-;
-        sender.send("PF-Allocation-CMD", message);
+
+        sender.send("mykafka", message);
 
         log.info("Message send: " + "PF-Allocation-CMD" + ": " + message );
 

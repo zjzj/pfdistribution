@@ -1,5 +1,7 @@
 package cn.edu.sicau.pfdistribution;
 
+import org.springframework.stereotype.Service;
+
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.Connection;
@@ -10,8 +12,8 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class OrclTest {
+@Service
+public class OracleLink {
     private static final String DBDRIVER = "oracle.jdbc.driver.OracleDriver";
 
     private static final String DBURL = "jdbc:oracle:thin:@localhost:1521:myorcl";
@@ -20,7 +22,7 @@ public class OrclTest {
 
     private static final String PASSWORD = "password";
 
-    public String selectOD(String inTime,long time) throws ParseException {
+    public String selectOD(String inTime, long time) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date =sdf.parse(inTime);
         if(date.getMinutes() + time >=60){
@@ -51,22 +53,22 @@ public class OrclTest {
 
         String creTestod="CREATE TABLE \"SCOTT\".\"test_od\" (   \n" +
                 "  \"票卡号\" CHAR(20) ,\n" +
-                "  \"进站点\" CHAR(4) ,\n" +
+                "  \"进站点\" CHAR(100) ,\n" +
                 "  \"进站时间\" TIMESTAMP ,\n" +
-                "  \"出站点\" CHAR(4) ,\n" +
+                "  \"出站点\" CHAR(100) ,\n" +
                 "  \"出站时间\" TIMESTAMP \n" +
                 ")";
 
         String creTestin="CREATE TABLE \"SCOTT\".\"test_in\" (   --创建储存进站数据表\n" +
                 "  \"票卡号\" CHAR(20) ,\n" +
-                "  \"进站点\" CHAR(4) ,\n" +
+                "  \"进站点\" CHAR(100) ,\n" +
                 "  \"进站时间\" TIMESTAMP ,\n" +
                 "\"交易前金额(元)\" CHAR(10)\n" +
                 ")";
 
         String creTestout="CREATE TABLE \"SCOTT\".\"test_out\" (  \n" +
                 "  \"票卡号\" CHAR(20) ,\n" +
-                "  \"出站点\" CHAR(4) ,\n" +
+                "  \"出站点\" CHAR(100) ,\n" +
                 "  \"出站时间\" TIMESTAMP ,\n" +
                 "\"交易前金额(元)\" CHAR(10)\n" +
                 ")";
@@ -113,12 +115,13 @@ public class OrclTest {
         ResultSet rs=sql.executeQuery(selectOD(inTime,time));
         while(rs.next()){                                                      //rs.next()   表示如果结果集rs还有下一条记录，那么返回true；否则，返回false
             String odIn = rs.getString("进站点");
+            String odIn1=odIn.replace(" ", "");
             String odOut = rs.getString("出站点");
+            String odOut1=odOut.replace(" ", "");
             int odPeo = rs.getInt("人数");
-            strList.add(odIn+" "+odOut+" "+odPeo);
-            //System.out.println(odIn+"--->"+odOut+"--------"+odPeo);
+            strList.add(odIn1+" "+odOut1+" "+odPeo);
+            //System.out.println(odIn1+"--->"+odOut1+"--------"+odPeo);
         }
-        //System.out.println(strList.size());
         //System.out.println(strList);
         //System.out.println(conn);   // 如果不为null表示已连接
         conn.close() ;

@@ -1,19 +1,18 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
+import java.io._
 
 import cn.edu.sicau.pfdistribution.service.kspcalculation.{KSPUtil, ReadExcel}
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 import scala.collection.mutable
 import scala.collection.JavaConverters._
 import scala.collection.mutable.Map
-import scala.util.control.Breaks._
 
 @Service
-class CalculateBaseImplementation() extends CalculateBaseInterface{
-
-  val dynamicCosting = new KspDynamicCosting
-  override def odPathSearch(targetOd: String):mutable.Map[Array[String],Double] = {
+class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCosting,val getParameter:GetParameter) extends CalculateBaseInterface with Serializable {
+  override def dynamicOdPathSearch(targetOd: String):mutable.Map[Array[String],Double] = {
     val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
@@ -23,7 +22,7 @@ class CalculateBaseImplementation() extends CalculateBaseInterface{
     kspUtil.setGraph(graph)
     val ksp = kspUtil.computeODPath(sou,tar,getTransferTimes(targetOd))
     val iter = ksp.iterator()
-    //    val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
+    val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
     while(iter.hasNext) {
@@ -38,7 +37,7 @@ class CalculateBaseImplementation() extends CalculateBaseInterface{
       val myArray = key.toArray
       text1 += (myArray -> text.apply(key))
     }
-    return text1
+    return dynamicCosting.cost_Count(text1)
   }
 
   override def getTransferTimes(targetOd: String):Int={
@@ -74,7 +73,7 @@ class CalculateBaseImplementation() extends CalculateBaseInterface{
 
   override def distribution(map: Map[Array[String], Double], x: Int): Map[Array[String], Double] = {
     val e = Math.E
-    val Q = -1*getDistributionCoefficient()  //分配系数
+    val Q = -1*getParameter.getDistributionCoefficient()  //分配系数
     var p = 0.0
     var fenMu = 0.0
     val probability_Passenger = new Array[Double](10)
@@ -99,19 +98,18 @@ class CalculateBaseImplementation() extends CalculateBaseInterface{
     }
     return kspMap
   }
-
   override def odDistributionResult(targetOd: String): mutable.Map[Array[String],Double] ={
-    // val ksp = EppsteinUtil.getOneODPair("data/cd.txt", "一品天下-2_7", "天府广场-4_1", 2)
     val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
+//    val passengers = aList(2).
+    val passengers = 1000
     val readExcel = new ReadExcel()
     val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
     val kspUtil = new KSPUtil()
     kspUtil.setGraph(graph)
     val ksp = kspUtil.computeODPath(sou,tar,getTransferTimes(targetOd))
     val iter = ksp.iterator()
-    val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
     while(iter.hasNext) {
@@ -126,22 +124,22 @@ class CalculateBaseImplementation() extends CalculateBaseInterface{
       val myArray = key.toArray
       text1 += (myArray -> text.apply(key))
     }
-    return distribution(text1, getPassengers(targetOd))
+    return distribution(text1, passengers)
   }
 
   //动态路径分配
-  def dynamicOdDistributionResult(targetOd: String): mutable.Map[Array[String],Double] ={
-    // val ksp = EppsteinUtil.getOneODPair("data/cd.txt", "一品天下-2_7", "天府广场-4_1", 2)
+  override def dynamicOdDistributionResult(targetOd: String): mutable.Map[Array[String],Double] ={
     val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
+//    val passengers = aList(2).toInt
+    val passengers = 1000
     val readExcel = new ReadExcel()
     val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
     val kspUtil = new KSPUtil()
     kspUtil.setGraph(graph)
     val ksp = kspUtil.computeODPath(sou,tar,getTransferTimes(targetOd))
     val iter = ksp.iterator()
-    val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
     while(iter.hasNext) {
@@ -156,7 +154,7 @@ class CalculateBaseImplementation() extends CalculateBaseInterface{
       val myArray = key.toArray
       text1 += (myArray -> text.apply(key))
     }
-    return distribution(dynamicCosting.cost_Count(text1), getPassengers(targetOd))
+    return distribution(dynamicCosting.cost_Count(text1), passengers)
   }
 
   override def odRegion(map: mutable.Map[Array[String], Double]): mutable.Map[String, Double] = {
@@ -175,16 +173,16 @@ class CalculateBaseImplementation() extends CalculateBaseInterface{
     return odMap
   }
 
-  override def odRegionWithTime(map: mutable.Map[Array[String], Double]):mutable.Map[String, Double] = {
+  override def odRegionWithTime(map: mutable.Map[Array[String], Double], interval:Int):mutable.Map[String, Double] = {
     val odMap = scala.collection.mutable.Map[String, Double]()
-    val intervalTime = getTime()
+    val intervalTime = interval * 60
     for (key <- map.keys) {
       var count = 0
       var i = 0
       //        for (i <- 0 to (key.length - 2)) {
       while (i < key.length - 2) {
         if (count <= intervalTime) {  //满足条件的区间就累加
-          count += getTwoSiteTime(key(i), key(i + 1))
+          count += getParameter.getTwoSiteTime(key(i), key(i + 1))
           val str = key(i) + " " + key(i + 1)
           if (odMap.contains(str)) {
             odMap += (str -> (map(key) + odMap(str)))
@@ -194,33 +192,31 @@ class CalculateBaseImplementation() extends CalculateBaseInterface{
           }
           i += 1
         } else
-          count += getTwoSiteTime(key(i), key(i + 1))
+          i = key.length  //退出循环的条件
       }
     }
     return odMap
   }
 
-  //获得当前OD的客流人数
-  def getPassengers(odStr:String):Int={
-    val passengers:Int = 1000
-    return passengers
-  }
+/*  //获得分配系数
 
-  //获得分配系数
   def getDistributionCoefficient():Double={
     val coeff:Double = 3.2
     return coeff
   }
 
   //获得OD列表
+
   def getOdList():List[String] ={
     val odList:List[String] = List("二桥公园-_南京地铁1号线 珠江路-_南京地铁1号线","吉祥庵-_南京地铁1号线 花神庙-_南京地铁1号线  1.0","雨润大街-_南京地铁二号线 孝陵卫-_南京地铁二号线  1.0")
     return odList
   }
+
   def getTime():Int={   //返回定义的区间粒度时间
     val int_Time: Int = 15
     return int_Time
   }
+
   def getTwoSiteTime(siteId1:String,siteId2:String):Int={  //返回两个站点的运行时间
     val twoSiteTime:Int =5
     return twoSiteTime
@@ -228,5 +224,5 @@ class CalculateBaseImplementation() extends CalculateBaseInterface{
   def getSiteStopTime(siteId:String):Int={   //获得两站间停止时间
     val siteStopTime:Int =2
     return siteStopTime
-  }
+  }*/
 }
