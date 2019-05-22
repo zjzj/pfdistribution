@@ -3,13 +3,14 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 import cn.edu.sicau.pfdistribution.dao.mysqlsave.RegionSaveInterface
 import cn.edu.sicau.pfdistribution.service.kafka.sender.KafkaPfAllocationMessageSender
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
 import scala.collection.mutable
 
-class DataDeal {
 
-  @Autowired
-  val save:RegionSaveInterface = null
+@Service
+class DataDeal @Autowired()(val save:RegionSaveInterface){
+
 
   @Autowired
   val sender:KafkaPfAllocationMessageSender = null
@@ -26,14 +27,6 @@ class DataDeal {
   def intervalDataSave(data:mutable.Map[String, Double])= {
     for (key <- data.keys) {
       save.kspregionadd(key, data(key))
-    }
-  }
-
-  def intervalDataSend(data:mutable.Map[String, Double])= {
-    for (key <- data.keys) {
-      val a:Int = data(key).toInt
-      val message:String = key+","+a.toString
-      //sender.send(message)
     }
   }
 

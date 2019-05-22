@@ -49,9 +49,9 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseInterface,val
     val data:mutable.Map[Array[String],Double] = calBase.dynamicOdPathSearch(od)
     var result: Map[String, Double] = Map()
     for (key <- data.keys) {
-      var str:String = ""
-      for (i <- 0 to (key.length - 2)) {
-        str = key(i) + "," + str
+      var str:String = key(0)
+      for (i <- 1 to (key.length - 1)) {
+        str = str + "," + key(i)
       }
       result += (str -> data(key))
     }
