@@ -5,6 +5,7 @@ import cn.edu.sicau.pfdistribution.entity.SimpleStation;
 import cn.edu.sicau.pfdistribution.entity.Station;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,6 +15,7 @@ import java.util.List;
 @Repository
 public class RoadDistributionDaoImpl implements RoadDistributionDao {
     @Autowired
+    @Qualifier("mysqlJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
 
     /**

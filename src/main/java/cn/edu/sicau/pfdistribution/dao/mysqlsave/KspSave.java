@@ -2,6 +2,6 @@ package cn.edu.sicau.pfdistribution.dao.mysqlsave;
 import lombok.Data;
 
 @Data
-public class kspsave {
-    private String ksp;
+public class KspSave {
+    public String ksp;
 }

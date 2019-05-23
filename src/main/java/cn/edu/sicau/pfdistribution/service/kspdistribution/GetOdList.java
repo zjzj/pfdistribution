@@ -14,7 +14,7 @@ public class GetOdList implements Serializable {
     @Autowired
     OracleLink odData;
 
-    public List<String> getList(String inTime,long time) throws Exception {
+    public List<String> getList(String inTime, long time) throws Exception {
         List<String> strList=odData.SelectOD(inTime,time);
         return strList;
     }

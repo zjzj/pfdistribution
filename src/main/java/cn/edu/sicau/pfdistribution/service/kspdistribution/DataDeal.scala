@@ -21,12 +21,12 @@ class DataDeal @Autowired()(val save:RegionSaveInterface){
       for (i <- 0 to (key.length - 1)) {
         str = str + "," + key(i)
       }
-      save.kspregionadd(str, data(key))
+      save.kspRegionAdd(str, data(key))
     }
   }
   def intervalDataSave(data:mutable.Map[String, Double])= {
     for (key <- data.keys) {
-      save.kspregionadd(key, data(key))
+      save.kspRegionAdd(key, data(key))
     }
   }
 

@@ -1,6 +1,7 @@
 package cn.edu.sicau.pfdistribution.dao.yxt;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,7 @@ public class YxtReadDatas
 {
 
     @Autowired
+    @Qualifier("mysqlJdbcTemplate")
     private JdbcTemplate jdbcTemplate;  //这个是系统自带的
 
 
