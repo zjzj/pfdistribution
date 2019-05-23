@@ -1,6 +1,5 @@
 package cn.edu.sicau.pfdistribution.controller;
 
-import cn.edu.sicau.pfdistribution.entity.KspData;
 import cn.edu.sicau.pfdistribution.entity.KspSearchResult;
 import cn.edu.sicau.pfdistribution.entity.SWJTU_DTO;
 import cn.edu.sicau.pfdistribution.Utils.ResultMsg;
@@ -23,8 +22,7 @@ public class KspController {
     @PostMapping("/tripPlan.do")
     public Object findKsp(SWJTU_DTO swjtu_dto){
         List<KspSearchResult> KspResult=kspService.findKsp(swjtu_dto);
-        KspData kspData=new KspData(KspResult);
-        ResultMsg resultMsg = new ResultMsg(ResultStatusCode.OK.getErrcode(), ResultStatusCode.OK.getErrmsg(),kspData);
+        ResultMsg resultMsg = new ResultMsg(ResultStatusCode.OK.getErrcode(), ResultStatusCode.OK.getErrmsg(),KspResult);
         return resultMsg;
     }
 }

@@ -1,11 +1,15 @@
 package cn.edu.sicau.pfdistribution.Utils;
 
+import cn.edu.sicau.pfdistribution.entity.KspSearchResult;
+
+import java.util.List;
+
 public class ResultMsg {
     private int status;
     private String msg;
-    private Object data;
+    private List<KspSearchResult> data;
 
-    public ResultMsg(int status, String msg, Object data) {
+    public ResultMsg(int status, String msg, List<KspSearchResult> data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
@@ -27,11 +31,11 @@ public class ResultMsg {
         this.msg = msg;
     }
 
-    public Object getData() {
+    public List<KspSearchResult> getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(List<KspSearchResult> data) {
         this.data = data;
     }
 }

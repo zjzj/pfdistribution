@@ -1,3 +1,4 @@
+/*
 package cn.edu.sicau.pfdistribution.entity;
 
 import java.util.List;
@@ -9,3 +10,4 @@ public class KspData {
         this.data = data;
     }
 }
+*/
