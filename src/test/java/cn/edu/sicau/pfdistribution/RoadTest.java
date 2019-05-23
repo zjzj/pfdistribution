@@ -34,7 +34,7 @@ public class RoadTest {
     }
     @Test
     public void kspTest(){
-        List<Path>paths = kService.computeStatic("资阳北", "简阳南");
+        List<Path>paths = kService.computeStatic("马王场", "大堰村");
         System.out.println(paths);
     }
 }
