@@ -22,9 +22,9 @@ spring:
       password: 123456
       driver-class-name: com.mysql.jdbc.Driver
     oracle:
-      jdbc-url: jdbc:oracle:thin:@localhost:1521:myorcl
+      jdbc-url: jdbc:oracle:thin:@localhost:1521:orcl
       username: system
-      password: password
+      password: orcl
       driver-class-name: oracle.jdbc.driver.OracleDriver
 server:
   port: 8888
