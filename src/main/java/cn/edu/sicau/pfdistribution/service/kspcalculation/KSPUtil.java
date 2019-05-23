@@ -7,8 +7,8 @@ import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
 import java.util.List;
 
 public class KSPUtil {
-    private Graph graph;
-    private List<Edge>edges;
+    private Graph graph;//路网图
+    private List<Edge>edges;//构建路网图的边
 
     /**
      * 计算一个od对的k短路径
@@ -64,14 +64,6 @@ public class KSPUtil {
      * 命令提供废弃节点，如果没提供，默认为没有废弃节点
      */
     private void initialGraph(List<Edge>abandonEdges){
-        Graph graph = new Graph();
-        //这里待完善(从数据库读取全网站点信息)===============================================
-        for(int i = 0; i < edges.size(); i++)graph.addEdge(edges.get(i));
 
-        if(abandonEdges != null){
-            for(int i = 0; i < abandonEdges.size(); i++)
-                graph.removeEdge(abandonEdges.get(i).getFromNode(), abandonEdges.get(i).getToNode());
-        }
-        this.graph = graph;
     }
 }
