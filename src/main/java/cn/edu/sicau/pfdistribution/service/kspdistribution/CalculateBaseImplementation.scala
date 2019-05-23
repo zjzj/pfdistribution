@@ -100,7 +100,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     val sou = aList(0)
     val tar = aList(1)
     val passengers = aList(2).toInt
-    val ksp = kServiceImpl.computeStatic(sou,tar
+    val ksp = kServiceImpl.computeStatic(sou,tar)
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
