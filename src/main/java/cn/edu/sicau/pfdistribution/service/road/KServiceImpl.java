@@ -2,6 +2,7 @@ package cn.edu.sicau.pfdistribution.service.road;
 
 import cn.edu.sicau.pfdistribution.dao.mysqlsave.RoadDistributionDao;
 import cn.edu.sicau.pfdistribution.entity.Station;
+import cn.edu.sicau.pfdistribution.service.SectionCheckService;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Graph;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.KSPUtil;
@@ -20,6 +21,8 @@ public class KServiceImpl implements KService, Serializable {
     transient
     @Autowired
     private RoadDistributionDao roadDistributionDao;
+    @Autowired
+    private SectionCheckService sectionCheckService;
 
     @Override
     public List<Path> computeStatic(String o, String d) {
@@ -58,6 +61,16 @@ public class KServiceImpl implements KService, Serializable {
     @Override
     public List<Path> computeDynamic(String o, String d) {
         List<Path> paths = computeStatic(o, d);
-        return null;
+        List<Integer>interunptedIndx = new ArrayList<>();
+        for(int i = 0; i < paths.size(); i++){
+            if(!sectionCheckService.checkPath(paths.get(i)))
+            interunptedIndx.add(i);
+        }
+        List<Path>newPaths = new ArrayList<>();
+        for(int i = 0; i < paths.size(); i++){
+            if(interunptedIndx.indexOf(i) == -1)
+                newPaths.add(paths.get(i));
+        }
+        return newPaths;
     }
 }
