@@ -15,18 +15,18 @@ public class  Mysqlsavelmpl implements RegionSaveInterface {
     private JdbcTemplate jdbcTemplate;
     @Override
     public void routeAdd(String ksp) {
-        jdbcTemplate.update("insert into ksproute(ksp) value(?)",ksp);
+        jdbcTemplate.update("insert into ksproute(ksp) values(?)",ksp);
     }
 
 
     @Override
     public void kspRegionAdd(String route, double passenger) {
-        jdbcTemplate.update("insert into kspregion(route,passenger) value(?,?)",route,passenger);
+        jdbcTemplate.update("insert into kspregion(route,passenger) values(?,?)",route,passenger);
     }
 
     @Override
     public void odRegion(String kspregion, double passenger) {
-        jdbcTemplate.update("insert into odregion(kspregion,passenger) value(?,?)",kspregion,passenger);
+        jdbcTemplate.update("insert into odregion(kspregion,passenger) values(?,?)",kspregion,passenger);
     }
 
 }
