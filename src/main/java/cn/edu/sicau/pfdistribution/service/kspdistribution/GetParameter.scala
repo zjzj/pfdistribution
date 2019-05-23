@@ -17,7 +17,7 @@ class GetParameter extends Serializable{
   //获得OD列表
 
   def getOdList():List[String] ={
-    val odList:List[String] = List("二桥公园-_南京地铁1号线 珠江路-_南京地铁1号线 1000","吉祥庵-_南京地铁1号线 花神庙-_南京地铁1号线  1000","雨润大街-_南京地铁二号线 孝陵卫-_南京地铁二号线  1000")
+    val odList:List[String] = List("马王场 大堰村 1000")
     return odList
   }
 

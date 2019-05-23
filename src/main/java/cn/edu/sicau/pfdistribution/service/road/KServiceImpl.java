@@ -8,13 +8,16 @@ import cn.edu.sicau.pfdistribution.service.kspcalculation.KSPUtil;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import scala.Serializable;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class KServiceImpl implements KService {
+public class KServiceImpl implements KService, Serializable {
+
+    transient
     @Autowired
     private RoadDistributionDao roadDistributionDao;
 
