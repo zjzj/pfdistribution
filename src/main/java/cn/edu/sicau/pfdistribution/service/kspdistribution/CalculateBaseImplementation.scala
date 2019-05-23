@@ -3,6 +3,7 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 import java.io._
 
 import cn.edu.sicau.pfdistribution.service.kspcalculation.{KSPUtil, ReadExcel}
+import cn.edu.sicau.pfdistribution.service.road.KServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -11,16 +12,12 @@ import scala.collection.JavaConverters._
 import scala.collection.mutable.Map
 
 @Service
-class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCosting,val getParameter:GetParameter) extends CalculateBaseInterface with Serializable {
+class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCosting,val getParameter:GetParameter,val kServiceImpl:KServiceImpl) extends CalculateBaseInterface with Serializable {
   override def dynamicOdPathSearch(targetOd: String):mutable.Map[Array[String],Double] = {
     val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
-    val readExcel = new ReadExcel()
-    val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
-    val kspUtil = new KSPUtil()
-    kspUtil.setGraph(graph)
-    val ksp = kspUtil.computeODPath(sou,tar,getTransferTimes(targetOd))
+    val ksp = kServiceImpl.computeStatic(sou,tar)
     val iter = ksp.iterator()
     val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
@@ -102,13 +99,8 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
-//    val passengers = aList(2).
-    val passengers = 1000
-    val readExcel = new ReadExcel()
-    val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
-    val kspUtil = new KSPUtil()
-    kspUtil.setGraph(graph)
-    val ksp = kspUtil.computeODPath(sou,tar,getTransferTimes(targetOd))
+    val passengers = aList(2).toInt
+    val ksp = kServiceImpl.computeStatic(sou,tar
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
@@ -132,13 +124,8 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
-//    val passengers = aList(2).toInt
-    val passengers = 1000
-    val readExcel = new ReadExcel()
-    val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
-    val kspUtil = new KSPUtil()
-    kspUtil.setGraph(graph)
-    val ksp = kspUtil.computeODPath(sou,tar,getTransferTimes(targetOd))
+    val passengers = aList(2).toInt
+    val ksp = kServiceImpl.computeDynamic(sou,tar)
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
@@ -197,32 +184,4 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     }
     return odMap
   }
-
-/*  //获得分配系数
-
-  def getDistributionCoefficient():Double={
-    val coeff:Double = 3.2
-    return coeff
-  }
-
-  //获得OD列表
-
-  def getOdList():List[String] ={
-    val odList:List[String] = List("二桥公园-_南京地铁1号线 珠江路-_南京地铁1号线","吉祥庵-_南京地铁1号线 花神庙-_南京地铁1号线  1.0","雨润大街-_南京地铁二号线 孝陵卫-_南京地铁二号线  1.0")
-    return odList
-  }
-
-  def getTime():Int={   //返回定义的区间粒度时间
-    val int_Time: Int = 15
-    return int_Time
-  }
-
-  def getTwoSiteTime(siteId1:String,siteId2:String):Int={  //返回两个站点的运行时间
-    val twoSiteTime:Int =5
-    return twoSiteTime
-  }
-  def getSiteStopTime(siteId:String):Int={   //获得两站间停止时间
-    val siteStopTime:Int =2
-    return siteStopTime
-  }*/
 }
