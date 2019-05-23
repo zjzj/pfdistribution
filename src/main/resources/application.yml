@@ -15,11 +15,11 @@ spring:
       group-id: test-consumer-group # 指定默认消费者group id
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.107.38.55:32768/dbgirl
-    username: root
-    password: 123456
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://47.107.38.55:32768/dbgirl
+#    username: root
+#    password: 123456
 #Web启动端口
 server:
   port: 8888
