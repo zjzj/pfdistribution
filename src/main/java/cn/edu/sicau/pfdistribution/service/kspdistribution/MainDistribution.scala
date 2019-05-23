@@ -27,9 +27,7 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseInterface,val
     val odList = getParameter.getOdList()
 //    val odList:scala.collection.mutable.Buffer[String] = getOdList.getList(args("startTime"),args("timeInterval").toLong).asScala
     if(command.equals("static")){
-      val result:mutable.Map[String, Double] = intervalResult(odList)
-      val abc:mutable.Map[String, String] = mapTransfer(result)
-      return abc.asJava
+      return mapTransfer(intervalResult(odList)).asJava
     }else
       return mapTransfer(intervalResultWithTimeResult(odList,time.toInt)).asJava
   }
