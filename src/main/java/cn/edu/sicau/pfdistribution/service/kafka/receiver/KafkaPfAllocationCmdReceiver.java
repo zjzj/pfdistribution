@@ -46,6 +46,7 @@ public class KafkaPfAllocationCmdReceiver {
         final scala.collection.Seq<Tuple2<String, String>> seq = scala.collection.JavaConverters.asScalaBufferConverter(list).asScala().toSeq();
         scala.collection.immutable.Map<String, String> abc = (scala.collection.immutable.Map<String, String>) scala.collection.immutable.Map$.MODULE$.apply(seq);
         //distribution.triggerTask(message);
-        sender.send("yourkafka",distribution.triggerTask(abc));
+        distribution.triggerTask(abc);
+//        sender.send("yourkafka",distribution.triggerTask(abc));
     }
 }
