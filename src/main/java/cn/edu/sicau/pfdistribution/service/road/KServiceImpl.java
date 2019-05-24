@@ -2,7 +2,7 @@ package cn.edu.sicau.pfdistribution.service.road;
 
 import cn.edu.sicau.pfdistribution.dao.mysqlsave.RoadDistributionDao;
 import cn.edu.sicau.pfdistribution.entity.Station;
-import cn.edu.sicau.pfdistribution.service.SectionCheckService;
+import cn.edu.sicau.pfdistribution.service.PathCheckService;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Graph;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.KSPUtil;
@@ -18,11 +18,13 @@ import java.util.List;
 @Service
 public class KServiceImpl implements KService, Serializable {
 
-    transient
+
     @Autowired
     private RoadDistributionDao roadDistributionDao;
+
+
     @Autowired
-    private SectionCheckService sectionCheckService;
+    private PathCheckService sectionCheckService;
 
     @Override
     public List<Path> computeStatic(String o, String d) {

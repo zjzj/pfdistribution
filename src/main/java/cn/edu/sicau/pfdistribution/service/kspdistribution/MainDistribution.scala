@@ -2,7 +2,6 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 
 import java.io._
-import java.util
 import org.apache.spark.{SparkConf, SparkContext}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -13,7 +12,7 @@ import scala.collection.mutable
 
 //该段代码把Object改成Class定义
 @Service
-case class MainDistribution @Autowired() (val calBase:CalculateBaseInterface,val getOdList: GetOdList,val getParameter:GetParameter)extends Serializable { //,val getOdList: GetOdList
+case class MainDistribution @Autowired() (val calBase:CalculateBaseInterface,val getOdList: GetOdList)extends Serializable { //,val getOdList: GetOdList
 
   @transient
   val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
@@ -24,8 +23,8 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseInterface,val
   def triggerTask(args: Map[String,String]): java.util.Map[String, String]= {
     val command:String = args("command")
     val time  = args("timeInterval")
-    val odList = getParameter.getOdList()
-//    val odList:scala.collection.mutable.Buffer[String] = getOdList.getList(args("startTime"),args("timeInterval").toLong).asScala
+    val odListObtain:scala.collection.mutable.Buffer[String] = getOdList.getList(args("startTime"),args("timeInterval").toLong).asScala
+    val odList = odListObtain.toList
     if(command.equals("static")){
       return mapTransfer(intervalResult(odList)).asJava
     }else
@@ -56,15 +55,6 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseInterface,val
     return result.map{case(k,v)=>(k,v)}.asJava;
   }
 
-
-  //各个OD的路径搜索结果
-  def kspCalculateResult(odList:List[String]):mutable.Map[Array[String], Double] = {
-    val rdd = sc.makeRDD(odList)
-    //od对，起点与终点与用空格连接
-    val odDistributionRdd = rdd.map(String => calBase.dynamicOdPathSearch(String)) //各个OD的路径搜索结果
-    val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y) //对OD分配结果的RDD的整合
-    return rddIntegration
-  }
   //各个OD的路径分配结果
   def kspDistributionResult(odList:List[String]):mutable.Map[Array[String], Double] = {
     val rdd = sc.makeRDD(odList)
@@ -84,7 +74,7 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseInterface,val
     return regionMap
   }
 
-  //按照不同的时间粒度分配形，生成区间密度断面图
+  //按照不同的时间粒度分配形，生成区间密度(动态)
   def intervalResultWithTimeResult(odList:List[String],interval:Int): mutable.Map[String, Double] = {
     val rdd = sc.makeRDD(odList)
     //od对，起点与终点与用空格连接

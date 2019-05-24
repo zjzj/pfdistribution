@@ -103,7 +103,8 @@ public class OracleImpl implements OracleGetod {
             String odIn1=odIn.replace(" ", "");
             String odOut = (String) userMap.get("出站点");
             String odOut1=odOut.replace(" ", "");
-            int odPeo = (int) userMap.get("人数");
+            //int odPeo = (int) userMap.get("人数");
+            int odPeo = Integer.parseInt(userMap.get("人数").toString());
             strList.add(odIn1+" "+odOut1+" "+odPeo);
         }
         return strList;

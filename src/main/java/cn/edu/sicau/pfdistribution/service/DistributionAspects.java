@@ -5,7 +5,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
 
 /**
  * @author 谭华波
@@ -17,14 +16,14 @@ public class DistributionAspects {
     @Autowired
     KafkaPfAllocationMessageSender sender;
 
-    @AfterReturning(value = "execution(* cn.edu.sicau.pfdistribution.service.kspdistribution.MainDistribution.triggerTask()).*.*(..))", returning = "result")  /*返回通知(@AfterReturn)： 在目标方法正常放回之后执行*/
+    @AfterReturning(value = "execution(* cn.edu.sicau.pfdistribution.service.kspdistribution.MainDistribution.triggerTask())",returning = "result")  /*返回通知(@AfterReturn)： 在目标方法正常放回之后执行*/
     public void mysqlInterceptor(JoinPoint joinPoint, Object result) {
         sender.send("yourkafka",result);
 //        System.out.println(joinPoint.getSignature().getName() + "正常结束，结果是: {" + result + "}");
 
     }
 
-    @AfterReturning(value = "execution(* cn.edu.sicau.pfdistribution.service.kspdistribution.MainDistribution.triggerTask()).*.*(..))", returning = "result")  /*返回通知(@AfterReturn)： 在目标方法正常放回之后执行*/
+    @AfterReturning(value = "execution(* cn.edu.sicau.pfdistribution.service.kafka.receiver.KafkaPfAllocationCmdReceiver..*.*(..))", returning = "result")  /*返回通知(@AfterReturn)： 在目标方法正常放回之后执行*/
     public void KafkaInterceptor(JoinPoint joinPoint, Object result) {
         System.out.println(joinPoint.getSignature().getName() + "正常结束，结果是: {" + result + "}");
 
@@ -32,11 +31,6 @@ public class DistributionAspects {
 
 
 
-  /*  // 抽取公共的切入点表达式
-    @Pointcut("execution(* cn.edu.sicau.pfdistribution.service.kspdistribution.MainDistribution.triggerTask()).*.*(..))")
-    public void mysqlInterceptor() {
-    }
-*/
 
 /*    @Before(value = "logging()")   //前置通知(@Before)： 在目标方法运行之前执行
     public void logStart(JoinPoint joinPoint) {

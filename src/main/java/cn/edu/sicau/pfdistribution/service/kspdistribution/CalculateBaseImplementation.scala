@@ -12,12 +12,22 @@ import scala.collection.JavaConverters._
 import scala.collection.mutable.Map
 
 @Service
-class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCosting,val getParameter:GetParameter,val kServiceImpl:KServiceImpl) extends CalculateBaseInterface with Serializable {
+class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCosting,val getParameter:GetParameter) extends CalculateBaseInterface with Serializable { //,val kServiceImpl:KServiceImpl
+ /* @transient
+  val readExcel = new ReadExcel()
+  @transient
+  val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
+  val kspUtil = new KSPUtil()
+  kspUtil.setGraph(graph)*/
   override def dynamicOdPathSearch(targetOd: String):mutable.Map[Array[String],Double] = {
     val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
-    val ksp = kServiceImpl.computeStatic(sou,tar)
+    val readExcel = new ReadExcel()
+    val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
+    val kspUtil = new KSPUtil()
+    kspUtil.setGraph(graph)
+    val ksp = kspUtil.computeODPath(sou,tar,2)
     val iter = ksp.iterator()
     val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
@@ -100,7 +110,11 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     val sou = aList(0)
     val tar = aList(1)
     val passengers = aList(2).toInt
-    val ksp = kServiceImpl.computeStatic(sou,tar)
+    val readExcel = new ReadExcel()
+    val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
+    val kspUtil = new KSPUtil()
+    kspUtil.setGraph(graph)
+    val ksp = kspUtil.computeODPath(sou,tar,2)
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
@@ -125,7 +139,11 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     val sou = aList(0)
     val tar = aList(1)
     val passengers = aList(2).toInt
-    val ksp = kServiceImpl.computeDynamic(sou,tar)
+    val readExcel = new ReadExcel()
+    val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
+    val kspUtil = new KSPUtil()
+    kspUtil.setGraph(graph)
+    val ksp = kspUtil.computeODPath(sou,tar,2)
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()

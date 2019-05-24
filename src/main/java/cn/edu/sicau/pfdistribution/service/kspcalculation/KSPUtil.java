@@ -2,12 +2,16 @@ package cn.edu.sicau.pfdistribution.service.kspcalculation;
 
 import cn.edu.sicau.pfdistribution.service.kspcalculation.ksp.Eppstein;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
+import org.springframework.stereotype.Service;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class KSPUtil {
+public class KSPUtil{
+    transient
     private Graph graph;//路网图
+    transient
     private List<Edge>edges;//构建路网图的边
 
     /**

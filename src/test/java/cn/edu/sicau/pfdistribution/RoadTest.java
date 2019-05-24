@@ -34,7 +34,7 @@ public class RoadTest {
     }
     @Test
     public void kspTest(){
-        List<Path>paths = kService.computeDynamic("马王场", "大堰村");
+        List<Path>paths = kService.computeStatic("较场口", "大溪沟");
         System.out.println(paths);
     }
 }
