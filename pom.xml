@@ -187,6 +187,8 @@
       <artifactId>spring-boot-starter-aop</artifactId>
     </dependency>
 
+  <!--  oracle依赖-->
+
     <dependency>
       <groupId>com.oracle</groupId>
       <artifactId>ojdbc6</artifactId>

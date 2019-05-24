@@ -19,8 +19,6 @@ public class KafkaPfAllocationResultReceiver {
     @Autowired
     private Gson gson;
 
-//    private Gson gson = new GsonBuilder().create();
-
     @KafkaListener(topics = "yourkafka")
     public void processMessage(String msg) {
         Map<String, String> result = gson.fromJson(msg,new TypeToken<Map<String,String>>(){}.getType());

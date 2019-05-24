@@ -2,11 +2,13 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 
 import java.io._
+
 import org.apache.spark.{SparkConf, SparkContext}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import scala.collection.JavaConverters._
+import org.springframework.web.bind.annotation.{RequestMapping, RestController}
 
+import scala.collection.JavaConverters._
 import scala.collection.mutable
 
 
@@ -20,6 +22,7 @@ case class MainDistribution @Autowired() (val calBase:CalculateBaseInterface,val
   val sc = new SparkContext(conf)
 
 //该段代码移植到KafkaReceiver中
+
   def triggerTask(args: Map[String,String]): java.util.Map[String, String]= {
     val command:String = args("command")
     val time  = args("timeInterval")
