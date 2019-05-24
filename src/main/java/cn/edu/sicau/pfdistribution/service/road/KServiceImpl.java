@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import scala.Serializable;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class KServiceImpl implements KService, Serializable {
@@ -74,5 +72,24 @@ public class KServiceImpl implements KService, Serializable {
                 newPaths.add(paths.get(i));
         }
         return newPaths;
+    }
+
+    /**
+     * 计算以集合形式的od的k路径搜索
+     * @param ods 键为o，值为d
+     * @return
+     */
+    @Override
+    public Map<String, List<Path>> computeDynamic(Map<String, String> ods) {
+        if(ods == null)return null;
+        Map<String, List<Path>>odsPaths = new HashMap<>();
+        Iterator<String> it = ods.keySet().iterator();
+        while(it.hasNext()){
+            String o = it.next();
+            String d = ods.get(o);
+            List<Path>paths = computeDynamic(o, d);
+            odsPaths.put(o + "-" + d, paths);
+        }
+        return odsPaths;
     }
 }
