@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Repository
@@ -93,8 +90,8 @@ public class OracleImpl implements OracleGetod {
         jdbcTemplate.update("DROP TABLE \"SCOTT\".\"test_od\"\n");
     }
     @Override
-    public List<String> selectOd(String selectOD){
-        List<String> strList = new ArrayList<>();
+    public Map<String, Integer> selectOd(String selectOD){
+        Map map = new HashMap();
         List rows= jdbcTemplate.queryForList(selectOD);
         Iterator it = rows.iterator();
         while(it.hasNext()) {
@@ -105,8 +102,9 @@ public class OracleImpl implements OracleGetod {
             String odOut1=odOut.replace(" ", "");
             //int odPeo = (int) userMap.get("人数");
             int odPeo = Integer.parseInt(userMap.get("人数").toString());
-            strList.add(odIn1+" "+odOut1+" "+odPeo);
+            map.put(odIn1+" "+odOut1,odPeo);
+            //strList.add(odIn1+" "+odOut1+" "+odPeo);
         }
-        return strList;
+        return map;
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Map;
 
 @Service
 public class GetOdList implements Serializable {
@@ -14,8 +14,8 @@ public class GetOdList implements Serializable {
     @Autowired
     OracleLink odData;
 
-    public List<String> getList(String inTime, long time) throws Exception {
-        List<String> strList=odData.SelectOD(inTime,time);
-        return strList;
+    public Map<String,Integer> getList(String inTime, long time) throws Exception {
+        Map<String, Integer> strMap=odData.SelectOD(inTime,time);
+        return strMap;
     }
 }

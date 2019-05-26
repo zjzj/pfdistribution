@@ -1,6 +1,7 @@
 package cn.edu.sicau.pfdistribution.dao.oracle;
 
-import java.util.List;
+
+import java.util.Map;
 
 public interface OracleGetod {
     public void deleteCare();
@@ -14,5 +15,5 @@ public interface OracleGetod {
     public void deleteIn();
     public void deleteOut();
     public void deleteOd();
-    List<String> selectOd(String selectOD);
+    Map<String,Integer> selectOd(String selectOD);
 }

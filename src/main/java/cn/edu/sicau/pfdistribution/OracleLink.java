@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 @Service
 //@SpringBootTest(classes = SpringApplication.class)
@@ -17,7 +17,7 @@ public class OracleLink {
     @Autowired
     private OracleImpl OracleImpl;
 
-    public List<String> SelectOD(String inTime,long time) throws Exception{
+    public Map<String,Integer> SelectOD(String inTime,long time) throws Exception{
         OracleImpl.deleteCare();
         OracleImpl.deleteOd();
         OracleImpl.creatGet();
@@ -29,7 +29,7 @@ public class OracleLink {
         OracleImpl.deleteNot();
         OracleImpl.deleteIn();
         OracleImpl.deleteOut();
-        List odList=OracleImpl.selectOd(selectOD(inTime,time));
+        Map<String,Integer> odList=OracleImpl.selectOd(selectOD(inTime,time));
         return odList;
     }
     public String selectOD(String inTime, long time) throws ParseException {

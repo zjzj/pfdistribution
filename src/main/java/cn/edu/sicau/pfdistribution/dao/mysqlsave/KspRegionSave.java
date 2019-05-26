@@ -5,4 +5,5 @@ import lombok.Data;
 public class KspRegionSave {
     public String route;
     public double passenger;
+
 }
