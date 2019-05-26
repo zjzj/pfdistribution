@@ -49,7 +49,7 @@ public class KServiceImpl implements KService, Serializable {
         for(int i = 0; i < stations.size(); i++){
             String station = stations.get(i);
             for(int j = 0; j < stationInfo.size(); j++){
-                if(station.equals(stationInfo.get(i).getName()) && stationInfo.get(i).getLines().size() >=2 )
+                if(station.equals(stationInfo.get(j).getName()) && stationInfo.get(j).getLines().size() >=2 )
                     k++;
             }
         }
