@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -34,7 +35,13 @@ public class RoadTest {
     }
     @Test
     public void kspTest(){
-        List<Path>paths = kService.computeStatic("较场口", "大溪沟");
+        List<Edge>abandonEdges = new ArrayList<>();
+        Edge abadonEdge = new Edge();
+        abadonEdge.setFromNode("sectionStart");
+        abadonEdge.setToNode("sectionEnd");
+        abadonEdge.setWeight(0);
+        abandonEdges.add(abadonEdge);
+        List<Path>paths = kService.computeStatic("较场口", "大溪沟", abandonEdges);
         System.out.println(paths);
     }
 }

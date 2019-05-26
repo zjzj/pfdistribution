@@ -24,12 +24,21 @@ public class KServiceImpl implements KService, Serializable {
     @Autowired
     private PathCheckService sectionCheckService;
 
+    /**
+     * 有废弃区间的静态计算
+     * @param o
+     * @param d
+     * @param abandonEdges
+     * @return
+     */
     @Override
-    public List<Path> computeStatic(String o, String d) {
+    public List<Path> computeStatic(String o, String d, List<Edge> abandonEdges) {
         List<Edge> sections = roadDistributionDao.getAllSection();
 
         Graph graph = new Graph();
         graph.addEdges(sections);
+        if(abandonEdges != null)
+            graph.removeEdges(abandonEdges);
         KSPUtil kspUtil = new KSPUtil();
         kspUtil.setEdges(sections);
         kspUtil.setGraph(graph);
@@ -58,24 +67,57 @@ public class KServiceImpl implements KService, Serializable {
         return paths;
     }
 
+    /**
+     * 无废弃区间的静态计算
+     * @param o
+     * @param d
+     * @return
+     */
     @Override
-    public List<Path> computeDynamic(String o, String d) {
-        List<Path> paths = computeStatic(o, d);
-        List<Integer>interunptedIndx = new ArrayList<>();
+    public List<Path> computeStatic(String o, String d) {
+        List<Path> path = computeStatic(o, d, null);
+        return path;
+    }
+
+    /**
+     * 从通号院获取废弃区间的动态计算,可额外添加废弃区间
+     * @param o
+     * @param d
+     * @return
+     */
+    @Override
+    public List<Path> computeDynamic(String o, String d, List<Edge>abandonEdges) {
+        List<Path> paths = null;
+        if(abandonEdges != null){
+            paths = computeStatic(o, d, abandonEdges);
+        }else{
+            paths = computeStatic(o, d);
+        }
+        List<Integer>interuptedIndex = new ArrayList<>();
         for(int i = 0; i < paths.size(); i++){
             if(!sectionCheckService.checkPath(paths.get(i)))
-            interunptedIndx.add(i);
+            interuptedIndex.add(i);
         }
         List<Path>newPaths = new ArrayList<>();
         for(int i = 0; i < paths.size(); i++){
-            if(interunptedIndx.indexOf(i) == -1)
+            if(interuptedIndex.indexOf(i) == -1)
                 newPaths.add(paths.get(i));
         }
         return newPaths;
     }
-
     /**
-     * 计算以集合形式的od的k路径搜索
+     * 从通号院获取废弃区间的动态计算
+     * @param o
+     * @param d
+     * @return
+     */
+    @Override
+    public List<Path> computeDynamic(String o, String d) {
+        List<Path>paths = computeDynamic(o, d, null);
+        return paths;
+    }
+    /**
+     * 从通号院获取废弃区间的动态计算，计算以集合形式的od的k路径搜索
      * @param ods 键为o，值为d
      * @return
      */
@@ -92,4 +134,25 @@ public class KServiceImpl implements KService, Serializable {
         }
         return odsPaths;
     }
+
+    /**
+     * 从通号院获取废弃区间的动态计算.可额外设置废弃区间
+     * @param ods
+     * @param abandonEdges
+     * @return
+     */
+    @Override
+    public Map<String, List<Path>> computeDynamic(Map<String, String> ods, List<Edge> abandonEdges) {
+        Map<String, List<Path>> odsPaths= new HashMap<>();
+        Iterator<String>it = ods.keySet().iterator();
+        while(it.hasNext()){
+            String o = it.next();
+            String d = ods.get(o);
+            List<Path> path = computeDynamic(o, d, abandonEdges);
+            odsPaths.put(o + d, path);
+        }
+        return odsPaths;
+    }
+
+
 }
