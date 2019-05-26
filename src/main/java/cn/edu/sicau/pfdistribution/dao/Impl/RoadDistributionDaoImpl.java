@@ -10,9 +10,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
-@Repository
+@Service
 public class RoadDistributionDaoImpl implements RoadDistributionDao {
     @Autowired
     @Qualifier("mysqlJdbcTemplate")

@@ -16,11 +16,11 @@ import java.util.*;
 @Service
 public class KServiceImpl implements KService, Serializable {
 
-
+    transient
     @Autowired
     private RoadDistributionDao roadDistributionDao;
 
-
+    transient
     @Autowired
     private PathCheckService sectionCheckService;
 

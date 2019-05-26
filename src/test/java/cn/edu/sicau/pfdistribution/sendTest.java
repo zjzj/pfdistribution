@@ -25,7 +25,7 @@ public class sendTest {
   @Test
   public void sendTest() {
 
-    test.trigger("static","2018-09-01 09:00:19","60","15");
+    test.trigger("dynamic","2018-09-01 09:00:19","60","15");
 
   }
 }
