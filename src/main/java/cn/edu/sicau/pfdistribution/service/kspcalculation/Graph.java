@@ -69,16 +69,10 @@ public class Graph {
 
     public Edge removeEdge(String label1, String label2) {
         if (nodes.containsKey(label1)) {
-//            double weight = nodes.get(label1).removeEdge(label2);
-//            if (weight != Double.MAX_VALUE) {
-//                return new Edge(label1, label2, weight);
-//            }
-            Node newNode = nodes.get(label1);
-            Map<String, Double>neignbors = newNode.getNeighbors();
-            if(neignbors.containsKey(label2))
-                neignbors.remove(label2);
-            nodes.remove(label1);
-            nodes.put(label1, newNode);
+            double weight = nodes.get(label1).removeEdge(label2);
+            if (weight != Double.MAX_VALUE) {
+                return new Edge(label1, label2, weight);
+            }
         }
 
         return null;
