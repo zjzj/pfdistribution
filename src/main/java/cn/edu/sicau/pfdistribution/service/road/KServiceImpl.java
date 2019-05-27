@@ -34,11 +34,21 @@ public class KServiceImpl implements KService, Serializable {
     @Override
     public List<Path> computeStatic(String o, String d, List<Edge> abandonEdges) {
         List<Edge> sections = roadDistributionDao.getAllSection();
-
+        List<Edge>newSections = new ArrayList<Edge>();
         Graph graph = new Graph();
+        if(abandonEdges != null){
+            for(int i = 0; i < sections.size(); i++){
+                boolean flag = true;
+                for(int j = 0; j < abandonEdges.size(); j++){
+                    if(sections.get(i).getFromNode().equals(abandonEdges.get(j).getFromNode()) && sections.get(i).getToNode().equals(abandonEdges.get(j).getToNode())){
+                        flag = false;
+                    }
+                }
+                if(flag == true)newSections.add(sections.get(i));
+            }
+            sections = newSections;
+        }
         graph.addEdges(sections);
-        if(abandonEdges != null)
-            graph.removeEdges(abandonEdges);
         KSPUtil kspUtil = new KSPUtil();
         kspUtil.setEdges(sections);
         kspUtil.setGraph(graph);
@@ -123,14 +133,14 @@ public class KServiceImpl implements KService, Serializable {
      */
     @Override
     public Map<String, List<Path>> computeDynamic(Map<String, String> ods) {
-        if(ods == null)return null;
+        if(ods == null) return null;
         Map<String, List<Path>>odsPaths = new HashMap<>();
         Iterator<String> it = ods.keySet().iterator();
         while(it.hasNext()){
             String o = it.next();
             String d = ods.get(o);
             List<Path>paths = computeDynamic(o, d);
-            odsPaths.put(o + "-" + d, paths);
+            odsPaths.put(o + " " + d, paths);
         }
         return odsPaths;
     }

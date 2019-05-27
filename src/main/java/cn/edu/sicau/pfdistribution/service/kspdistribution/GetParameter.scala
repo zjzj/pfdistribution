@@ -3,6 +3,7 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 import java.io.Serializable
 
 import org.springframework.stereotype.Service
+import scala.collection.JavaConverters._
 
 @Service
 class GetParameter extends Serializable{
@@ -17,8 +18,13 @@ class GetParameter extends Serializable{
   //获得OD列表
 
   def getOdList():List[String] ={
-    val odList:List[String] = List("大坪 牛角沱 1000","较场口 大溪沟 10000")
+    val odList:List[String] = List("大坪 牛角沱 1000")
     return odList
+  }
+
+  def getOdMap():java.util.Map[String, Integer]={
+    val odMap:Map[String, Integer] = Map("大坪 牛角沱" -> 1000,"牛角沱 较场口" -> 1000) //,"璧山 较场口" -> 1000,"红岩村 较场口" -> 1000
+    return odMap.asJava
   }
 
 /*  def getTime():Int={   //返回定义的区间粒度时间

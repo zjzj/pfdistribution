@@ -1,7 +1,9 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
 import java.io._
+import java.util
 
+import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path
 import cn.edu.sicau.pfdistribution.service.kspcalculation.{KSPUtil, ReadExcel}
 import cn.edu.sicau.pfdistribution.service.road.KServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
@@ -135,17 +137,18 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
   }
 
   //动态路径分配
-  override def dynamicOdDistributionResult(targetOd: String): mutable.Map[Array[String],Double] ={
-    val aList = targetOd.split(" ")
+  override def dynamicOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[Path]],odMap:mutable.Map[String,Integer]): mutable.Map[Array[String],Double] ={
+/*    val aList = targetOd.split(" ")
     val sou = aList(0)
     val tar = aList(1)
-    val passengers = aList(2).toInt
+    val passengers = aList(2).toInt*/
 /*    val readExcel = new ReadExcel()
     val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
     val kspUtil = new KSPUtil()
     kspUtil.setGraph(graph)
     val ksp = kspUtil.computeODPath(sou,tar,2)*/
-    val ksp = kServiceImpl.computeDynamic(sou,tar)
+    val ksp:util.List[Path] = allKsp(targetOd)
+    val passengers:Int = odMap(targetOd).toInt
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()

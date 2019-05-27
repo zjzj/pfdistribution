@@ -1,11 +1,13 @@
 package cn.edu.sicau.pfdistribution.service.kspcalculation;
 
+import java.io.Serializable;
+
 /**
  * The Edge class implements standard properties and methods for a weighted edge in a directed graph.
  *
  * Created by Brandon Smock on 6/19/15.
  */
-public class Edge implements Cloneable {
+public class Edge implements Cloneable, Serializable {
     private String fromNode;
     private String toNode;
     private double weight;

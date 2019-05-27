@@ -2,6 +2,7 @@ package cn.edu.sicau.pfdistribution.service.kspcalculation.util;
 
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,8 +11,9 @@ import java.util.List;
  *
  * Created by Brandon Smock on 6/18/15.
  */
-public class Path implements Cloneable, Comparable<Path> {
+public class Path implements Cloneable, Comparable<Path>, Serializable {
     private LinkedList<Edge> edges;
+
     private double totalCost;
 
     public Path() {

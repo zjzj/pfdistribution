@@ -37,11 +37,14 @@ public class RoadTest {
     public void kspTest(){
         List<Edge>abandonEdges = new ArrayList<>();
         Edge abadonEdge = new Edge();
-        abadonEdge.setFromNode("sectionStart");
-        abadonEdge.setToNode("sectionEnd");
-        abadonEdge.setWeight(0);
+        abadonEdge.setFromNode("人和");
+        abadonEdge.setToNode("幸福广场");
+        abadonEdge.setWeight(1.0);
         abandonEdges.add(abadonEdge);
-        List<Path>paths = kService.computeStatic("较场口", "大溪沟", abandonEdges);
+        List<Path>paths = null;
+//        paths = kService.computeStatic("璧山", "较场口");
+//        System.out.println(paths);
+        paths = kService.computeStatic("璧山", "较场口", abandonEdges);
         System.out.println(paths);
     }
 }
