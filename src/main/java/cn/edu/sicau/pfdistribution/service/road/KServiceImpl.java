@@ -66,12 +66,14 @@ public class KServiceImpl implements KService, Serializable {
         paths = kspUtil.computeODPath(o, d, k + 1);
         List<Path>newPaths = new ArrayList<>();
         for(int i = 0; i < paths.size(); i++){
+            boolean flag = true;
             List<Edge> p = paths.get(i).getEdges();
             for(int j = 0; j < p.size() - 1; j++){
-                if( !p.get(j).getFromNode().equals(d) && !p.get(j).getToNode().equals(d)){
-                    newPaths.add(paths.get(i));
+                if( p.get(j).getFromNode().equals(d) || p.get(j).getToNode().equals(d)){
+                    flag = false;
                 }
             }
+            if(flag == true)newPaths.add(paths.get(i));
         }
         return newPaths;
     }
