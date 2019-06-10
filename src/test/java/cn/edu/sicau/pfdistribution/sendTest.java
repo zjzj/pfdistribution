@@ -1,7 +1,6 @@
 package cn.edu.sicau.pfdistribution;
 
 import cn.edu.sicau.pfdistribution.config.ConfigJDBC;
-import cn.edu.sicau.pfdistribution.controller.KafkaTriggerController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

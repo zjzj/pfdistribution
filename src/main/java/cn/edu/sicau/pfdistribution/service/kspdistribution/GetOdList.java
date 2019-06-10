@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -17,5 +18,20 @@ public class GetOdList implements Serializable {
     public Map<String,Integer> getOdMap(String inTime, long time) throws Exception {
         Map<String, Integer> strMap=odData.SelectOD(inTime,time);
         return strMap;
+    }
+    //路径分配结果操作
+    public void createKspRegionTable()
+    {
+        odData.createKspRegionTable();
+    }
+    public void kspRegionAdd(String route, int passenger){
+        odData.kspRegionAdd(route,passenger);
+    }
+    public void deleteAllKspRegion(){
+        odData.deleteAllKspRegion();
+    }
+    //将仿真得到的OD结果从oracle拉取出来并组成需要格式
+    public List<String> odFromOracleToList(){
+        return odData.odFromOracleToList();
     }
 }

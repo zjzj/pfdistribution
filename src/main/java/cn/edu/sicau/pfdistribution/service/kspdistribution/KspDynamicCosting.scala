@@ -5,10 +5,11 @@ import org.springframework.stereotype.Service
 import scala.collection.mutable
 import java.io._
 
+import cn.edu.sicau.pfdistribution.service.netrouter.JsonTransfer
 import org.springframework.beans.factory.annotation.Autowired
 
 @Service
-class KspDynamicCosting @Autowired()(val getParameter:GetParameter)extends Serializable {
+class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val jsonTransfer:JsonTransfer)extends Serializable {
 
   def stationOperatingCosts(beforeSite: String, currentSite: String): Double = {
     val a = getParameter.getA()
@@ -29,7 +30,7 @@ class KspDynamicCosting @Autowired()(val getParameter:GetParameter)extends Seria
     return cost
   }
 
-  def transferFee(currentSite: String) : Double = {
+  def transferFee() : Double = {
     var cost = 0 //换乘费用
     cost= getParameter.transferTime()
     return cost
@@ -39,7 +40,13 @@ class KspDynamicCosting @Autowired()(val getParameter:GetParameter)extends Seria
     /*
     具体计算预留
      */
-
+    val perceived:Double=0
+    val map=jsonTransfer.stationDataAnalysis(currentSite)
+    for(value <- map.values){
+      val crowded_degree=value.head.toDouble
+      val passenger = value.tail.head.toDouble
+      perceived= perceived+passenger*crowded_degree
+    }
     val inPlatformCost = 5*60 //进站站台感知费用
     return inPlatformCost
   }
@@ -48,8 +55,14 @@ class KspDynamicCosting @Autowired()(val getParameter:GetParameter)extends Seria
     var DynamicArray:mutable.Map[Array[String],Double] = mutable.Map()
     for (key <- kspArray.keys) {
       var count:Double = 0
+      var cou:Int=0
+      //判断路径有无换乘和换乘次数
+      for (j<- 0 to key.length-3){
+        if(key(j)!= key(j+1) && key(j+1)==key(j+2))
+          cou=cou+1
+      }
       for (i <- 0 to (key.length - 2)) {
-        count += stationOperatingCosts(key(i),key(i+1)) + transferFee(key(i+1)) +perceivedCosts(key(i+1))
+        count += stationOperatingCosts(key(i),key(i+1)) + cou*transferFee() +perceivedCosts(key(i+1))
       }
       DynamicArray += (key -> count)
     }

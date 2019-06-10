@@ -166,6 +166,46 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     }
     return distribution(dynamicCosting.cost_Count(text1), passengers)
   }
+  override def tongHaoStaticOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[Path]],odMap:mutable.Map[String,String]): mutable.Map[Array[String],Double] ={
+    val ksp:util.List[Path] = allKsp(targetOd)
+    val passengers:Int = odMap(targetOd).toInt
+    val iter = ksp.iterator()
+    var text:mutable.Map[Iterator[String],Double] = mutable.Map()
+    var text1:mutable.Map[Array[String],Double] = mutable.Map()
+    while(iter.hasNext) {
+      val p = iter.next()
+      //      一条路径的站点构成
+      val nodesIter = p.getNodes.iterator()
+      //      println("费用:"  + p.getTotalCost)
+      text += (nodesIter.asScala -> p.getTotalCost)   //静态费用
+      //      println(text.toList)
+    }
+    for (key <- text.keys) {
+      val myArray = key.toArray
+      text1 += (myArray -> text.apply(key))
+    }
+    return distribution(text1, passengers)
+  }
+  override def tongHaoDynamicOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[Path]],odMap:mutable.Map[String,String]): mutable.Map[Array[String],Double] ={
+    val ksp:util.List[Path] = allKsp(targetOd)
+    val passengers:Int = odMap(targetOd).toInt
+    val iter = ksp.iterator()
+    var text:mutable.Map[Iterator[String],Double] = mutable.Map()
+    var text1:mutable.Map[Array[String],Double] = mutable.Map()
+    while(iter.hasNext) {
+      val p = iter.next()
+      //      一条路径的站点构成
+      val nodesIter = p.getNodes.iterator()
+      //      println("费用:"  + p.getTotalCost)
+      text += (nodesIter.asScala -> p.getTotalCost)   //静态费用
+      //      println(text.toList)
+    }
+    for (key <- text.keys) {
+      val myArray = key.toArray
+      text1 += (myArray -> text.apply(key))
+    }
+    return distribution(dynamicCosting.cost_Count(text1), passengers)
+  }
 
   override def odRegion(map: mutable.Map[Array[String], Double]): mutable.Map[String, Double] = {
     val odMap = scala.collection.mutable.Map[String, Double]()

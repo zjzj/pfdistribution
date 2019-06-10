@@ -1,21 +1,21 @@
 #kafka配置
 spring:
-  kafka:
-#    bootstrap-servers: 590b0a4e.nat123.cc:32818
-    bootstrap-servers: 10.2.132.41:9092 # 指定kafka 代理地址，可以多个
-    producer:
-      retries: 0
-      buffer-memory: 33554432  # 每次批量发送消息的数量
-      batch_size: 16384
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer # 指定消息key和消息体的编解码方式
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    consumer:
-      auto-offset-reset: earliest
-      enable-auto-commit: true
-      auto-commit-interval: PT15M # PT1M表示1分钟
-      group-id: test-consumer-group # 指定默认消费者group id
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#  kafka:
+##    bootstrap-servers: 590b0a4e.nat123.cc:32818
+#    bootstrap-servers: 10.2.132.41:9092 # 指定kafka 代理地址，可以多个
+#    producer:
+#      retries: 0
+#      buffer-memory: 33554432  # 每次批量发送消息的数量
+#      batch_size: 16384
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer # 指定消息key和消息体的编解码方式
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    consumer:
+#      auto-offset-reset: earliest
+#      enable-auto-commit: true
+#      auto-commit-interval: PT15M # PT1M表示1分钟
+#      group-id: test-consumer-group # 指定默认消费者group id
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   datasource:
     mysql:
       jdbc-url: jdbc:mysql://47.107.38.55:32768/dbgirl
@@ -23,9 +23,9 @@ spring:
       password: 123456
       driver-class-name: com.mysql.jdbc.Driver
     oracle:
-      jdbc-url: jdbc:oracle:thin:@localhost:1521:orcl
+      jdbc-url: jdbc:oracle:thin:@localhost:1521:myorcl
       username: system
-      password: orcl
+      password: password
       driver-class-name: oracle.jdbc.driver.OracleDriver
 server:
   port: 8888

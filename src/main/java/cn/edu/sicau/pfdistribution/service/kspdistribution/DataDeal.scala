@@ -1,7 +1,7 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution
 
-import cn.edu.sicau.pfdistribution.dao.mysqlsave.RegionSaveInterface
-import cn.edu.sicau.pfdistribution.service.kafka.sender.KafkaPfAllocationMessageSender
+//import cn.edu.sicau.pfdistribution.dao.mysqlsave.RegionSaveInterface
+//import cn.edu.sicau.pfdistribution.service.kafka.sender.KafkaPfAllocationMessageSender
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -9,24 +9,16 @@ import scala.collection.mutable
 
 
 @Service
-class DataDeal @Autowired()(val save:RegionSaveInterface){
-
-
-  @Autowired
-  val sender:KafkaPfAllocationMessageSender = null
-
-  def kspDistributionDataSave(data:mutable.Map[Array[String], Double])= {
-    for (key <- data.keys) {
-      var str: String = ""
-      for (i <- 0 to (key.length - 1)) {
+class DataDeal @Autowired()(val getOdList: GetOdList)extends Serializable {
+  def tongHaoKspDataSave(kspData:mutable.Map[Array[String], Double]): Unit ={
+    getOdList.deleteAllKspRegion()
+//    getOdList.createKspRegionTable()
+    for(key <- kspData.keys){
+      var str:String = key(0)
+      for (i <- 1 to (key.length - 1)) {
         str = str + "," + key(i)
       }
-      save.kspRegionAdd(str, data(key))
-    }
-  }
-  def intervalDataSave(data:mutable.Map[String, Double])= {
-    for (key <- data.keys) {
-      save.kspRegionAdd(key, data(key))
+        getOdList.kspRegionAdd(str,kspData(key).toInt)
     }
   }
 

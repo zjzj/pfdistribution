@@ -14,7 +14,7 @@ public class YxtReadDatas
 
     @Autowired
     @Qualifier("mysqlJdbcTemplate")
-    private JdbcTemplate jdbcTemplate;  //这个是系统自带的
+    private JdbcTemplate jdbcTemplate;
 
 
     //读入运行图基础数据
