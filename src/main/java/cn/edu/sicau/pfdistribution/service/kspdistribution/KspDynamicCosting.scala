@@ -4,19 +4,24 @@ import org.springframework.stereotype.Service
 
 import scala.collection.mutable
 import java.io._
-
-import cn.edu.sicau.pfdistribution.service.netrouter.JsonTransfer
+import scala.collection.JavaConverters._
+import cn.edu.sicau.pfdistribution.entity.{StationAndSectionPassengers, StationAndSectionRisk}
 import org.springframework.beans.factory.annotation.Autowired
 
 @Service
-class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val jsonTransfer:JsonTransfer)extends Serializable {
+class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val stationAndSectionPassengers:StationAndSectionPassengers)extends Serializable {
 
   def stationOperatingCosts(beforeSite: String, currentSite: String): Double = {
     val a = getParameter.getA()
     val b = getParameter.getB() //校正系数
+    val str=beforeSite+ " "+currentSite
     val seat = getParameter.getSeat() //列车座位数
     val max_p = getParameter.getMaxPassengers() //列车最大乘客数
-    val passengers = getParameter.intervalPassenger()//区间载客量
+    val mapPassengers:mutable.Map[String, java.util.List[String]]=stationAndSectionPassengers.getSectionP.asScala
+    val mapList=mapPassengers(str)
+    val s:String=mapList(0)
+    val passengers=s.toDouble//区间载客量
+    //val passengers = getParameter.intervalPassenger()
     var crowded_degree:Double = 0
     //拥挤度
     var cost:Double = 0
@@ -41,11 +46,10 @@ class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val jsonTrans
     具体计算预留
      */
     val perceived:Double=0
-    val map=jsonTransfer.stationDataAnalysis(currentSite)
+    val map:mutable.Map[String, java.util.List[String]]=stationAndSectionPassengers.getSectionP.asScala
     for(value <- map.values){
-      val crowded_degree=value.head.toDouble
-      val passenger = value.tail.head.toDouble
-      perceived= perceived+passenger*crowded_degree
+      val crowded_degree=value(0)
+      val passengers = value(1)
     }
     val inPlatformCost = 5*60 //进站站台感知费用
     return inPlatformCost
@@ -55,14 +59,15 @@ class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val jsonTrans
     var DynamicArray:mutable.Map[Array[String],Double] = mutable.Map()
     for (key <- kspArray.keys) {
       var count:Double = 0
-      var cou:Int=0
+      var n:Int=1
       //判断路径有无换乘和换乘次数
-      for (j<- 0 to key.length-3){
+/*      for (j<- 0 to key.length-3){
         if(key(j)!= key(j+1) && key(j+1)==key(j+2))
-          cou=cou+1
-      }
+          n=n+1
+      }*/
+      //计算总费用
       for (i <- 0 to (key.length - 2)) {
-        count += stationOperatingCosts(key(i),key(i+1)) + cou*transferFee() +perceivedCosts(key(i+1))
+        count += stationOperatingCosts(key(i),key(i+1)) + n*transferFee() +perceivedCosts(key(i+1))
       }
       DynamicArray += (key -> count)
     }

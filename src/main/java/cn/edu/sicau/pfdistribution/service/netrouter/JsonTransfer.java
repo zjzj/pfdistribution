@@ -1,6 +1,7 @@
 package cn.edu.sicau.pfdistribution.service.netrouter;
 
-import cn.edu.sicau.pfdistribution.entity.StationAndSection;
+import cn.edu.sicau.pfdistribution.entity.StationAndSectionPassengers;
+import cn.edu.sicau.pfdistribution.entity.StationAndSectionRisk;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -9,38 +10,43 @@ import java.util.*;
 
 public class JsonTransfer {
 
-    public Map<String,List<String>> stationDataAnalysis(String data) throws JSONException {
+    public void stationDataAnalysis(String data) throws JSONException {
         JSONObject jsonObject = new JSONObject(data);
-        Map<String,List<String>> DataMap = new HashMap<>();
-        String record_time = jsonObject.optString("Recordtime");
+//        String record_time = jsonObject.optString("Recordtime");
         JSONArray station_loads = jsonObject.getJSONArray("Station_loads");
         JSONArray Section_loads = jsonObject.getJSONArray("Section_loads");
+        Map<String, List<String>>  stationP= new HashMap<>();
+        Map<String, List<String>>  sectionP= new HashMap<>();
         for(int i = 0;i<station_loads.length();i++){
-            List<String>  stationProperties= new ArrayList<>();
+            List<String>  stationPassengers= new ArrayList<>();
             String str = station_loads.getString(i);
             JSONObject s = new JSONObject(str);
-           /* System.out.println(s.getString("stationid"));*/
-            stationProperties.add(s.getString("crowding_rate"));
-            stationProperties.add(s.getString("persengers"));
-            stationProperties.add(s.getString("avgvolume"));
-            stationProperties.add(s.getString("outvolume"));
-            stationProperties.add(s.getString("involume"));
-            DataMap.put(s.getString("stationid"),stationProperties);
+//            stationPassengers.add(s.getString("stationid"));
+            stationPassengers.add(s.getString("crowding_rate"));
+            stationPassengers.add(s.getString("persengers"));
+            stationPassengers.add(s.getString("avgvolume"));
+            stationPassengers.add(s.getString("outvolume"));
+            stationPassengers.add(s.getString("involume"));
+            stationP.put(s.getString("stationid"),stationPassengers);
         }
         for(int i = 0;i<Section_loads.length();i++){
-            List<String>  SectionProperties= new ArrayList<>();
+            List<String>  sectionPassengers= new ArrayList<>();
             String str = station_loads.getString(i);
             JSONObject s = new JSONObject(str);
-           /* System.out.println(s.getString("startid"));*/
-            String sectionId = s.getString("startid") + " " +s.getString("endid");
-            SectionProperties.add(s.getString("utilization_rate"));
-            SectionProperties.add(s.getString("persengers"));
-            SectionProperties.add(s.getString("volume"));
-            DataMap.put(sectionId,SectionProperties);
+            /*sectionPassengers.add(s.getString("startid"));
+            sectionPassengers.add(s.getString("startid"));*/
+            sectionPassengers.add(s.getString("utilization_rate"));
+            sectionPassengers.add(s.getString("persengers"));
+            sectionPassengers.add(s.getString("volume"));
+            sectionP.put(s.getString("startid")+" "+s.getString("startid"),sectionPassengers);
         }
-        return DataMap;
+        new StationAndSectionPassengers(stationP,sectionP);
     }
-    public StationAndSection riskDataAnalysis(String data) throws JSONException {
+
+
+
+
+    public void riskDataAnalysis(String data) throws JSONException {
         String data1 = data.substring(1);
         String data2 = "{data:"+ data1;
         JSONObject jsonObject = new JSONObject(data2);
@@ -66,7 +72,6 @@ public class JsonTransfer {
                 sectionList.add(message);
             }
         }
-        StationAndSection stationAndSection = new StationAndSection(stationList,sectionList);
-        return stationAndSection;
+        new StationAndSectionRisk(stationList,sectionList);
     }
 }
