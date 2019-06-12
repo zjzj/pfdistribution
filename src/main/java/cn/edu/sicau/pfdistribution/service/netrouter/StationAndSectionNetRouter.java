@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import scala.Tuple2;
 
+import java.io.*;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -36,20 +37,44 @@ public class StationAndSectionNetRouter {
     private MainDistribution distribution;
 
 
-    private void loadJNILibDynamically() {
-        try {
-            /*System.out.println(System.getProperty("java.library.path"));*/
-            System.setProperty("java.library.path", System.getProperty("java.library.path")
-                    + ".\\bin\\NetRouterCppCient.dll");
-            Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
-            fieldSysPath.setAccessible(true);
-            fieldSysPath.set(null, null);
+    private synchronized static void loadJNILibDynamically(String libName) throws IOException {
+        String systemType = System.getProperty("os.name");
+        String libExtension = (systemType.toLowerCase().indexOf("win")!=-1) ? ".dll" : ".so";
 
-            System.loadLibrary("NetRouterCppClient");
-//            System.load("\\\\tsclient\\C\\Program Files\\Java\\jdk1.8.0_201\\bin\\NetRouterCppClient.dll");
-        } catch (Exception e) {
-            // do nothing for exception
+        String libFullName = libName + libExtension;
+
+        String nativeTempDir = System.getProperty("java.io.tmpdir");
+
+        InputStream in = null;
+        BufferedInputStream reader = null;
+        FileOutputStream writer = null;
+
+        File extractedLibFile = new File(nativeTempDir+File.separator+libFullName);
+        if(!extractedLibFile.exists()){
+            try {
+                in = StationAndSectionNetRouter.class.getResourceAsStream("/resource/"+libFullName);
+                if(in==null)
+                    in =  StationAndSectionNetRouter.class.getResourceAsStream(libFullName);
+                StationAndSectionNetRouter.class.getResource(libFullName);
+                reader = new BufferedInputStream(in);
+                writer = new FileOutputStream(extractedLibFile);
+
+                byte[] buffer = new byte[1024];
+
+                while (reader.read(buffer) > 0){
+                    writer.write(buffer);
+                    buffer = new byte[1024];
+                }
+            } catch (IOException e){
+                e.printStackTrace();
+            } finally {
+                if(in!=null)
+                    in.close();
+                if(writer!=null)
+                    writer.close();
+            }
         }
+        System.load(extractedLibFile.toString());
     }
 
     private boolean SendData(NetRouterClient netClient, List<Address> f_list, String data) {
@@ -65,7 +90,7 @@ public class StationAndSectionNetRouter {
 
     @Async
     public void receiver() throws Exception {
-        loadJNILibDynamically();
+        loadJNILibDynamically("NetRouterClient");
         Address localaddr = new Address((byte) 8, (byte) 1, (short) 2, (byte) 2, (short) 6);
         List<Address> destAddrs = new LinkedList<Address>();
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 4, (byte) 1, (short) 6);

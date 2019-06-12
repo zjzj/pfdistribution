@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import scala.Tuple2;
 
 
+import java.io.*;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,21 +35,44 @@ public class IntervalDistributionNetRouter {
 
     private Gson gson = new GsonBuilder().create();
 
-    private void loadJNILibDynamically() {
-        try {
-            System.out.println(System.getProperty("java.library.path"));
-            System.setProperty("java.library.path", System.getProperty("java.library.path")
-                    + ".\\bin\\NetRouterCppCient.dll");
+    private synchronized static void loadJNILibDynamically(String libName) throws IOException {
+        String systemType = System.getProperty("os.name");
+        String libExtension = (systemType.toLowerCase().indexOf("win")!=-1) ? ".dll" : ".so";
 
-            Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
-            fieldSysPath.setAccessible(true);
-            fieldSysPath.set(null, null);
+        String libFullName = libName + libExtension;
 
-            System.loadLibrary("NetRouterCppClient");
-//            System.load("\\\\tsclient\\C\\Program Files\\Java\\jdk1.8.0_201\\bin\\NetRouterCppClient.dll");
-        } catch (Exception e) {
-            // do nothing for exception
+        String nativeTempDir = System.getProperty("java.io.tmpdir");
+
+        InputStream in = null;
+        BufferedInputStream reader = null;
+        FileOutputStream writer = null;
+
+        File extractedLibFile = new File(nativeTempDir+File.separator+libFullName);
+        if(!extractedLibFile.exists()){
+            try {
+                in = IntervalDistributionNetRouter.class.getResourceAsStream("/resource/"+libFullName);
+                if(in==null)
+                    in =  IntervalDistributionNetRouter.class.getResourceAsStream(libFullName);
+                IntervalDistributionNetRouter.class.getResource(libFullName);
+                reader = new BufferedInputStream(in);
+                writer = new FileOutputStream(extractedLibFile);
+
+                byte[] buffer = new byte[1024];
+
+                while (reader.read(buffer) > 0){
+                    writer.write(buffer);
+                    buffer = new byte[1024];
+                }
+            } catch (IOException e){
+                e.printStackTrace();
+            } finally {
+                if(in!=null)
+                    in.close();
+                if(writer!=null)
+                    writer.close();
+            }
         }
+        System.load(extractedLibFile.toString());
     }
 
     private boolean SendData(NetRouterClient netClient, List<Address> f_list, Map<String, String> data) {
@@ -67,7 +91,7 @@ public class IntervalDistributionNetRouter {
     public void receiver() throws Exception {
         /*LibLoader libLoade = new LibLoader();
         libLoade.loadLib("NetRouterCppClient.dll");*/
-        loadJNILibDynamically();
+        loadJNILibDynamically("NetRouterClient");
         Address localaddr = new Address((byte) 8, (byte) 1, (short) 2, (byte) 2, (short) 6);
         List<Address> destAddrs = new LinkedList<Address>();
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 2, (byte) 1, (short) 6);

@@ -9,7 +9,6 @@ public class RoadDistributionController {
     @Autowired
 
     public ResultMsg getRoadDistribution(){
-
         return null;
     }
 }
