@@ -44,13 +44,14 @@ public class IntervalDistributionNetRouter {
         String nativeTempDir = System.getProperty("java.io.tmpdir");
 
         InputStream in = null;
+        
         BufferedInputStream reader = null;
         FileOutputStream writer = null;
 
         File extractedLibFile = new File(nativeTempDir+File.separator+libFullName);
         if(!extractedLibFile.exists()){
             try {
-                in = IntervalDistributionNetRouter.class.getResourceAsStream("/resource/"+libFullName);
+                in = IntervalDistributionNetRouter.class.getResourceAsStream(".\\resource\\"+libFullName);
                 if(in==null)
                     in =  IntervalDistributionNetRouter.class.getResourceAsStream(libFullName);
                 IntervalDistributionNetRouter.class.getResource(libFullName);
@@ -91,7 +92,7 @@ public class IntervalDistributionNetRouter {
     public void receiver() throws Exception {
         /*LibLoader libLoade = new LibLoader();
         libLoade.loadLib("NetRouterCppClient.dll");*/
-        loadJNILibDynamically("NetRouterClient");
+        loadJNILibDynamically("NetRouterCppClient");
         Address localaddr = new Address((byte) 8, (byte) 1, (short) 2, (byte) 2, (short) 6);
         List<Address> destAddrs = new LinkedList<Address>();
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 2, (byte) 1, (short) 6);

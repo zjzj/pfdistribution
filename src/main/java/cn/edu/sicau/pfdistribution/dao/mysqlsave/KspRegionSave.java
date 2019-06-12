@@ -1,10 +1,9 @@
 package cn.edu.sicau.pfdistribution.dao.mysqlsave;
-
 import lombok.Data;
 
 @Data
-public class OdRegion {
-    public String kspregion;
+public class KspRegionSave {
+    public String route;
     public double passenger;
 
 }

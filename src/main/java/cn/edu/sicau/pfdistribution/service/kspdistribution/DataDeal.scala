@@ -10,7 +10,7 @@ import scala.collection.mutable
 
 @Service
 class DataDeal @Autowired()(val getOdList: GetOdList)extends Serializable {
-  def tongHaoKspDataSave(kspData:mutable.Map[Array[String], Double]): Unit ={
+/*  def tongHaoKspDataSave(kspData:mutable.Map[Array[String], Double]): Unit ={
     getOdList.deleteAllKspRegion()
 //    getOdList.createKspRegionTable()
     for(key <- kspData.keys){
@@ -20,6 +20,6 @@ class DataDeal @Autowired()(val getOdList: GetOdList)extends Serializable {
       }
         getOdList.kspRegionAdd(str,kspData(key).toInt)
     }
-  }
+  }*/ //od矩阵处理测试
 
 }

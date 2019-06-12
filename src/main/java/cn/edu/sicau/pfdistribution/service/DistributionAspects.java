@@ -1,6 +1,5 @@
 package cn.edu.sicau.pfdistribution.service;
 
-import cn.edu.sicau.pfdistribution.service.kafka.sender.KafkaPfAllocationMessageSender;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,6 @@ import java.util.Arrays;
 @Aspect
 public class DistributionAspects {
 
-    @Autowired
-    KafkaPfAllocationMessageSender sender;
-
     @Pointcut("execution(public * cn.edu.sicau.pfdistribution.service.kspdistribution.MainDistribution..*.*(..))")
     public void interceptor(){}
 
@@ -27,9 +23,6 @@ public class DistributionAspects {
     @AfterReturning(value = "interceptor()", returning = "result")
     public void KafkaInterceptor(JoinPoint joinPoint, Object result) {
         System.out.println("distribution test+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        sender.send("yourkafka",result);
-//        System.out.println(joinPoint.getSignature().getName() + "正常结束，结果是: {" + result + "}");
-
     }
 
     @AfterReturning(value = "interceptor()", returning = "result")

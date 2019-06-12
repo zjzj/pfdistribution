@@ -39,7 +39,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
       return mapTransfer(intervalResultWithTimeResult(allKsp,odMapDynamicTest,time.toInt)).asJava
   }
 
-  def triggerTask(args: Map[String,String]): java.util.Map[String, String]= {
+/*  def triggerTask(args: Map[String,String]): java.util.Map[String, String]= {
     val command:String = args("command")
     val time  = args("timeInterval")
 //
@@ -54,7 +54,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     }else
       tongHaoKspDynamicDistributionResult(allKspMap,odMap)
       return Map("动态路径分配测试"->"成功").asJava
-  }
+  }*/
 
   //rest接口调用
   def getDistribution(od:String):Object = {
@@ -85,7 +85,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     //od对，起点与终点与用空格连接
     val odDistributionRdd = rdd.map(String => calBase.tongHaoStaticOdDistributionResult(String,allKspMap,odMap))   //各个OD的路径分配结果
     val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合
-    dataDeal.tongHaoKspDataSave(rddIntegration)
+    /*dataDeal.tongHaoKspDataSave(rddIntegration)*/
   }
 
   def tongHaoKspDynamicDistributionResult(allKspMap:mutable.Map[String, util.List[Path]],odMap:mutable.Map[String,String])={
@@ -94,7 +94,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     //od对，起点与终点与用空格连接
     val odDistributionRdd = rdd.map(String => calBase.tongHaoDynamicOdDistributionResult(String,allKspMap,odMap))   //各个OD的路径分配结果
     val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合
-    dataDeal.tongHaoKspDataSave(rddIntegration)
+    /*dataDeal.tongHaoKspDataSave(rddIntegration)*/
   }
 
   //返回区间断面的分配结果（静态）

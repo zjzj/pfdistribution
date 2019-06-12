@@ -19,7 +19,7 @@ public class GetOdList implements Serializable {
         Map<String, Integer> strMap=odData.SelectOD(inTime,time);
         return strMap;
     }
-    //路径分配结果操作
+/*    //路径分配结果操作
     public void createKspRegionTable()
     {
         odData.createKspRegionTable();
@@ -33,5 +33,5 @@ public class GetOdList implements Serializable {
     //将仿真得到的OD结果从oracle拉取出来并组成需要格式
     public List<String> odFromOracleToList(){
         return odData.odFromOracleToList();
-    }
+    }*/
 }

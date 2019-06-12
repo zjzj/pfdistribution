@@ -73,7 +73,7 @@ public class RiskLevelNetRouter {
 
     @Async
     public void receiver() throws Exception {
-        loadJNILibDynamically("NetRouterClient");
+        loadJNILibDynamically("NetRouterCppClient");
         Address localaddr = new Address((byte) 8, (byte) 1, (short) 2, (byte) 2, (short) 6);
         List<Address> destAddrs = new LinkedList<Address>();
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 1, (byte) 1, (short) 6);

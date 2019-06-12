@@ -52,7 +52,7 @@ public class StationAndSectionNetRouter {
         File extractedLibFile = new File(nativeTempDir+File.separator+libFullName);
         if(!extractedLibFile.exists()){
             try {
-                in = StationAndSectionNetRouter.class.getResourceAsStream("/resource/"+libFullName);
+                in = StationAndSectionNetRouter.class.getResourceAsStream(".\\resource\\"+libFullName);
                 if(in==null)
                     in =  StationAndSectionNetRouter.class.getResourceAsStream(libFullName);
                 StationAndSectionNetRouter.class.getResource(libFullName);
@@ -90,7 +90,7 @@ public class StationAndSectionNetRouter {
 
     @Async
     public void receiver() throws Exception {
-        loadJNILibDynamically("NetRouterClient");
+        loadJNILibDynamically("NetRouterCppClient");
         Address localaddr = new Address((byte) 8, (byte) 1, (short) 2, (byte) 2, (short) 6);
         List<Address> destAddrs = new LinkedList<Address>();
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 4, (byte) 1, (short) 6);
@@ -138,7 +138,7 @@ public class StationAndSectionNetRouter {
                             }
                             final scala.collection.Seq<Tuple2<String, String>> seq = scala.collection.JavaConverters.asScalaBufferConverter(list).asScala().toSeq();
                             scala.collection.immutable.Map<String, String> abc = (scala.collection.immutable.Map<String, String>) scala.collection.immutable.Map$.MODULE$.apply(seq);
-                            distribution.triggerTask(abc);
+                            /*distribution.triggerTask(abc);*/
                             String back = "{'time':'2019/5/30 15:54:00','staion_distribution':[{'path':'三亚湾-2-民心佳园-2-重庆北站北广场-2-重庆北站南广场-o-重庆北站南广场-2-龙头寺公园-2-红土地','passengers':'2'},{'path':'空港广场-2-双凤桥-2-碧津-2-双龙-2-回兴-2-长福路-2-翠云-2-园博园-2-鸳鸯-2-金童路-2-金渝','passengers':'5'}]}";
                             log.info("数据接受成功" + back);
                             SendData(netRouterClient, destAddrs, back);

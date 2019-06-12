@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 @Service
 class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val stationAndSectionPassengers:StationAndSectionPassengers)extends Serializable {
 
+
   def stationOperatingCosts(beforeSite: String, currentSite: String): Double = {
     val a = getParameter.getA()
     val b = getParameter.getB() //校正系数
@@ -18,8 +19,8 @@ class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val stationAn
     val seat = getParameter.getSeat() //列车座位数
     val max_p = getParameter.getMaxPassengers() //列车最大乘客数
     val mapPassengers:mutable.Map[String, java.util.List[String]]=stationAndSectionPassengers.getSectionP.asScala
-    val mapList=mapPassengers(str)
-    val s:String=mapList(0)
+    val mapList:mutable.Buffer[String]=mapPassengers(str).asScala
+    val s:String=mapList.head
     val passengers=s.toDouble//区间载客量
     //val passengers = getParameter.intervalPassenger()
     var crowded_degree:Double = 0
@@ -46,11 +47,10 @@ class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val stationAn
     具体计算预留
      */
     val perceived:Double=0
-    val map:mutable.Map[String, java.util.List[String]]=stationAndSectionPassengers.getSectionP.asScala
-    for(value <- map.values){
-      val crowded_degree=value(0)
-      val passengers = value(1)
-    }
+    val map:mutable.Map[String, java.util.List[String]]=stationAndSectionPassengers.getStationP.asScala
+    val mapList:mutable.Buffer[String]=map(currentSite).asScala
+    val crowded_degree=mapList.head
+    val passengers = mapList.tail.head
     val inPlatformCost = 5*60 //进站站台感知费用
     return inPlatformCost
   }

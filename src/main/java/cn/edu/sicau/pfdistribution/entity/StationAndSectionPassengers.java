@@ -1,8 +1,10 @@
 package cn.edu.sicau.pfdistribution.entity;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Map;
-
+@Service
 public class StationAndSectionPassengers {
     private Map<String, List<String>> stationP;
     private Map<String, List<String>> sectionP;
