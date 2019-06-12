@@ -44,16 +44,22 @@ public class IntervalDistributionNetRouter {
         String nativeTempDir = System.getProperty("java.io.tmpdir");
 
         InputStream in = null;
-        
+
         BufferedInputStream reader = null;
         FileOutputStream writer = null;
 
         File extractedLibFile = new File(nativeTempDir+File.separator+libFullName);
-        if(!extractedLibFile.exists()){
+        if(extractedLibFile.exists()){
             try {
-                in = IntervalDistributionNetRouter.class.getResourceAsStream(".\\resource\\"+libFullName);
+                in = IntervalDistributionNetRouter.class.getResourceAsStream(libFullName);
                 if(in==null)
-                    in =  IntervalDistributionNetRouter.class.getResourceAsStream(libFullName);
+                    in =  IntervalDistributionNetRouter.class.getResourceAsStream("/"+libFullName);
+                if(in==null)
+                    in =  IntervalDistributionNetRouter.class.getResourceAsStream("./"+libFullName);
+                if(in==null)
+                    in =  IntervalDistributionNetRouter.class.getResourceAsStream(".\\"+libFullName);
+                if(in==null)
+                    in =  IntervalDistributionNetRouter.class.getResourceAsStream("../"+libFullName);
                 IntervalDistributionNetRouter.class.getResource(libFullName);
                 reader = new BufferedInputStream(in);
                 writer = new FileOutputStream(extractedLibFile);

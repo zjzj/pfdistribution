@@ -51,62 +51,24 @@
   Client1 try connecting to NetRouter.
 2019-06-12 21:08:11.117 --- 
   Client1 re clear message sender queue.
-2019-06-12 21:19:24.304 --- 
+2019-06-12 21:20:39.320 --- 
   Read configuration from ./config/Configure.xml.
-2019-06-12 21:19:24.609 --- 
+2019-06-12 21:20:39.320 --- 
   NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
-2019-06-12 21:19:24.609 --- 
+2019-06-12 21:20:39.320 --- 
   ip1 = 10.2.55.51 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
-2019-06-12 21:19:24.610 --- 
+2019-06-12 21:20:39.320 --- 
   bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
-2019-06-12 21:19:24.610 --- 
+2019-06-12 21:20:39.320 --- 
   Condition info : 
  													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
-2019-06-12 21:19:24.611 --- 
+2019-06-12 21:20:39.321 --- 
   Initializing done.
-2019-06-12 21:19:24.611 --- 
+2019-06-12 21:20:39.321 --- 
   Client1 Message Sender is in thread_waiting state.
-2019-06-12 21:19:24.611 --- 
+2019-06-12 21:20:39.321 --- 
   Client2 Message Sender is in thread_waiting state.
-2019-06-12 21:19:24.611 --- 
+2019-06-12 21:20:39.321 --- 
   Client1 Message Receiver is in thread_waiting state.
-2019-06-12 21:19:24.611 --- 
+2019-06-12 21:20:39.321 --- 
   Client2 Message Receiver is in thread_waiting state.
-2019-06-12 21:19:24.712 --- 
-  Client1 try connecting to NetRouter.
-2019-06-12 21:19:24.712 --- 
-  Client1 re clear message sender queue.
-2019-06-12 21:19:26.735 --- 
-  Connecting to NetRouter fails, TTransportException exception:open() timed out
-2019-06-12 21:19:26.736 --- 
-  Client2 try connecting to NetRouter.
-2019-06-12 21:19:26.736 --- 
-  Client2 re clear message sender queue.
-2019-06-12 21:19:28.736 --- 
-  Connecting to NetRouter fails, TTransportException exception:open() timed out
-2019-06-12 21:19:29.039 --- 
-  Exceed expected start time, start fails.
-2019-06-12 21:19:29.150 --- 
-  Client1 try connecting to NetRouter.
-2019-06-12 21:19:29.150 --- 
-  Client1 re clear message sender queue.
-2019-06-12 21:19:31.152 --- 
-  Connecting to NetRouter fails, TTransportException exception:open() timed out
-2019-06-12 21:19:31.152 --- 
-  Client2 try connecting to NetRouter.
-2019-06-12 21:19:31.152 --- 
-  Client2 re clear message sender queue.
-2019-06-12 21:19:33.153 --- 
-  Connecting to NetRouter fails, TTransportException exception:open() timed out
-2019-06-12 21:19:34.058 --- 
-  Exceed expected start time, start fails.
-2019-06-12 21:19:34.170 --- 
-  Client1 try connecting to NetRouter.
-2019-06-12 21:19:34.170 --- 
-  Client1 re clear message sender queue.
-2019-06-12 21:19:36.172 --- 
-  Connecting to NetRouter fails, TTransportException exception:open() timed out
-2019-06-12 21:19:36.172 --- 
-  Client2 try connecting to NetRouter.
-2019-06-12 21:19:36.172 --- 
-  Client2 re clear message sender queue.
