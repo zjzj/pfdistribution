@@ -120,13 +120,13 @@ public class StationAndSectionNetRouter {
                 RecvMessage recvMessage = new RecvMessage();
                 if (netRouterClient.receiveBlockMessage(recvMessage)) {
                     String a = recvMessage.getMessage();
+                    log.info("从NetRouter读取数据" );
                     try {
                         if (recvMessage != null) {
-                            Map<String, List<String>> data;
                             JsonTransfer jsonTransfer = new JsonTransfer();
-                            data = jsonTransfer.stationDataAnalysis(recvMessage.getMessage());
-                            log.info("从NetRouter读取数据" + data);
+                            Boolean data = jsonTransfer.stationDataAnalysis(recvMessage.getMessage());
                             log.info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                            log.info("数据处理正常" );
                             Map<String, String> message = new HashMap<>();
                             message.put("command", "static");
                             message.put("startTime", "2018-09-01 09:00:19");
