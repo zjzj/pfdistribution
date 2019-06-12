@@ -14,13 +14,6 @@ public class KSPUtil{
     transient
     private List<Edge>edges;//构建路网图的边
     private List<Edge>abadonEdges;
-
-//    public List<Path> computeDynamicODPath(String source, String target, List<Edge>abandonEdges, int k){
-//        Eppstein eppsteinAlgorithm = new Eppstein();
-//        graph.removeEdges(abandonEdges);
-//        List<Path>ksp = eppsteinAlgorithm.ksp(graph, source, target, k);
-//        return ksp;
-//    }
     public List<Path> computeODPath(String source, String target, int k){
         Eppstein eppsteinAlgorithm = new Eppstein();
         List<Path>ksp = eppsteinAlgorithm.ksp(graph, source, target, k);

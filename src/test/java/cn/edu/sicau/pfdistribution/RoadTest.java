@@ -41,12 +41,14 @@ public class RoadTest {
         abadonEdge.setToNode("人和");
         abadonEdge.setWeight(1.0);
         abandonEdges.add(abadonEdge);
+
         List<Path>paths = null;
         paths = kService.computeStatic("璧山", "较场口");
-        System.out.println("长度:" + paths.size());
+        System.out.println("无废弃区间========================");
         System.out.println(paths);
-        paths = kService.computeStatic("璧山", "较场口", abandonEdges);
-        System.out.println("长度:" + paths.size());
+//===============================================================
+        paths = kService.computeStatic("璧山", "较场口");
+        System.out.println("有废弃区间========================");
         System.out.println(paths);
     }
 }

@@ -1,6 +1,7 @@
 package cn.edu.sicau.pfdistribution.dao.Impl;
 
 import cn.edu.sicau.pfdistribution.dao.mysqlsave.RoadDistributionDao;
+import cn.edu.sicau.pfdistribution.entity.Section;
 import cn.edu.sicau.pfdistribution.entity.SimpleStation;
 import cn.edu.sicau.pfdistribution.entity.Station;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
@@ -49,10 +50,10 @@ public class RoadDistributionDaoImpl implements RoadDistributionDao {
      * @return
      */
     @Override
-    public List<Edge> getAllSection() {
+    public List<Section> getAllSection() {
         String sql = "SELECT section.CZ1_NAME fromNode, section.CZ2_NAME toNode, section.QJ_LENGTH weight FROM dic_section section";
-        RowMapper<Edge>rowMapper = new BeanPropertyRowMapper<Edge>(Edge.class);
-        List<Edge>sections = jdbcTemplate.query(sql, rowMapper);
+        RowMapper<Section>rowMapper = new BeanPropertyRowMapper<Section>(Section.class);
+        List<Section>sections = jdbcTemplate.query(sql, rowMapper);
         return sections;
     }
 }

@@ -1,4 +1,4 @@
-package cn.edu.sicau.pfdistribution.service;
+package cn.edu.sicau.pfdistribution.service.road;
 
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SectionCheckServiceImpl implements PathCheckService{
+public class PathCheckServiceImpl implements PathCheckService{
 
     /**
      * 返回false表示路径不通
