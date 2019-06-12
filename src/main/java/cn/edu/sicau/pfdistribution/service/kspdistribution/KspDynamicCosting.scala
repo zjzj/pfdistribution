@@ -9,8 +9,7 @@ import cn.edu.sicau.pfdistribution.entity.{StationAndSectionPassengers, StationA
 import org.springframework.beans.factory.annotation.Autowired
 
 @Service
-class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val stationAndSectionPassengers:StationAndSectionPassengers)extends Serializable {
-
+class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val stationAndSectionPassengers:StationAndSectionPassengers,val getLineID:GetLineID)extends Serializable {
 
   def stationOperatingCosts(beforeSite: String, currentSite: String): Double = {
     val a = getParameter.getA()
@@ -46,8 +45,8 @@ class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val stationAn
     /*
     具体计算预留
      */
-    val perceived:Double=0
-    val map:mutable.Map[String, java.util.List[String]]=stationAndSectionPassengers.getStationP.asScala
+    //val perceived:Double=0
+    val map:mutable.Map[String, java.util.List[String]]=stationAndSectionPassengers.getSectionP.asScala
     val mapList:mutable.Buffer[String]=map(currentSite).asScala
     val crowded_degree=mapList.head
     val passengers = mapList.tail.head
@@ -61,10 +60,14 @@ class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val stationAn
       var count:Double = 0
       var n:Int=1
       //判断路径有无换乘和换乘次数
-/*      for (j<- 0 to key.length-3){
-        if(key(j)!= key(j+1) && key(j+1)==key(j+2))
+      val CZMap:mutable.Map[Integer, Integer]=getLineID.GetCZ_ID().asScala
+      for (i <- 0 to (key.length - 2)) {
+        val a=key(i).toInt
+        val b=key(i+1).toInt
+        if(CZMap(a)!= CZMap(b)){
           n=n+1
-      }*/
+        }
+      }
       //计算总费用
       for (i <- 0 to (key.length - 2)) {
         count += stationOperatingCosts(key(i),key(i+1)) + n*transferFee() +perceivedCosts(key(i+1))

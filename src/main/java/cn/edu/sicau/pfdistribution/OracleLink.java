@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.Map;
 
 @Service
-//@SpringBootTest(classes = SpringApplication.class)
 public class OracleLink {
 
     @Autowired
