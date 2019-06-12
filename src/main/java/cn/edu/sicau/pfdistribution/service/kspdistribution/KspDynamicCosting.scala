@@ -61,9 +61,9 @@ class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val stationAn
       var n:Int=1
       //判断路径有无换乘和换乘次数
       val CZMap:mutable.Map[Integer, Integer]=getLineID.GetCZ_ID().asScala
-      for (i <- 0 to (key.length - 2)) {
+      for (i <- 0 to (key.length - 3)) {
         val a=key(i).toInt
-        val b=key(i+1).toInt
+        val b=key(i+2).toInt
         if(CZMap(a)!= CZMap(b)){
           n=n+1
         }

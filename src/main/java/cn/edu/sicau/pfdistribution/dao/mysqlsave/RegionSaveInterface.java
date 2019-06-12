@@ -12,4 +12,6 @@ public interface RegionSaveInterface {
     public void odRegion(String kspregion,double passenger);
     //查询出车站所在的线路ID
     public Map<Integer, Integer> SelectLineId();
+    //查询车站ID对应的车站名
+    public String selectStationName(Integer id);
 }

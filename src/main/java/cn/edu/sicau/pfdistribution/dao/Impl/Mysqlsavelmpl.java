@@ -46,4 +46,11 @@ public class  Mysqlsavelmpl implements RegionSaveInterface {
         }
         return LineId;
     }
+    public String selectStationName(Integer id){
+        Map stationNameMap=jdbcTemplate.queryForMap("SELECT CZ_NAME\n" +
+                "from dic_linestation\n" +
+                "WHERE CZ_ID="+id+"");
+        String stationName= (String) stationNameMap.get("CZ_NAME");
+        return stationName;
+    }
 }
