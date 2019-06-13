@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 public class NetRouterController {
     @Autowired
     private IntervalDistributionNetRouter intervalDistributionNetRouter;
+
     @Autowired
     private RiskLevelNetRouter riskLevelNetRouter;
     @Autowired

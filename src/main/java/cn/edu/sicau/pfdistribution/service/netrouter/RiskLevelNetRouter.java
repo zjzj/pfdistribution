@@ -90,7 +90,7 @@ public class RiskLevelNetRouter {
 
 
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.2.55.51", 9003, "10.2.55.51", 9005, localaddr, reginfo);
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.0.140.213", 9003, "10.2.55.51", 9005, localaddr, reginfo);
         while (!netRouterClient.start()) {
             System.out.println("RiskLevelNetRouter Start fails.");
             Thread.sleep(10);

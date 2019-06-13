@@ -28,11 +28,11 @@ public class RoadTest {
             System.out.println(stations.get(i));
         }
     }
-    @Test
+/*    @Test
     public void sectionTest(){
         List<Edge>sections = roadDistributionDao.getAllSection();
         System.out.println(sections);
-    }
+    }*/
     @Test
     public void kspTest(){
         List<Edge>abandonEdges = new ArrayList<>();
@@ -45,10 +45,6 @@ public class RoadTest {
         List<Path>paths = null;
         paths = kService.computeStatic("璧山", "较场口");
         System.out.println("无废弃区间========================");
-        System.out.println(paths);
-//===============================================================
-        paths = kService.computeStatic("璧山", "较场口");
-        System.out.println("有废弃区间========================");
         System.out.println(paths);
     }
 }

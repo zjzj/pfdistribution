@@ -72,3 +72,715 @@
   Client1 Message Receiver is in thread_waiting state.
 2019-06-12 21:20:39.321 --- 
   Client2 Message Receiver is in thread_waiting state.
+2019-06-13 14:27:01.165 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 14:27:01.215 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 14:27:01.215 --- 
+  ip1 = 10.2.55.51 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 14:27:01.215 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 14:27:01.215 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-13 14:27:01.216 --- 
+  Initializing done.
+2019-06-13 14:27:01.217 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 14:27:01.217 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 14:27:01.217 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 14:27:01.217 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 14:27:01.317 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 14:27:01.317 --- 
+  Client1 re clear message sender queue.
+2019-06-13 14:27:03.419 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 14:27:03.419 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 14:27:03.419 --- 
+  Client2 re clear message sender queue.
+2019-06-13 14:27:05.420 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 14:27:06.022 --- 
+  Exceed expected start time, start fails.
+2019-06-13 14:27:06.133 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 14:27:06.133 --- 
+  Client1 re clear message sender queue.
+2019-06-13 14:27:08.134 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 14:27:08.134 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 14:27:08.134 --- 
+  Client2 re clear message sender queue.
+2019-06-13 14:27:10.135 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 14:31:55.006 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 14:31:55.006 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 14:31:55.006 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 14:31:55.006 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 14:31:55.006 --- 
+  Condition info : 
+<in_condition>
+<rec>
+<protocol418_condition>
+<type_func>0x01,0x01</type_func>
+<type_func>0x01,0x01</type_func>
+</protocol418_condition>
+</rec>
+</in_condition>
+
+2019-06-13 14:31:55.006 --- 
+  Initializing done.
+2019-06-13 14:31:55.006 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 14:31:55.007 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 14:31:55.007 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 14:31:55.007 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 14:31:55.106 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 14:31:55.106 --- 
+  Client1 re clear message sender queue.
+2019-06-13 14:31:55.106 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 14:31:55.106 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 14:31:55.106 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 14:31:55.106 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 14:31:55.141 --- 
+  Receive a REGISTER message.
+2019-06-13 14:31:55.141 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 14:31:55.141 --- 
+  Double net Id = 1
+2019-06-13 14:31:55.203 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 14:31:55.205 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 14:31:57.108 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 14:31:57.108 --- 
+  At least one net is connected, begin to start.
+2019-06-13 14:31:58.072 --- 
+  Receive a Ping message.
+2019-06-13 14:32:01.071 --- 
+  Receive a Ping message.
+2019-06-13 14:32:04.073 --- 
+  Receive a Ping message.
+2019-06-13 14:32:07.073 --- 
+  Receive a Ping message.
+2019-06-13 14:32:10.074 --- 
+  Receive a Ping message.
+2019-06-13 14:32:13.075 --- 
+  Receive a Ping message.
+2019-06-13 14:32:16.076 --- 
+  Receive a Ping message.
+2019-06-13 14:32:19.077 --- 
+  Receive a Ping message.
+2019-06-13 14:32:22.077 --- 
+  Receive a Ping message.
+2019-06-13 14:32:25.079 --- 
+  Receive a Ping message.
+2019-06-13 14:32:28.079 --- 
+  Receive a Ping message.
+2019-06-13 14:32:31.080 --- 
+  Receive a Ping message.
+2019-06-13 14:32:34.081 --- 
+  Receive a Ping message.
+2019-06-13 14:32:37.083 --- 
+  Receive a Ping message.
+2019-06-13 14:32:40.084 --- 
+  Receive a Ping message.
+2019-06-13 14:32:43.084 --- 
+  Receive a Ping message.
+2019-06-13 14:32:46.085 --- 
+  Receive a Ping message.
+2019-06-13 14:32:49.087 --- 
+  Receive a Ping message.
+2019-06-13 14:32:52.088 --- 
+  Receive a Ping message.
+2019-06-13 14:32:55.088 --- 
+  Receive a Ping message.
+2019-06-13 14:32:58.089 --- 
+  Receive a Ping message.
+2019-06-13 14:33:01.091 --- 
+  Receive a Ping message.
+2019-06-13 14:33:04.092 --- 
+  Receive a Ping message.
+2019-06-13 14:33:07.092 --- 
+  Receive a Ping message.
+2019-06-13 14:33:10.092 --- 
+  Receive a Ping message.
+2019-06-13 14:33:13.094 --- 
+  Receive a Ping message.
+2019-06-13 14:33:16.096 --- 
+  Receive a Ping message.
+2019-06-13 14:33:19.095 --- 
+  Receive a Ping message.
+2019-06-13 14:33:22.096 --- 
+  Receive a Ping message.
+2019-06-13 14:33:25.097 --- 
+  Receive a Ping message.
+2019-06-13 14:33:28.098 --- 
+  Receive a Ping message.
+2019-06-13 14:33:43.813 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 14:33:43.813 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 14:33:43.813 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 14:33:43.813 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 14:33:43.814 --- 
+  Condition info : 
+<in_condition>
+<rec>
+<protocol418_condition>
+<type_func>0x01,0x01</type_func>
+<type_func>0x01,0x01</type_func>
+</protocol418_condition>
+</rec>
+</in_condition>
+
+2019-06-13 14:33:43.815 --- 
+  Initializing done.
+2019-06-13 14:33:43.815 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 14:33:43.815 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 14:33:43.815 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 14:33:43.815 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 14:33:43.916 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 14:33:43.916 --- 
+  Client1 re clear message sender queue.
+2019-06-13 14:33:43.916 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 14:33:43.916 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 14:33:43.916 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 14:33:43.916 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 14:33:43.917 --- 
+  Receive a REGISTER message.
+2019-06-13 14:33:43.917 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 14:33:43.917 --- 
+  Double net Id = 2
+2019-06-13 14:33:43.917 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 14:33:43.919 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 14:33:45.917 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 14:33:45.917 --- 
+  At least one net is connected, begin to start.
+2019-06-13 14:33:46.126 --- 
+  Receive a Ping message.
+2019-06-13 14:33:49.127 --- 
+  Receive a Ping message.
+2019-06-13 14:33:52.128 --- 
+  Receive a Ping message.
+2019-06-13 14:33:55.129 --- 
+  Receive a Ping message.
+2019-06-13 14:33:58.131 --- 
+  Receive a Ping message.
+2019-06-13 14:34:01.132 --- 
+  Receive a Ping message.
+2019-06-13 14:34:04.133 --- 
+  Receive a Ping message.
+2019-06-13 14:34:07.133 --- 
+  Receive a Ping message.
+2019-06-13 14:34:10.135 --- 
+  Receive a Ping message.
+2019-06-13 14:34:13.135 --- 
+  Receive a Ping message.
+2019-06-13 14:34:16.136 --- 
+  Receive a Ping message.
+2019-06-13 14:34:19.137 --- 
+  Receive a Ping message.
+2019-06-13 14:34:22.139 --- 
+  Receive a Ping message.
+2019-06-13 14:34:25.139 --- 
+  Receive a Ping message.
+2019-06-13 14:34:28.140 --- 
+  Receive a Ping message.
+2019-06-13 14:34:31.142 --- 
+  Receive a Ping message.
+2019-06-13 14:34:34.143 --- 
+  Receive a Ping message.
+2019-06-13 14:34:37.143 --- 
+  Receive a Ping message.
+2019-06-13 14:34:40.145 --- 
+  Receive a Ping message.
+2019-06-13 14:34:43.146 --- 
+  Receive a Ping message.
+2019-06-13 14:34:46.146 --- 
+  Receive a Ping message.
+2019-06-13 14:34:49.147 --- 
+  Receive a Ping message.
+2019-06-13 14:34:52.147 --- 
+  Receive a Ping message.
+2019-06-13 14:34:55.148 --- 
+  Receive a Ping message.
+2019-06-13 14:34:58.149 --- 
+  Receive a Ping message.
+2019-06-13 14:35:01.150 --- 
+  Receive a Ping message.
+2019-06-13 14:35:04.152 --- 
+  Receive a Ping message.
+2019-06-13 14:35:07.152 --- 
+  Receive a Ping message.
+2019-06-13 14:35:10.153 --- 
+  Receive a Ping message.
+2019-06-13 14:35:13.154 --- 
+  Receive a Ping message.
+2019-06-13 14:35:16.156 --- 
+  Receive a Ping message.
+2019-06-13 14:35:19.156 --- 
+  Receive a Ping message.
+2019-06-13 14:35:22.158 --- 
+  Receive a Ping message.
+2019-06-13 14:35:25.158 --- 
+  Receive a Ping message.
+2019-06-13 14:35:28.160 --- 
+  Receive a Ping message.
+2019-06-13 14:35:31.160 --- 
+  Receive a Ping message.
+2019-06-13 14:35:34.162 --- 
+  Receive a Ping message.
+2019-06-13 14:35:37.163 --- 
+  Receive a Ping message.
+2019-06-13 14:35:40.164 --- 
+  Receive a Ping message.
+2019-06-13 14:35:43.165 --- 
+  Receive a Ping message.
+2019-06-13 14:35:46.165 --- 
+  Receive a Ping message.
+2019-06-13 14:35:49.167 --- 
+  Receive a Ping message.
+2019-06-13 14:35:52.167 --- 
+  Receive a Ping message.
+2019-06-13 14:35:55.168 --- 
+  Receive a Ping message.
+2019-06-13 14:35:58.170 --- 
+  Receive a Ping message.
+2019-06-13 14:36:01.170 --- 
+  Receive a Ping message.
+2019-06-13 14:36:04.171 --- 
+  Receive a Ping message.
+2019-06-13 14:36:07.173 --- 
+  Receive a Ping message.
+2019-06-13 14:36:10.174 --- 
+  Receive a Ping message.
+2019-06-13 14:36:13.175 --- 
+  Receive a Ping message.
+2019-06-13 14:36:16.175 --- 
+  Receive a Ping message.
+2019-06-13 14:36:19.176 --- 
+  Receive a Ping message.
+2019-06-13 14:36:22.178 --- 
+  Receive a Ping message.
+2019-06-13 14:36:25.179 --- 
+  Receive a Ping message.
+2019-06-13 14:36:28.179 --- 
+  Receive a Ping message.
+2019-06-13 14:36:31.181 --- 
+  Receive a Ping message.
+2019-06-13 14:36:34.182 --- 
+  Receive a Ping message.
+2019-06-13 14:36:37.183 --- 
+  Receive a Ping message.
+2019-06-13 14:36:40.183 --- 
+  Receive a Ping message.
+2019-06-13 14:36:43.184 --- 
+  Receive a Ping message.
+2019-06-13 14:36:46.185 --- 
+  Receive a Ping message.
+2019-06-13 14:36:49.186 --- 
+  Receive a Ping message.
+2019-06-13 14:36:52.188 --- 
+  Receive a Ping message.
+2019-06-13 14:36:55.189 --- 
+  Receive a Ping message.
+2019-06-13 14:36:58.189 --- 
+  Receive a Ping message.
+2019-06-13 14:37:01.191 --- 
+  Receive a Ping message.
+2019-06-13 14:37:04.191 --- 
+  Receive a Ping message.
+2019-06-13 14:37:07.193 --- 
+  Receive a Ping message.
+2019-06-13 14:37:10.194 --- 
+  Receive a Ping message.
+2019-06-13 14:37:13.195 --- 
+  Receive a Ping message.
+2019-06-13 14:37:16.195 --- 
+  Receive a Ping message.
+2019-06-13 14:37:19.196 --- 
+  Receive a Ping message.
+2019-06-13 14:37:22.198 --- 
+  Receive a Ping message.
+2019-06-13 14:37:25.198 --- 
+  Receive a Ping message.
+2019-06-13 14:37:28.200 --- 
+  Receive a Ping message.
+2019-06-13 14:37:31.201 --- 
+  Receive a Ping message.
+2019-06-13 14:37:34.201 --- 
+  Receive a Ping message.
+2019-06-13 14:37:37.202 --- 
+  Receive a Ping message.
+2019-06-13 14:37:40.203 --- 
+  Receive a Ping message.
+2019-06-13 14:37:43.204 --- 
+  Receive a Ping message.
+2019-06-13 14:37:46.205 --- 
+  Receive a Ping message.
+2019-06-13 14:37:49.206 --- 
+  Receive a Ping message.
+2019-06-13 14:37:52.207 --- 
+  Receive a Ping message.
+2019-06-13 14:37:55.207 --- 
+  Receive a Ping message.
+2019-06-13 14:37:58.208 --- 
+  Receive a Ping message.
+2019-06-13 14:38:01.209 --- 
+  Receive a Ping message.
+2019-06-13 14:38:04.211 --- 
+  Receive a Ping message.
+2019-06-13 14:38:07.212 --- 
+  Receive a Ping message.
+2019-06-13 14:38:10.213 --- 
+  Receive a Ping message.
+2019-06-13 14:38:13.213 --- 
+  Receive a Ping message.
+2019-06-13 14:38:16.214 --- 
+  Receive a Ping message.
+2019-06-13 14:38:19.215 --- 
+  Receive a Ping message.
+2019-06-13 14:38:22.217 --- 
+  Receive a Ping message.
+2019-06-13 14:38:25.217 --- 
+  Receive a Ping message.
+2019-06-13 14:38:28.218 --- 
+  Receive a Ping message.
+2019-06-13 14:38:31.219 --- 
+  Receive a Ping message.
+2019-06-13 14:38:34.221 --- 
+  Receive a Ping message.
+2019-06-13 14:38:37.221 --- 
+  Receive a Ping message.
+2019-06-13 14:38:40.222 --- 
+  Receive a Ping message.
+2019-06-13 14:38:43.223 --- 
+  Receive a Ping message.
+2019-06-13 14:38:46.225 --- 
+  Receive a Ping message.
+2019-06-13 14:38:49.226 --- 
+  Receive a Ping message.
+2019-06-13 14:38:52.226 --- 
+  Receive a Ping message.
+2019-06-13 14:38:55.227 --- 
+  Receive a Ping message.
+2019-06-13 14:38:58.237 --- 
+  Receive a Ping message.
+2019-06-13 14:39:01.239 --- 
+  Receive a Ping message.
+2019-06-13 14:39:04.240 --- 
+  Receive a Ping message.
+2019-06-13 14:39:07.240 --- 
+  Receive a Ping message.
+2019-06-13 14:39:10.241 --- 
+  Receive a Ping message.
+2019-06-13 14:39:13.243 --- 
+  Receive a Ping message.
+2019-06-13 14:39:16.244 --- 
+  Receive a Ping message.
+2019-06-13 14:39:19.244 --- 
+  Receive a Ping message.
+2019-06-13 14:39:22.245 --- 
+  Receive a Ping message.
+2019-06-13 14:39:25.246 --- 
+  Receive a Ping message.
+2019-06-13 14:39:28.246 --- 
+  Receive a Ping message.
+2019-06-13 14:39:31.246 --- 
+  Receive a Ping message.
+2019-06-13 14:39:34.249 --- 
+  Receive a Ping message.
+2019-06-13 14:39:37.248 --- 
+  Receive a Ping message.
+2019-06-13 14:39:40.249 --- 
+  Receive a Ping message.
+2019-06-13 14:39:43.251 --- 
+  Receive a Ping message.
+2019-06-13 14:39:46.251 --- 
+  Receive a Ping message.
+2019-06-13 14:39:49.253 --- 
+  Receive a Ping message.
+2019-06-13 14:39:52.253 --- 
+  Receive a Ping message.
+2019-06-13 14:39:55.254 --- 
+  Receive a Ping message.
+2019-06-13 14:39:58.255 --- 
+  Receive a Ping message.
+2019-06-13 14:40:01.257 --- 
+  Receive a Ping message.
+2019-06-13 14:40:04.258 --- 
+  Receive a Ping message.
+2019-06-13 14:40:07.259 --- 
+  Receive a Ping message.
+2019-06-13 14:40:10.260 --- 
+  Receive a Ping message.
+2019-06-13 14:40:13.261 --- 
+  Receive a Ping message.
+2019-06-13 14:40:16.262 --- 
+  Receive a Ping message.
+2019-06-13 14:40:19.262 --- 
+  Receive a Ping message.
+2019-06-13 14:40:22.263 --- 
+  Receive a Ping message.
+2019-06-13 14:40:25.264 --- 
+  Receive a Ping message.
+2019-06-13 14:40:28.266 --- 
+  Receive a Ping message.
+2019-06-13 14:40:31.266 --- 
+  Receive a Ping message.
+2019-06-13 14:40:34.267 --- 
+  Receive a Ping message.
+2019-06-13 14:40:37.268 --- 
+  Receive a Ping message.
+2019-06-13 14:40:40.270 --- 
+  Receive a Ping message.
+2019-06-13 14:40:43.270 --- 
+  Receive a Ping message.
+2019-06-13 14:40:46.272 --- 
+  Receive a Ping message.
+2019-06-13 14:41:28.167 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 14:41:28.167 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 14:41:28.167 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 14:41:28.167 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 14:41:28.167 --- 
+  Condition info : 
+<in_condition>
+<rec>
+<protocol418_condition>
+<type_func>0x01,0x01</type_func>
+<type_func>0x01,0x01</type_func>
+</protocol418_condition>
+</rec>
+</in_condition>
+
+2019-06-13 14:41:28.168 --- 
+  Initializing done.
+2019-06-13 14:41:28.168 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 14:41:28.168 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 14:41:28.168 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 14:41:28.168 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 14:41:28.268 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 14:41:28.268 --- 
+  Client1 re clear message sender queue.
+2019-06-13 14:41:28.268 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 14:41:28.268 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 14:41:28.268 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 14:41:28.268 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 14:41:28.270 --- 
+  Receive a REGISTER message.
+2019-06-13 14:41:28.270 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 14:41:28.270 --- 
+  Double net Id = 3
+2019-06-13 14:41:28.270 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 14:41:28.272 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 14:41:28.390 --- 
+  Receive a Ping message.
+2019-06-13 14:41:30.269 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 14:41:30.269 --- 
+  At least one net is connected, begin to start.
+2019-06-13 14:41:31.392 --- 
+  Receive a Ping message.
+2019-06-13 14:41:34.393 --- 
+  Receive a Ping message.
+2019-06-13 14:41:37.394 --- 
+  Receive a Ping message.
+2019-06-13 14:41:40.395 --- 
+  Receive a Ping message.
+2019-06-13 14:41:43.396 --- 
+  Receive a Ping message.
+2019-06-13 14:41:46.397 --- 
+  Receive a Ping message.
+2019-06-13 14:41:49.397 --- 
+  Receive a Ping message.
+2019-06-13 14:41:52.398 --- 
+  Receive a Ping message.
+2019-06-13 14:41:55.400 --- 
+  Receive a Ping message.
+2019-06-13 14:41:58.456 --- 
+  Receive a Ping message.
+2019-06-13 14:42:01.459 --- 
+  Receive a Ping message.
+2019-06-13 14:42:04.497 --- 
+  Receive a Ping message.
+2019-06-13 14:42:07.499 --- 
+  Receive a Ping message.
+2019-06-13 14:42:10.500 --- 
+  Receive a Ping message.
+2019-06-13 14:42:13.500 --- 
+  Receive a Ping message.
+2019-06-13 14:42:16.501 --- 
+  Receive a Ping message.
+2019-06-13 14:42:19.502 --- 
+  Receive a Ping message.
+2019-06-13 14:42:22.510 --- 
+  Receive a Ping message.
+2019-06-13 14:42:25.511 --- 
+  Receive a Ping message.
+2019-06-13 14:42:28.517 --- 
+  Receive a Ping message.
+2019-06-13 14:42:31.518 --- 
+  Receive a Ping message.
+2019-06-13 14:42:34.518 --- 
+  Receive a Ping message.
+2019-06-13 14:42:37.567 --- 
+  Receive a Ping message.
+2019-06-13 14:42:40.569 --- 
+  Receive a Ping message.
+2019-06-13 14:42:43.570 --- 
+  Receive a Ping message.
+2019-06-13 14:42:46.571 --- 
+  Receive a Ping message.
+2019-06-13 14:42:49.573 --- 
+  Receive a Ping message.
+2019-06-13 14:42:52.573 --- 
+  Receive a Ping message.
+2019-06-13 14:42:55.626 --- 
+  Receive a Ping message.
+2019-06-13 14:42:58.627 --- 
+  Receive a Ping message.
+2019-06-13 14:43:01.627 --- 
+  Receive a Ping message.
+2019-06-13 14:43:04.628 --- 
+  Receive a Ping message.
+2019-06-13 14:43:07.629 --- 
+  Receive a Ping message.
+2019-06-13 14:43:10.631 --- 
+  Receive a Ping message.
+2019-06-13 14:43:13.632 --- 
+  Receive a Ping message.
+2019-06-13 14:43:16.633 --- 
+  Receive a Ping message.
+2019-06-13 14:43:19.633 --- 
+  Receive a Ping message.
+2019-06-13 14:43:22.635 --- 
+  Receive a Ping message.
+2019-06-13 14:43:25.636 --- 
+  Receive a Ping message.
+2019-06-13 14:43:28.636 --- 
+  Receive a Ping message.
+2019-06-13 14:43:31.638 --- 
+  Receive a Ping message.
+2019-06-13 14:43:34.639 --- 
+  Receive a Ping message.
+2019-06-13 14:43:37.640 --- 
+  Receive a Ping message.
+2019-06-13 14:43:40.640 --- 
+  Receive a Ping message.
+2019-06-13 14:43:43.665 --- 
+  Receive a Ping message.
+2019-06-13 14:43:46.667 --- 
+  Receive a Ping message.
+2019-06-13 14:43:49.667 --- 
+  Receive a Ping message.
+2019-06-13 14:43:52.668 --- 
+  Receive a Ping message.
+2019-06-13 14:43:55.669 --- 
+  Receive a Ping message.
+2019-06-13 14:43:58.670 --- 
+  Receive a Ping message.
+2019-06-13 14:44:01.672 --- 
+  Receive a Ping message.
+2019-06-13 14:44:04.672 --- 
+  Receive a Ping message.
+2019-06-13 14:44:07.674 --- 
+  Receive a Ping message.
+2019-06-13 14:44:10.674 --- 
+  Receive a Ping message.
+2019-06-13 14:44:13.676 --- 
+  Receive a Ping message.
+2019-06-13 14:44:16.676 --- 
+  Receive a Ping message.
+2019-06-13 14:44:19.676 --- 
+  Receive a Ping message.
+2019-06-13 14:44:22.678 --- 
+  Receive a Ping message.
+2019-06-13 14:44:25.679 --- 
+  Receive a Ping message.
+2019-06-13 14:44:28.687 --- 
+  Receive a Ping message.
+2019-06-13 14:44:31.688 --- 
+  Receive a Ping message.
+2019-06-13 14:44:34.690 --- 
+  Receive a Ping message.
+2019-06-13 14:44:37.691 --- 
+  Receive a Ping message.
+2019-06-13 14:44:40.691 --- 
+  Receive a Ping message.
+2019-06-13 14:44:43.693 --- 
+  Receive a Ping message.
+2019-06-13 14:44:46.693 --- 
+  Receive a Ping message.
+2019-06-13 14:44:49.694 --- 
+  Receive a Ping message.
+2019-06-13 14:44:52.695 --- 
+  Receive a Ping message.
+2019-06-13 14:44:55.697 --- 
+  Receive a Ping message.
+2019-06-13 14:44:58.700 --- 
+  Receive a Ping message.
+2019-06-13 14:45:01.701 --- 
+  Receive a Ping message.
+2019-06-13 14:45:04.702 --- 
+  Receive a Ping message.
+2019-06-13 14:45:07.704 --- 
+  Receive a Ping message.
+2019-06-13 14:45:10.705 --- 
+  Receive a Ping message.
+2019-06-13 14:45:13.705 --- 
+  Receive a Ping message.
+2019-06-13 14:45:16.706 --- 
+  Receive a Ping message.
+2019-06-13 14:45:19.707 --- 
+  Receive a Ping message.

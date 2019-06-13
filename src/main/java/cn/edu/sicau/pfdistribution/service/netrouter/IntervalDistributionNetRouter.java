@@ -71,7 +71,7 @@ public class IntervalDistributionNetRouter {
                     buffer = new byte[1024];
                 }
             } catch (IOException e){
-                
+
                 e.printStackTrace();
             } finally {
                 if(in!=null)
