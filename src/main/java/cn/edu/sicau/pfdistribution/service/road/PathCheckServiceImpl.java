@@ -1,7 +1,10 @@
 package cn.edu.sicau.pfdistribution.service.road;
 
+import cn.edu.sicau.pfdistribution.entity.DirectedEdge;
+import cn.edu.sicau.pfdistribution.entity.DirectedPath;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +18,8 @@ public class PathCheckServiceImpl implements PathCheckService{
      * @return
      */
     @Override
-    public boolean checkPath(Path path) {
-        List<Edge> edges = path.getEdges();
+    public boolean checkPath(DirectedPath path) {
+        List<DirectedEdge> edges = path.getEdges();
         boolean flag = true;
         for(int i = 0; i < edges.size(); i++){
             if(!checkSection(edges.get(i))){
@@ -33,7 +36,7 @@ public class PathCheckServiceImpl implements PathCheckService{
      * @return
      */
     @Override
-    public boolean checkSection(Edge section) {
+    public boolean checkSection(DirectedEdge section) {
         return true;
     }
 }

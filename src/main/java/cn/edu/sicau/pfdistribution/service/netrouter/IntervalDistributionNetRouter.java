@@ -30,12 +30,25 @@ import java.util.Map;
 public class IntervalDistributionNetRouter {
 
     Logger log = LoggerFactory.getLogger(StationAndSectionNetRouter.class);
+
     @Autowired
     private MainDistribution distribution;
 
     private Gson gson = new GsonBuilder().create();
+    private static void loadJNILibDynamically() {
+        try {
+            System.setProperty("java.library.path", System.getProperty("java.library.path")
+                    + ";.\\bin\\");
+            Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
+            fieldSysPath.setAccessible(true);
+            fieldSysPath.set(null, null);
 
-    private synchronized static void loadJNILibDynamically(String libName) throws IOException {
+            System.loadLibrary("NetRouterCppClient");
+        } catch (Exception e) {
+            // do nothing for exception
+        }
+    }
+    /*private void loadJNILibDynamically(String libName) throws IOException {// synchronized static
         String systemType = System.getProperty("os.name");
         String libExtension = (systemType.toLowerCase().indexOf("win")!=-1) ? ".dll" : ".so";
 
@@ -49,7 +62,7 @@ public class IntervalDistributionNetRouter {
         FileOutputStream writer = null;
 
         File extractedLibFile = new File(nativeTempDir+File.separator+libFullName);
-        if(extractedLibFile.exists()){
+        if(!extractedLibFile.exists()){
             try {
                 in = IntervalDistributionNetRouter.class.getResourceAsStream(libFullName);
                 if(in==null)
@@ -81,7 +94,7 @@ public class IntervalDistributionNetRouter {
             }
         }
         System.load(extractedLibFile.toString());
-    }
+    }*/
 
     private boolean SendData(NetRouterClient netClient, List<Address> f_list, Map<String, String> data) {
 //        String buf = "OK";
@@ -99,13 +112,13 @@ public class IntervalDistributionNetRouter {
     public void receiver() throws Exception {
         /*LibLoader libLoade = new LibLoader();
         libLoade.loadLib("NetRouterCppClient.dll");*/
-        loadJNILibDynamically("NetRouterCppClient");
+        loadJNILibDynamically();
         Address localaddr = new Address((byte) 8, (byte) 1, (short) 2, (byte) 2, (short) 6);
         List<Address> destAddrs = new LinkedList<Address>();
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 2, (byte) 1, (short) 6);
         destAddrs.add(destaddr1);
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.2.55.51", 9003, "10.2.55.51", 9005, localaddr, "");
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.0.140.213", 9003, "10.2.55.51", 9005, localaddr, "");
         while (!netRouterClient.start()) {
             System.out.println("IntervalDistributionNetRouter Start fails.");
             Thread.sleep(10);

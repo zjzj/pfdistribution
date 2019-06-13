@@ -3,6 +3,7 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 import java.io._
 import java.util
 
+import cn.edu.sicau.pfdistribution.entity.DirectedPath
 import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path
 import cn.edu.sicau.pfdistribution.service.road.KServiceImpl
 import org.apache.spark.{SparkConf, SparkContext}
@@ -31,7 +32,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     val odListStaticTest = odListTransfer(odMapObtain)
     val odMapDynamicTest:mutable.Map[String,Integer] = getParameter.getOdMap().asScala
     val odMap = odMapTransfer(odMapDynamicTest)
-    val allKsp:mutable.Map[String, util.List[Path]] = kServiceImpl.computeDynamic(odMap).asScala
+    val allKsp:mutable.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(odMap, "PARAM_ID", "RETURN_NAME").asScala
     if(command.equals("static")){
 
       return mapTransfer(intervalResult(odListStaticTest)).asJava
@@ -79,7 +80,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     return rddIntegration
   }
 
-  def tongHaoKspStaticDistributionResult(allKspMap:mutable.Map[String, util.List[Path]],odMap:mutable.Map[String,String]) ={
+  def tongHaoKspStaticDistributionResult(allKspMap:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,String]) ={
     val odList:List[String] = allKspMap.keySet.toList
     val rdd = sc.makeRDD(odList)
     //od对，起点与终点与用空格连接
@@ -88,7 +89,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     /*dataDeal.tongHaoKspDataSave(rddIntegration)*/
   }
 
-  def tongHaoKspDynamicDistributionResult(allKspMap:mutable.Map[String, util.List[Path]],odMap:mutable.Map[String,String])={
+  def tongHaoKspDynamicDistributionResult(allKspMap:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,String])={
     val odList:List[String] = allKspMap.keySet.toList
     val rdd = sc.makeRDD(odList)
     //od对，起点与终点与用空格连接
@@ -107,7 +108,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
   }
 
   //按照不同的时间粒度分配形，生成区间密度(动态)
-  def intervalResultWithTimeResult(allKsp:mutable.Map[String, util.List[Path]],odMap:mutable.Map[String,Integer],interval:Int): mutable.Map[String, Double] = {
+  def intervalResultWithTimeResult(allKsp:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,Integer],interval:Int): mutable.Map[String, Double] = {
     val odList:List[String] = allKsp.keySet.toList
     val rdd = sc.makeRDD(odList)
     //od对，起点与终点与用空格连接

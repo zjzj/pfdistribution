@@ -784,3 +784,1923 @@
   Receive a Ping message.
 2019-06-13 14:45:19.707 --- 
   Receive a Ping message.
+2019-06-13 15:07:16.200 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 15:07:16.200 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 15:07:16.201 --- 
+  ip1 = 10.2.55.51 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 15:07:16.201 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 15:07:16.201 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-13 15:07:16.201 --- 
+  Initializing done.
+2019-06-13 15:07:16.201 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 15:07:16.202 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 15:07:16.202 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 15:07:16.202 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 15:07:16.302 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:07:16.302 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:07:18.303 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:18.303 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:07:18.303 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:07:20.304 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:21.009 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:07:21.121 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:07:21.121 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:07:23.121 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:23.121 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:07:23.121 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:07:25.121 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:26.070 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:07:26.182 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:07:26.182 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:07:28.182 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:28.182 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:07:28.182 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:07:30.183 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:31.090 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:07:31.201 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:07:31.201 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:07:33.202 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:33.202 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:07:33.202 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:07:35.203 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:36.008 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:07:36.120 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:07:36.120 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:07:38.121 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:38.121 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:07:38.121 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:07:40.121 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:41.028 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:07:41.140 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:07:41.140 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:07:43.140 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:43.140 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:07:43.140 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:07:45.141 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:46.048 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:07:46.159 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:07:46.159 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:07:48.160 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:48.160 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:07:48.160 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:07:50.160 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:51.067 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:07:51.179 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:07:51.179 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:07:53.179 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:53.179 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:07:53.179 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:07:55.180 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:56.087 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:07:56.197 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:07:56.197 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:07:58.214 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:07:58.214 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:07:58.214 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:08:00.215 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:08:01.020 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:08:01.132 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:08:01.132 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:08:03.133 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:08:03.133 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:08:03.133 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:08:05.133 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:08:06.040 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:08:06.152 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:08:06.152 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:08:08.152 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:08:08.152 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:08:08.152 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:08:10.153 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:08:11.060 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:08:11.171 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:08:11.171 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:08:13.172 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:08:13.172 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:08:13.172 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:08:15.172 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:08:16.079 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:08:16.190 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:08:16.190 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:08:18.190 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:08:18.190 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:08:18.190 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:08:20.191 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:08:21.098 --- 
+  Exceed expected start time, start fails.
+2019-06-13 15:08:21.209 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:08:21.209 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:08:23.210 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:08:23.210 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:08:23.210 --- 
+  Client2 re clear message sender queue.
+2019-06-13 15:09:15.674 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 15:09:15.674 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 15:09:15.674 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 15:09:15.674 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 15:09:15.674 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-13 15:09:15.679 --- 
+  Initializing done.
+2019-06-13 15:09:15.680 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 15:09:15.680 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 15:09:15.680 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 15:09:15.680 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 15:09:15.797 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:09:15.797 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:09:15.802 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 15:09:15.802 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 15:09:15.802 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 15:09:15.803 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:09:15.803 --- 
+  Receive a REGISTER message.
+2019-06-13 15:09:15.803 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 15:09:15.803 --- 
+  Double net Id = 6
+2019-06-13 15:09:15.803 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 15:09:15.808 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 15:09:16.274 --- 
+  Receive a Ping message.
+2019-06-13 15:09:17.804 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:09:17.804 --- 
+  At least one net is connected, begin to start.
+2019-06-13 15:09:19.276 --- 
+  Receive a Ping message.
+2019-06-13 15:09:22.277 --- 
+  Receive a Ping message.
+2019-06-13 15:09:25.278 --- 
+  Receive a Ping message.
+2019-06-13 15:09:28.279 --- 
+  Receive a Ping message.
+2019-06-13 15:09:31.279 --- 
+  Receive a Ping message.
+2019-06-13 15:09:34.281 --- 
+  Receive a Ping message.
+2019-06-13 15:09:37.282 --- 
+  Receive a Ping message.
+2019-06-13 15:09:40.281 --- 
+  Receive a Ping message.
+2019-06-13 15:09:43.282 --- 
+  Receive a Ping message.
+2019-06-13 15:09:46.285 --- 
+  Receive a Ping message.
+2019-06-13 15:09:49.285 --- 
+  Receive a Ping message.
+2019-06-13 15:09:52.285 --- 
+  Receive a Ping message.
+2019-06-13 15:09:55.287 --- 
+  Receive a Ping message.
+2019-06-13 15:09:58.288 --- 
+  Receive a Ping message.
+2019-06-13 15:10:01.289 --- 
+  Receive a Ping message.
+2019-06-13 15:10:04.289 --- 
+  Receive a Ping message.
+2019-06-13 15:10:07.290 --- 
+  Receive a Ping message.
+2019-06-13 15:10:10.292 --- 
+  Receive a Ping message.
+2019-06-13 15:10:13.293 --- 
+  Receive a Ping message.
+2019-06-13 15:10:16.293 --- 
+  Receive a Ping message.
+2019-06-13 15:10:19.294 --- 
+  Receive a Ping message.
+2019-06-13 15:10:22.296 --- 
+  Receive a Ping message.
+2019-06-13 15:10:25.297 --- 
+  Receive a Ping message.
+2019-06-13 15:10:28.297 --- 
+  Receive a Ping message.
+2019-06-13 15:10:31.299 --- 
+  Receive a Ping message.
+2019-06-13 15:10:34.299 --- 
+  Receive a Ping message.
+2019-06-13 15:10:37.301 --- 
+  Receive a Ping message.
+2019-06-13 15:10:40.302 --- 
+  Receive a Ping message.
+2019-06-13 15:10:43.302 --- 
+  Receive a Ping message.
+2019-06-13 15:10:46.304 --- 
+  Receive a Ping message.
+2019-06-13 15:10:49.304 --- 
+  Receive a Ping message.
+2019-06-13 15:10:52.306 --- 
+  Receive a Ping message.
+2019-06-13 15:10:55.306 --- 
+  Receive a Ping message.
+2019-06-13 15:10:58.308 --- 
+  Receive a Ping message.
+2019-06-13 15:11:01.308 --- 
+  Receive a Ping message.
+2019-06-13 15:11:04.310 --- 
+  Receive a Ping message.
+2019-06-13 15:11:07.310 --- 
+  Receive a Ping message.
+2019-06-13 15:11:10.311 --- 
+  Receive a Ping message.
+2019-06-13 15:11:13.312 --- 
+  Receive a Ping message.
+2019-06-13 15:11:16.314 --- 
+  Receive a Ping message.
+2019-06-13 15:11:19.314 --- 
+  Receive a Ping message.
+2019-06-13 15:11:22.316 --- 
+  Receive a Ping message.
+2019-06-13 15:11:25.317 --- 
+  Receive a Ping message.
+2019-06-13 15:11:28.319 --- 
+  Receive a Ping message.
+2019-06-13 15:11:31.320 --- 
+  Receive a Ping message.
+2019-06-13 15:11:34.322 --- 
+  Receive a Ping message.
+2019-06-13 15:11:37.321 --- 
+  Receive a Ping message.
+2019-06-13 15:11:40.322 --- 
+  Receive a Ping message.
+2019-06-13 15:11:43.323 --- 
+  Receive a Ping message.
+2019-06-13 15:11:46.324 --- 
+  Receive a Ping message.
+2019-06-13 15:11:49.326 --- 
+  Receive a Ping message.
+2019-06-13 15:11:52.327 --- 
+  Receive a Ping message.
+2019-06-13 15:11:55.327 --- 
+  Receive a Ping message.
+2019-06-13 15:11:58.329 --- 
+  Receive a Ping message.
+2019-06-13 15:12:01.330 --- 
+  Receive a Ping message.
+2019-06-13 15:12:04.331 --- 
+  Receive a Ping message.
+2019-06-13 15:12:07.332 --- 
+  Receive a Ping message.
+2019-06-13 15:12:10.332 --- 
+  Receive a Ping message.
+2019-06-13 15:12:13.334 --- 
+  Receive a Ping message.
+2019-06-13 15:12:16.334 --- 
+  Receive a Ping message.
+2019-06-13 15:12:19.335 --- 
+  Receive a Ping message.
+2019-06-13 15:12:22.336 --- 
+  Receive a Ping message.
+2019-06-13 15:12:25.337 --- 
+  Receive a Ping message.
+2019-06-13 15:12:28.338 --- 
+  Receive a Ping message.
+2019-06-13 15:12:31.340 --- 
+  Receive a Ping message.
+2019-06-13 15:12:34.340 --- 
+  Receive a Ping message.
+2019-06-13 15:12:37.490 --- 
+  Receive a Ping message.
+2019-06-13 15:12:40.491 --- 
+  Receive a Ping message.
+2019-06-13 15:12:43.493 --- 
+  Receive a Ping message.
+2019-06-13 15:12:46.493 --- 
+  Receive a Ping message.
+2019-06-13 15:12:49.494 --- 
+  Receive a Ping message.
+2019-06-13 15:12:52.495 --- 
+  Receive a Ping message.
+2019-06-13 15:12:55.496 --- 
+  Receive a Ping message.
+2019-06-13 15:12:58.498 --- 
+  Receive a Ping message.
+2019-06-13 15:13:01.499 --- 
+  Receive a Ping message.
+2019-06-13 15:13:04.499 --- 
+  Receive a Ping message.
+2019-06-13 15:13:07.589 --- 
+  Receive a Ping message.
+2019-06-13 15:13:10.535 --- 
+  Receive a Ping message.
+2019-06-13 15:13:13.536 --- 
+  Receive a Ping message.
+2019-06-13 15:13:16.538 --- 
+  Receive a Ping message.
+2019-06-13 15:13:19.538 --- 
+  Receive a Ping message.
+2019-06-13 15:13:22.539 --- 
+  Receive a Ping message.
+2019-06-13 15:13:25.540 --- 
+  Receive a Ping message.
+2019-06-13 15:13:28.541 --- 
+  Receive a Ping message.
+2019-06-13 15:13:31.542 --- 
+  Receive a Ping message.
+2019-06-13 15:13:34.555 --- 
+  Receive a Ping message.
+2019-06-13 15:13:37.546 --- 
+  Receive a Ping message.
+2019-06-13 15:13:40.547 --- 
+  Receive a Ping message.
+2019-06-13 15:13:43.548 --- 
+  Receive a Ping message.
+2019-06-13 15:13:46.550 --- 
+  Receive a Ping message.
+2019-06-13 15:13:49.550 --- 
+  Receive a Ping message.
+2019-06-13 15:13:52.552 --- 
+  Receive a Ping message.
+2019-06-13 15:13:55.552 --- 
+  Receive a Ping message.
+2019-06-13 15:13:58.554 --- 
+  Receive a Ping message.
+2019-06-13 15:14:01.554 --- 
+  Receive a Ping message.
+2019-06-13 15:14:04.554 --- 
+  Receive a Ping message.
+2019-06-13 15:14:07.555 --- 
+  Receive a Ping message.
+2019-06-13 15:14:10.556 --- 
+  Receive a Ping message.
+2019-06-13 15:14:13.558 --- 
+  Receive a Ping message.
+2019-06-13 15:14:16.558 --- 
+  Receive a Ping message.
+2019-06-13 15:14:19.560 --- 
+  Receive a Ping message.
+2019-06-13 15:14:22.561 --- 
+  Receive a Ping message.
+2019-06-13 15:14:25.562 --- 
+  Receive a Ping message.
+2019-06-13 15:14:28.563 --- 
+  Receive a Ping message.
+2019-06-13 15:14:31.563 --- 
+  Receive a Ping message.
+2019-06-13 15:14:34.564 --- 
+  Receive a Ping message.
+2019-06-13 15:14:37.566 --- 
+  Receive a Ping message.
+2019-06-13 15:14:40.567 --- 
+  Receive a Ping message.
+2019-06-13 15:14:43.567 --- 
+  Receive a Ping message.
+2019-06-13 15:14:46.569 --- 
+  Receive a Ping message.
+2019-06-13 15:14:49.569 --- 
+  Receive a Ping message.
+2019-06-13 15:14:52.571 --- 
+  Receive a Ping message.
+2019-06-13 15:14:55.572 --- 
+  Receive a Ping message.
+2019-06-13 15:14:58.573 --- 
+  Receive a Ping message.
+2019-06-13 15:15:01.574 --- 
+  Receive a Ping message.
+2019-06-13 15:15:04.574 --- 
+  Receive a Ping message.
+2019-06-13 15:15:07.576 --- 
+  Receive a Ping message.
+2019-06-13 15:15:10.576 --- 
+  Receive a Ping message.
+2019-06-13 15:15:13.577 --- 
+  Receive a Ping message.
+2019-06-13 15:15:16.578 --- 
+  Receive a Ping message.
+2019-06-13 15:15:19.580 --- 
+  Receive a Ping message.
+2019-06-13 15:15:22.580 --- 
+  Receive a Ping message.
+2019-06-13 15:15:25.582 --- 
+  Receive a Ping message.
+2019-06-13 15:15:28.582 --- 
+  Receive a Ping message.
+2019-06-13 15:15:31.583 --- 
+  Receive a Ping message.
+2019-06-13 15:15:34.584 --- 
+  Receive a Ping message.
+2019-06-13 15:15:37.586 --- 
+  Receive a Ping message.
+2019-06-13 15:15:40.587 --- 
+  Receive a Ping message.
+2019-06-13 15:15:43.586 --- 
+  Receive a Ping message.
+2019-06-13 15:15:46.588 --- 
+  Receive a Ping message.
+2019-06-13 15:15:49.589 --- 
+  Receive a Ping message.
+2019-06-13 15:15:52.589 --- 
+  Receive a Ping message.
+2019-06-13 15:15:55.591 --- 
+  Receive a Ping message.
+2019-06-13 15:15:58.592 --- 
+  Receive a Ping message.
+2019-06-13 15:16:01.593 --- 
+  Receive a Ping message.
+2019-06-13 15:16:04.594 --- 
+  Receive a Ping message.
+2019-06-13 15:16:07.594 --- 
+  Receive a Ping message.
+2019-06-13 15:16:10.595 --- 
+  Receive a Ping message.
+2019-06-13 15:16:13.703 --- 
+  Receive a Ping message.
+2019-06-13 15:16:16.704 --- 
+  Receive a Ping message.
+2019-06-13 15:16:19.705 --- 
+  Receive a Ping message.
+2019-06-13 15:16:22.705 --- 
+  Receive a Ping message.
+2019-06-13 15:16:25.707 --- 
+  Receive a Ping message.
+2019-06-13 15:16:28.707 --- 
+  Receive a Ping message.
+2019-06-13 15:16:31.708 --- 
+  Receive a Ping message.
+2019-06-13 15:16:34.709 --- 
+  Receive a Ping message.
+2019-06-13 15:16:37.711 --- 
+  Receive a Ping message.
+2019-06-13 15:16:40.711 --- 
+  Receive a Ping message.
+2019-06-13 15:16:43.713 --- 
+  Receive a Ping message.
+2019-06-13 15:16:46.713 --- 
+  Receive a Ping message.
+2019-06-13 15:16:49.713 --- 
+  Receive a Ping message.
+2019-06-13 15:16:52.715 --- 
+  Receive a Ping message.
+2019-06-13 15:16:55.716 --- 
+  Receive a Ping message.
+2019-06-13 15:16:58.717 --- 
+  Receive a Ping message.
+2019-06-13 15:17:01.718 --- 
+  Receive a Ping message.
+2019-06-13 15:17:04.718 --- 
+  Receive a Ping message.
+2019-06-13 15:17:07.719 --- 
+  Receive a Ping message.
+2019-06-13 15:17:10.721 --- 
+  Receive a Ping message.
+2019-06-13 15:17:13.721 --- 
+  Receive a Ping message.
+2019-06-13 15:17:16.722 --- 
+  Receive a Ping message.
+2019-06-13 15:17:19.724 --- 
+  Receive a Ping message.
+2019-06-13 15:17:22.725 --- 
+  Receive a Ping message.
+2019-06-13 15:17:25.725 --- 
+  Receive a Ping message.
+2019-06-13 15:17:28.726 --- 
+  Receive a Ping message.
+2019-06-13 15:17:31.727 --- 
+  Receive a Ping message.
+2019-06-13 15:17:34.731 --- 
+  Receive a Ping message.
+2019-06-13 15:17:37.752 --- 
+  Receive a Ping message.
+2019-06-13 15:17:40.753 --- 
+  Receive a Ping message.
+2019-06-13 15:17:43.753 --- 
+  Receive a Ping message.
+2019-06-13 15:17:46.754 --- 
+  Receive a Ping message.
+2019-06-13 15:17:49.755 --- 
+  Receive a Ping message.
+2019-06-13 15:45:53.537 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 15:45:53.537 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 15:45:53.537 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 15:45:53.537 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 15:45:53.537 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-13 15:45:53.538 --- 
+  Initializing done.
+2019-06-13 15:45:53.538 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 15:45:53.538 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 15:45:53.539 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 15:45:53.539 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 15:45:53.638 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:45:53.638 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:45:53.638 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 15:45:53.638 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 15:45:53.638 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 15:45:53.638 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:45:53.641 --- 
+  Receive a REGISTER message.
+2019-06-13 15:45:53.641 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 15:45:53.641 --- 
+  Double net Id = 10
+2019-06-13 15:45:53.641 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 15:45:53.644 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 15:45:55.640 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:45:55.640 --- 
+  At least one net is connected, begin to start.
+2019-06-13 15:45:56.613 --- 
+  Receive a Ping message.
+2019-06-13 15:45:59.615 --- 
+  Receive a Ping message.
+2019-06-13 15:46:02.615 --- 
+  Receive a Ping message.
+2019-06-13 15:46:05.617 --- 
+  Receive a Ping message.
+2019-06-13 15:46:08.617 --- 
+  Receive a Ping message.
+2019-06-13 15:46:11.619 --- 
+  Receive a Ping message.
+2019-06-13 15:46:14.620 --- 
+  Receive a Ping message.
+2019-06-13 15:46:17.621 --- 
+  Receive a Ping message.
+2019-06-13 15:46:20.621 --- 
+  Receive a Ping message.
+2019-06-13 15:46:23.622 --- 
+  Receive a Ping message.
+2019-06-13 15:46:26.623 --- 
+  Receive a Ping message.
+2019-06-13 15:46:29.624 --- 
+  Receive a Ping message.
+2019-06-13 15:46:32.626 --- 
+  Receive a Ping message.
+2019-06-13 15:46:35.626 --- 
+  Receive a Ping message.
+2019-06-13 15:46:38.628 --- 
+  Receive a Ping message.
+2019-06-13 15:46:41.628 --- 
+  Receive a Ping message.
+2019-06-13 15:46:44.630 --- 
+  Receive a Ping message.
+2019-06-13 15:46:47.630 --- 
+  Receive a Ping message.
+2019-06-13 15:46:50.632 --- 
+  Receive a Ping message.
+2019-06-13 15:46:53.632 --- 
+  Receive a Ping message.
+2019-06-13 15:46:56.634 --- 
+  Receive a Ping message.
+2019-06-13 15:46:59.633 --- 
+  Receive a Ping message.
+2019-06-13 15:47:02.635 --- 
+  Receive a Ping message.
+2019-06-13 15:47:05.636 --- 
+  Receive a Ping message.
+2019-06-13 15:47:08.636 --- 
+  Receive a Ping message.
+2019-06-13 15:47:11.638 --- 
+  Receive a Ping message.
+2019-06-13 15:47:14.638 --- 
+  Receive a Ping message.
+2019-06-13 15:47:17.639 --- 
+  Receive a Ping message.
+2019-06-13 15:47:20.640 --- 
+  Receive a Ping message.
+2019-06-13 15:47:23.642 --- 
+  Receive a Ping message.
+2019-06-13 15:47:26.643 --- 
+  Receive a Ping message.
+2019-06-13 15:47:29.643 --- 
+  Receive a Ping message.
+2019-06-13 15:47:32.645 --- 
+  Receive a Ping message.
+2019-06-13 15:47:35.645 --- 
+  Receive a Ping message.
+2019-06-13 15:47:38.646 --- 
+  Receive a Ping message.
+2019-06-13 15:47:41.648 --- 
+  Receive a Ping message.
+2019-06-13 15:47:44.648 --- 
+  Receive a Ping message.
+2019-06-13 15:47:47.650 --- 
+  Receive a Ping message.
+2019-06-13 15:47:50.651 --- 
+  Receive a Ping message.
+2019-06-13 15:47:53.651 --- 
+  Receive a Ping message.
+2019-06-13 15:47:56.652 --- 
+  Receive a Ping message.
+2019-06-13 15:47:59.652 --- 
+  Receive a Ping message.
+2019-06-13 15:48:02.653 --- 
+  Receive a Ping message.
+2019-06-13 15:48:05.654 --- 
+  Receive a Ping message.
+2019-06-13 15:48:08.656 --- 
+  Receive a Ping message.
+2019-06-13 15:48:11.656 --- 
+  Receive a Ping message.
+2019-06-13 15:48:14.658 --- 
+  Receive a Ping message.
+2019-06-13 15:48:17.658 --- 
+  Receive a Ping message.
+2019-06-13 15:48:20.660 --- 
+  Receive a Ping message.
+2019-06-13 15:48:23.660 --- 
+  Receive a Ping message.
+2019-06-13 15:48:26.661 --- 
+  Receive a Ping message.
+2019-06-13 15:48:29.663 --- 
+  Receive a Ping message.
+2019-06-13 15:48:32.663 --- 
+  Receive a Ping message.
+2019-06-13 15:48:35.664 --- 
+  Receive a Ping message.
+2019-06-13 15:48:38.666 --- 
+  Receive a Ping message.
+2019-06-13 15:48:41.666 --- 
+  Receive a Ping message.
+2019-06-13 15:48:44.667 --- 
+  Receive a Ping message.
+2019-06-13 15:48:47.669 --- 
+  Receive a Ping message.
+2019-06-13 15:48:50.670 --- 
+  Receive a Ping message.
+2019-06-13 15:48:53.671 --- 
+  Receive a Ping message.
+2019-06-13 15:48:56.671 --- 
+  Receive a Ping message.
+2019-06-13 15:48:59.672 --- 
+  Receive a Ping message.
+2019-06-13 15:49:02.673 --- 
+  Receive a Ping message.
+2019-06-13 15:49:05.675 --- 
+  Receive a Ping message.
+2019-06-13 15:49:08.676 --- 
+  Receive a Ping message.
+2019-06-13 15:49:11.677 --- 
+  Receive a Ping message.
+2019-06-13 15:49:14.677 --- 
+  Receive a Ping message.
+2019-06-13 15:49:17.678 --- 
+  Receive a Ping message.
+2019-06-13 15:49:20.679 --- 
+  Receive a Ping message.
+2019-06-13 15:49:23.681 --- 
+  Receive a Ping message.
+2019-06-13 15:49:26.682 --- 
+  Receive a Ping message.
+2019-06-13 15:49:29.681 --- 
+  Receive a Ping message.
+2019-06-13 15:49:32.682 --- 
+  Receive a Ping message.
+2019-06-13 15:49:35.683 --- 
+  Receive a Ping message.
+2019-06-13 15:49:38.685 --- 
+  Receive a Ping message.
+2019-06-13 15:49:41.685 --- 
+  Receive a Ping message.
+2019-06-13 15:49:44.687 --- 
+  Receive a Ping message.
+2019-06-13 15:49:47.688 --- 
+  Receive a Ping message.
+2019-06-13 15:49:50.688 --- 
+  Receive a Ping message.
+2019-06-13 15:49:53.689 --- 
+  Receive a Ping message.
+2019-06-13 15:49:56.690 --- 
+  Receive a Ping message.
+2019-06-13 15:49:59.692 --- 
+  Receive a Ping message.
+2019-06-13 15:50:02.692 --- 
+  Receive a Ping message.
+2019-06-13 15:50:05.693 --- 
+  Receive a Ping message.
+2019-06-13 15:50:08.694 --- 
+  Receive a Ping message.
+2019-06-13 15:50:11.695 --- 
+  Receive a Ping message.
+2019-06-13 15:50:14.697 --- 
+  Receive a Ping message.
+2019-06-13 15:50:17.698 --- 
+  Receive a Ping message.
+2019-06-13 15:50:20.699 --- 
+  Receive a Ping message.
+2019-06-13 15:50:23.699 --- 
+  Receive a Ping message.
+2019-06-13 15:50:26.699 --- 
+  Receive a Ping message.
+2019-06-13 15:50:29.700 --- 
+  Receive a Ping message.
+2019-06-13 15:50:32.702 --- 
+  Receive a Ping message.
+2019-06-13 15:50:35.702 --- 
+  Receive a Ping message.
+2019-06-13 15:50:38.703 --- 
+  Receive a Ping message.
+2019-06-13 15:50:41.704 --- 
+  Receive a Ping message.
+2019-06-13 15:50:44.705 --- 
+  Receive a Ping message.
+2019-06-13 15:50:47.707 --- 
+  Receive a Ping message.
+2019-06-13 15:50:50.707 --- 
+  Receive a Ping message.
+2019-06-13 15:50:53.708 --- 
+  Receive a Ping message.
+2019-06-13 15:50:56.709 --- 
+  Receive a Ping message.
+2019-06-13 15:50:59.710 --- 
+  Receive a Ping message.
+2019-06-13 15:51:02.711 --- 
+  Receive a Ping message.
+2019-06-13 15:51:05.712 --- 
+  Receive a Ping message.
+2019-06-13 15:58:28.316 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 15:58:28.316 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 15:58:28.316 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 15:58:28.316 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 15:58:28.317 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-13 15:58:28.330 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 15:58:28.330 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 15:58:28.330 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 15:58:28.330 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 15:58:28.330 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-13 15:58:28.330 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 15:58:28.330 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 15:58:28.330 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 15:58:28.330 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 15:58:28.331 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 15:58:28.331 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 15:58:28.331 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 15:58:28.331 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 15:58:28.331 --- 
+  Condition info : 
+<in_condition>
+<rec>
+<protocol418_condition>
+<type_func>0x01,0x01</type_func>
+<type_func>0x01,0x01</type_func>
+</protocol418_condition>
+</rec>
+</in_condition>
+
+2019-06-13 15:58:28.331 --- 
+  Condition info : 
+<in_condition>
+<rec>
+<protocol418_condition>
+<type_func>0x01,0x01</type_func>
+<type_func>0x01,0x01</type_func>
+</protocol418_condition>
+</rec>
+</in_condition>
+
+2019-06-13 15:58:28.333 --- 
+  Initializing done.
+2019-06-13 15:58:28.333 --- 
+  Initializing done.
+2019-06-13 15:58:28.333 --- 
+  Initializing done.
+2019-06-13 15:58:28.333 --- 
+  Initializing done.
+2019-06-13 15:58:28.334 --- 
+  Initializing done.
+2019-06-13 15:58:28.334 --- 
+  Initializing done.
+2019-06-13 15:58:28.334 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.334 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.335 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.335 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.336 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.336 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.336 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.336 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.336 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.336 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.336 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.336 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.337 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 15:58:28.434 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:58:28.434 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:58:28.434 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:58:28.434 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:58:28.434 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 15:58:28.434 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 15:58:28.434 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 15:58:28.434 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 15:58:28.434 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 15:58:28.434 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 15:58:28.434 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:58:28.434 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:58:28.435 --- 
+  Receive a REGISTER message.
+2019-06-13 15:58:28.435 --- 
+  Receive a REGISTER message.
+2019-06-13 15:58:28.435 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 15:58:28.435 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 15:58:28.435 --- 
+  Double net Id = 11
+2019-06-13 15:58:28.435 --- 
+  Double net Id = 11
+2019-06-13 15:58:28.435 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 15:58:28.435 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 15:58:28.438 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 15:58:28.438 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 15:58:28.438 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:58:28.438 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:58:28.438 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:58:28.438 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:58:28.439 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 15:58:28.439 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 15:58:28.439 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 15:58:28.439 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 15:58:28.439 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 15:58:28.439 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 15:58:28.439 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:58:28.439 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:58:28.439 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:58:28.439 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 15:58:28.439 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:58:28.439 --- 
+  Client1 re clear message sender queue.
+2019-06-13 15:58:28.440 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 15:58:28.440 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 15:58:28.440 --- 
+  Receive a REGISTER message.
+2019-06-13 15:58:28.440 --- 
+  Receive a REGISTER message.
+2019-06-13 15:58:28.440 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 15:58:28.440 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 15:58:28.440 --- 
+  Double net Id = 12
+2019-06-13 15:58:28.440 --- 
+  Double net Id = 12
+2019-06-13 15:58:28.440 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 15:58:28.440 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 15:58:28.440 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 15:58:28.440 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 15:58:28.440 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 15:58:28.440 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 15:58:28.440 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:58:28.440 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 15:58:28.442 --- 
+  Receive a REGISTER message.
+2019-06-13 15:58:28.442 --- 
+  Receive a REGISTER message.
+2019-06-13 15:58:28.442 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 15:58:28.442 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 15:58:28.442 --- 
+  Double net Id = 13
+2019-06-13 15:58:28.442 --- 
+  Double net Id = 13
+2019-06-13 15:58:28.442 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 15:58:28.442 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 15:58:28.443 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 15:58:28.443 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 15:58:28.445 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 15:58:28.445 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 15:58:29.852 --- 
+  Receive a Ping message.
+2019-06-13 15:58:29.852 --- 
+  Receive a Ping message.
+2019-06-13 15:58:29.852 --- 
+  Receive a Ping message.
+2019-06-13 15:58:29.852 --- 
+  Receive a Ping message.
+2019-06-13 15:58:29.852 --- 
+  Receive a Ping message.
+2019-06-13 15:58:29.852 --- 
+  Receive a Ping message.
+2019-06-13 15:58:30.435 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:58:30.435 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:58:30.435 --- 
+  At least one net is connected, begin to start.
+2019-06-13 15:58:30.435 --- 
+  At least one net is connected, begin to start.
+2019-06-13 15:58:30.439 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:58:30.439 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:58:30.439 --- 
+  At least one net is connected, begin to start.
+2019-06-13 15:58:30.439 --- 
+  At least one net is connected, begin to start.
+2019-06-13 15:58:30.440 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:58:30.440 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 15:58:30.440 --- 
+  At least one net is connected, begin to start.
+2019-06-13 15:58:30.440 --- 
+  At least one net is connected, begin to start.
+2019-06-13 15:58:32.854 --- 
+  Receive a Ping message.
+2019-06-13 15:58:32.854 --- 
+  Receive a Ping message.
+2019-06-13 15:58:32.854 --- 
+  Receive a Ping message.
+2019-06-13 15:58:32.854 --- 
+  Receive a Ping message.
+2019-06-13 15:58:32.854 --- 
+  Receive a Ping message.
+2019-06-13 15:58:32.854 --- 
+  Receive a Ping message.
+2019-06-13 16:04:58.111 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 16:04:58.111 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 16:04:58.111 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 16:04:58.111 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 16:04:58.111 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-13 16:04:58.134 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 16:04:58.134 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 16:04:58.134 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 16:04:58.134 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 16:04:58.134 --- 
+  Condition info : 
+<in_condition>
+<rec>
+<protocol418_condition>
+<type_func>0x01,0x01</type_func>
+<type_func>0x01,0x01</type_func>
+</protocol418_condition>
+</rec>
+</in_condition>
+
+2019-06-13 16:04:58.134 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 16:04:58.134 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 16:04:58.134 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 16:04:58.134 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 16:04:58.134 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 16:04:58.134 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 16:04:58.134 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 16:04:58.134 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 16:04:58.134 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-13 16:04:58.134 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-13 16:04:58.135 --- 
+  Initializing done.
+2019-06-13 16:04:58.135 --- 
+  Initializing done.
+2019-06-13 16:04:58.138 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.138 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.138 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.138 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.138 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.138 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.138 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.138 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.139 --- 
+  Initializing done.
+2019-06-13 16:04:58.139 --- 
+  Initializing done.
+2019-06-13 16:04:58.139 --- 
+  Initializing done.
+2019-06-13 16:04:58.139 --- 
+  Initializing done.
+2019-06-13 16:04:58.139 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.139 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.142 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.142 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.142 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.142 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.143 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.143 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.143 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.143 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.143 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.143 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 16:04:58.143 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.143 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.143 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.143 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 16:04:58.236 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 16:04:58.236 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 16:04:58.236 --- 
+  Client1 re clear message sender queue.
+2019-06-13 16:04:58.236 --- 
+  Client1 re clear message sender queue.
+2019-06-13 16:04:58.236 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 16:04:58.236 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 16:04:58.237 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 16:04:58.237 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 16:04:58.237 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 16:04:58.237 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 16:04:58.237 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 16:04:58.237 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 16:04:58.238 --- 
+  Receive a REGISTER message.
+2019-06-13 16:04:58.238 --- 
+  Receive a REGISTER message.
+2019-06-13 16:04:58.238 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 16:04:58.238 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 16:04:58.238 --- 
+  Double net Id = 14
+2019-06-13 16:04:58.238 --- 
+  Double net Id = 14
+2019-06-13 16:04:58.238 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 16:04:58.238 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 16:04:58.240 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 16:04:58.240 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 16:04:58.241 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 16:04:58.241 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 16:04:58.242 --- 
+  Client1 re clear message sender queue.
+2019-06-13 16:04:58.242 --- 
+  Client1 re clear message sender queue.
+2019-06-13 16:04:58.242 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 16:04:58.242 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 16:04:58.242 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 16:04:58.242 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 16:04:58.242 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 16:04:58.242 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 16:04:58.242 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 16:04:58.242 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 16:04:58.243 --- 
+  Receive a REGISTER message.
+2019-06-13 16:04:58.243 --- 
+  Receive a REGISTER message.
+2019-06-13 16:04:58.243 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 16:04:58.243 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 16:04:58.243 --- 
+  Double net Id = 15
+2019-06-13 16:04:58.243 --- 
+  Double net Id = 15
+2019-06-13 16:04:58.243 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 16:04:58.243 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 16:04:58.245 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 16:04:58.245 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 16:04:58.245 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 16:04:58.245 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 16:04:58.245 --- 
+  Client1 re clear message sender queue.
+2019-06-13 16:04:58.245 --- 
+  Client1 re clear message sender queue.
+2019-06-13 16:04:58.246 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 16:04:58.246 --- 
+  Client1 Connects to NetRouter successfully.
+2019-06-13 16:04:58.246 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 16:04:58.246 --- 
+  Client1 Message Sender thread can be active and operate now.
+2019-06-13 16:04:58.246 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 16:04:58.246 --- 
+  Client1 Message Receiver thread can be active and operate now.
+2019-06-13 16:04:58.246 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 16:04:58.246 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 16:04:58.247 --- 
+  Receive a REGISTER message.
+2019-06-13 16:04:58.247 --- 
+  Receive a REGISTER message.
+2019-06-13 16:04:58.247 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 16:04:58.247 --- 
+  From REGISTER Message, the addr is 10.0.140.213 9003, and matches client1.
+2019-06-13 16:04:58.247 --- 
+  Double net Id = 16
+2019-06-13 16:04:58.247 --- 
+  Double net Id = 16
+2019-06-13 16:04:58.247 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 16:04:58.247 --- 
+  Client1 enqueue REGISTER message successfully.
+2019-06-13 16:04:58.249 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 16:04:58.249 --- 
+  Client1 Receive a ACK_REGISTER_ALLOW message.
+2019-06-13 16:05:00.085 --- 
+  Receive a Ping message.
+2019-06-13 16:05:00.085 --- 
+  Receive a Ping message.
+2019-06-13 16:05:00.085 --- 
+  Receive a Ping message.
+2019-06-13 16:05:00.085 --- 
+  Receive a Ping message.
+2019-06-13 16:05:00.085 --- 
+  Receive a Ping message.
+2019-06-13 16:05:00.085 --- 
+  Receive a Ping message.
+2019-06-13 16:05:00.240 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 16:05:00.240 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 16:05:00.240 --- 
+  At least one net is connected, begin to start.
+2019-06-13 16:05:00.240 --- 
+  At least one net is connected, begin to start.
+2019-06-13 16:05:00.243 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 16:05:00.243 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 16:05:00.243 --- 
+  At least one net is connected, begin to start.
+2019-06-13 16:05:00.243 --- 
+  At least one net is connected, begin to start.
+2019-06-13 16:05:00.249 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 16:05:00.249 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 16:05:00.249 --- 
+  At least one net is connected, begin to start.
+2019-06-13 16:05:00.249 --- 
+  At least one net is connected, begin to start.
+2019-06-13 23:59:50.106 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 23:59:50.216 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 23:59:50.216 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 23:59:50.216 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 23:59:50.216 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 23:59:50.216 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 23:59:50.216 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 23:59:50.216 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-13 23:59:50.216 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 23:59:50.216 --- 
+  Condition info : 
+<in_condition>
+<rec>
+<protocol418_condition>
+<type_func>0x01,0x01</type_func>
+<type_func>0x01,0x01</type_func>
+</protocol418_condition>
+</rec>
+</in_condition>
+
+2019-06-13 23:59:50.216 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-13 23:59:50.216 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-13 23:59:50.216 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-13 23:59:50.216 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-13 23:59:50.216 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-13 23:59:50.216 --- 
+  Initializing done.
+2019-06-13 23:59:50.216 --- 
+  Initializing done.
+2019-06-13 23:59:50.216 --- 
+  Initializing done.
+2019-06-13 23:59:50.216 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 23:59:50.216 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 23:59:50.216 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 23:59:50.216 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 23:59:50.216 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 23:59:50.216 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 23:59:50.226 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 23:59:50.226 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 23:59:50.236 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-13 23:59:50.236 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-13 23:59:50.236 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-13 23:59:50.236 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-13 23:59:50.326 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 23:59:50.326 --- 
+  Client1 re clear message sender queue.
+2019-06-13 23:59:50.326 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 23:59:50.326 --- 
+  Client1 re clear message sender queue.
+2019-06-13 23:59:50.326 --- 
+  Client1 try connecting to NetRouter.
+2019-06-13 23:59:50.326 --- 
+  Client1 re clear message sender queue.
+2019-06-13 23:59:52.335 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 23:59:52.335 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 23:59:52.335 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 23:59:52.335 --- 
+  Client2 re clear message sender queue.
+2019-06-13 23:59:52.335 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 23:59:52.335 --- 
+  Client2 re clear message sender queue.
+2019-06-13 23:59:52.335 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-13 23:59:52.335 --- 
+  Client2 try connecting to NetRouter.
+2019-06-13 23:59:52.335 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:03:44.758 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-14 00:03:44.758 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-14 00:03:44.758 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-14 00:03:44.758 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-14 00:03:44.758 --- 
+  Condition info : 
+<in_condition>
+<rec>
+<protocol418_condition>
+<type_func>0x01,0x01</type_func>
+<type_func>0x01,0x01</type_func>
+</protocol418_condition>
+</rec>
+</in_condition>
+
+2019-06-14 00:03:44.758 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-14 00:03:44.758 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-14 00:03:44.758 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-14 00:03:44.758 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-14 00:03:44.758 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-14 00:03:44.758 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-14 00:03:44.758 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-14 00:03:44.758 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-14 00:03:44.758 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-14 00:03:44.758 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-14 00:03:44.758 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-14 00:03:44.758 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-14 00:03:44.758 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-14 00:03:44.758 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-14 00:03:44.758 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-14 00:03:44.758 --- 
+  Initializing done.
+2019-06-14 00:03:44.758 --- 
+  Initializing done.
+2019-06-14 00:03:44.758 --- 
+  Initializing done.
+2019-06-14 00:03:44.758 --- 
+  Initializing done.
+2019-06-14 00:03:44.758 --- 
+  Initializing done.
+2019-06-14 00:03:44.758 --- 
+  Initializing done.
+2019-06-14 00:03:44.758 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.758 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.768 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.768 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.768 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.768 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.768 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.768 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:03:44.768 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.768 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.768 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.768 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:03:44.868 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:03:44.868 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:03:44.868 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:03:44.868 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:03:44.868 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:03:44.868 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:03:44.868 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:03:44.868 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:03:44.868 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:03:44.868 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:03:44.868 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:03:44.868 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:03:46.877 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:03:46.877 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:03:46.877 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:03:46.877 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:03:46.877 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:03:46.877 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:03:46.877 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:03:46.877 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:03:46.877 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:03:46.877 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:03:46.877 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:03:46.877 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:03:46.877 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:03:46.877 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:03:46.877 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:03:46.877 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:03:46.877 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:03:46.877 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:17:24.350 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-14 00:17:24.350 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-14 00:17:24.350 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-14 00:17:24.350 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-14 00:17:24.350 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-14 00:17:24.350 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-14 00:17:24.350 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-14 00:17:24.350 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-14 00:17:24.350 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-14 00:17:24.350 --- 
+  Condition info : 
+<in_condition>
+<rec>
+<protocol418_condition>
+<type_func>0x01,0x01</type_func>
+<type_func>0x01,0x01</type_func>
+</protocol418_condition>
+</rec>
+</in_condition>
+
+2019-06-14 00:17:24.370 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-14 00:17:24.370 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-14 00:17:24.370 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-14 00:17:24.370 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-14 00:17:24.370 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-14 00:17:24.370 --- 
+  Initializing done.
+2019-06-14 00:17:24.370 --- 
+  Initializing done.
+2019-06-14 00:17:24.380 --- 
+  Initializing done.
+2019-06-14 00:17:24.380 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:17:24.380 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:17:24.380 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:17:24.380 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:17:24.380 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:17:24.380 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:17:24.380 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:17:24.380 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:17:24.380 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:17:24.380 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:17:24.380 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:17:24.380 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:17:24.480 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:17:24.480 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:17:24.490 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:17:24.490 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:17:24.490 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:17:24.490 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:17:26.489 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:17:26.489 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:17:26.489 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:17:26.499 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:17:26.499 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:17:26.499 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:17:26.499 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:17:26.499 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:17:26.499 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:19:01.969 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-14 00:19:01.969 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-14 00:19:01.969 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-14 00:19:01.969 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-14 00:19:01.969 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-14 00:19:01.979 --- 
+  Initializing done.
+2019-06-14 00:19:01.979 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:19:01.979 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:19:01.979 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:19:01.979 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:19:02.194 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-14 00:19:02.194 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-14 00:19:02.194 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-14 00:19:02.194 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-14 00:19:02.194 --- 
+  Condition info : 
+ 													<in_condition>														<rec> 															<protocol418_condition> 																<type_func>0xff,0xff</type_func> 															</protocol418_condition> 														</rec> 													 </in_condition> 													   
+2019-06-14 00:19:02.194 --- 
+  Read configuration from ./config/Configure.xml.
+2019-06-14 00:19:02.194 --- 
+  NetRouter Client internal value: startFailSpan = 5;  tryOpenSpan = 5.
+2019-06-14 00:19:02.194 --- 
+  ip1 = 10.0.140.213 ip2 = 10.2.55.51 port1 = 9003 port2 = 9005.
+2019-06-14 00:19:02.194 --- 
+  bureau_code = 8   unit_type = 1   unit_id = 2   dev_type = 2   dev_id = 6.
+2019-06-14 00:19:02.194 --- 
+  Condition info : 
+<in_condition>
+<rec>
+<protocol418_condition>
+<type_func>0x01,0x01</type_func>
+<type_func>0x01,0x01</type_func>
+</protocol418_condition>
+</rec>
+</in_condition>
+
+2019-06-14 00:19:02.194 --- 
+  Initializing done.
+2019-06-14 00:19:02.194 --- 
+  Initializing done.
+2019-06-14 00:19:02.194 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:19:02.194 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:19:02.194 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:19:02.194 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:19:02.194 --- 
+  Client1 Message Sender is in thread_waiting state.
+2019-06-14 00:19:02.194 --- 
+  Client2 Message Sender is in thread_waiting state.
+2019-06-14 00:19:02.194 --- 
+  Client1 Message Receiver is in thread_waiting state.
+2019-06-14 00:19:02.194 --- 
+  Client2 Message Receiver is in thread_waiting state.
+2019-06-14 00:19:02.284 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:19:02.284 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:19:02.304 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:19:02.304 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:19:02.304 --- 
+  Client1 try connecting to NetRouter.
+2019-06-14 00:19:02.304 --- 
+  Client1 re clear message sender queue.
+2019-06-14 00:19:04.293 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:19:04.293 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:19:04.293 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:19:04.313 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:19:04.313 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:19:04.313 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:19:04.313 --- 
+  Client2 try connecting to NetRouter.
+2019-06-14 00:19:04.313 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:19:04.313 --- 
+  Client2 re clear message sender queue.
+2019-06-14 00:19:06.302 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:19:06.322 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out
+2019-06-14 00:19:06.322 --- 
+  Connecting to NetRouter fails, TTransportException exception:open() timed out

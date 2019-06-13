@@ -3,7 +3,7 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 import java.io._
 import java.util
 
-import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path
+import cn.edu.sicau.pfdistribution.entity.{DirectedEdge, DirectedPath}
 import cn.edu.sicau.pfdistribution.service.kspcalculation.{KSPUtil, ReadExcel}
 import cn.edu.sicau.pfdistribution.service.road.KServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,58 +30,54 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     val kspUtil = new KSPUtil()
     kspUtil.setGraph(graph)
     val ksp = kspUtil.computeODPath(sou,tar,2)*/
-    val ksp = kServiceImpl.computeDynamic(sou,tar)
+    val ksp = kServiceImpl.computeDynamic(sou,tar, "PARAM_ID", "RETURN_NAME")
     val iter = ksp.iterator()
     val passenger = 1000 //OD对的总人数，暂为所有OD设置为1000
-    var text:mutable.Map[Iterator[String],Double] = mutable.Map()
+    var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
     while(iter.hasNext) {
       val p = iter.next()
       //      一条路径的站点构成
-      val nodesIter = p.getNodes.iterator()
+      val nodesIter = p.getEdges.iterator()
       //      println("费用:"  + p.getTotalCost)
       text += (nodesIter.asScala -> p.getTotalCost)   //静态费用
       //      println(text.toList)
     }
-    for (key <- text.keys) {
+/*    for (key <- text.keys) {
       val myArray = key.toArray
       text1 += (myArray -> text.apply(key))
-    }
-    return dynamicCosting.cost_Count(text1)
+    }*/
+    return dynamicCosting.cost_Count(text)
   }
 
-  override def getTransferTimes(targetOd: String):Int={
-    val aList = targetOd.split(" ")
-    val sou = aList(0)
-    val tar = aList(1)
-    val readExcel = new ReadExcel()
-    val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
-    val kspUtil = new KSPUtil()
-    kspUtil.setGraph(graph)
-    val ksp = kspUtil.computeODPath(sou,tar,1)
-    val iter = ksp.iterator()
-    var text:mutable.Map[Iterator[String],Double] = mutable.Map()
-    var text1:mutable.Map[Array[String],Double] = mutable.Map()
-    while(iter.hasNext) {
-      val p = iter.next()
-      //      一条路径的站点构成
-      val nodesIter = p.getNodes.iterator()
-      //      println("费用:"  + p.getTotalCost)
-      text += (nodesIter.asScala -> p.getTotalCost)   //静态费用
-      //      println(text.toList)
+  override def kspDistribution(map: Map[Array[DirectedEdge], Double], x: Int): mutable.Map[Array[DirectedEdge], Double] = {
+    val e = Math.E
+    val Q = -1*getParameter.getDistributionCoefficient()  //分配系数
+    var p = 0.0
+    var fenMu = 0.0
+    val probability_Passenger = new Array[Double](10)
+    val costMin = map.values.min
+    val kspMap = scala.collection.mutable.Map[Array[DirectedEdge], Double]()
+    for (value <- map.values) {
+      //分配概率
+      fenMu = fenMu + Math.pow(e, (Q * value / costMin))
     }
-    for (key <- text.keys) {
-      val myArray = key.toArray
-      text1 += (myArray -> text.apply(key))
+    var count = 0
+    for (value <- map.values) {
+      p = Math.pow(e, (Q * value / costMin)) / fenMu
+      val kspPassenger = x.asInstanceOf[Double] * p //计算人数
+      probability_Passenger(count) = kspPassenger
+      count = count + 1
     }
-    /*
-     * 需要写对换乘次数的具体判断方法
-     */
-    val times = 2
-    return times
+    val keys = map.keySet
+    var count1 = 0
+    for (key <- keys) {
+      kspMap += (key -> probability_Passenger(count1))
+      count1 = count1 + 1
+    }
+    return kspMap
   }
-
-  override def distribution(map: Map[Array[String], Double], x: Int): Map[Array[String], Double] = {
+  override def sectionDistribution(map: Map[Array[String], Double], x: Int): mutable.Map[Array[String], Double] = {
     val e = Math.E
     val Q = -1*getParameter.getDistributionCoefficient()  //分配系数
     var p = 0.0
@@ -108,6 +104,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     }
     return kspMap
   }
+
   override def odDistributionResult(targetOd: String): mutable.Map[Array[String],Double] ={
     val aList = targetOd.split(" ")
     val sou = aList(0)
@@ -133,49 +130,40 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
       val myArray = key.toArray
       text1 += (myArray -> text.apply(key))
     }
-    return distribution(text1, passengers)
+    return sectionDistribution(text1, passengers)
   }
 
   //动态路径分配
-  override def dynamicOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[Path]],odMap:mutable.Map[String,Integer]): mutable.Map[Array[String],Double] ={
-/*    val aList = targetOd.split(" ")
-    val sou = aList(0)
-    val tar = aList(1)
-    val passengers = aList(2).toInt*/
-/*    val readExcel = new ReadExcel()
-    val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
-    val kspUtil = new KSPUtil()
-    kspUtil.setGraph(graph)
-    val ksp = kspUtil.computeODPath(sou,tar,2)*/
-    val ksp:util.List[Path] = allKsp(targetOd)
+  override def dynamicOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,Integer]): mutable.Map[Array[String], Double] ={
+    val ksp:util.List[DirectedPath] = allKsp(targetOd)
     val passengers:Int = odMap(targetOd).toInt
     val iter = ksp.iterator()
-    var text:mutable.Map[Iterator[String],Double] = mutable.Map()
+    var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()
     var text1:mutable.Map[Array[String],Double] = mutable.Map()
     while(iter.hasNext) {
       val p = iter.next()
       //      一条路径的站点构成
-      val nodesIter = p.getNodes.iterator()
+      val nodesIter = p.getEdges.iterator()
       //      println("费用:"  + p.getTotalCost)
       text += (nodesIter.asScala -> p.getTotalCost)   //静态费用
       //      println(text.toList)
     }
-    for (key <- text.keys) {
+/*    for (key <- text.keys) {
       val myArray = key.toArray
       text1 += (myArray -> text.apply(key))
-    }
-    return distribution(dynamicCosting.cost_Count(text1), passengers)
+    }*/
+    return sectionDistribution(dynamicCosting.cost_Count1(text1), passengers)
   }
-  override def tongHaoStaticOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[Path]],odMap:mutable.Map[String,String]): mutable.Map[Array[String],Double] ={
-    val ksp:util.List[Path] = allKsp(targetOd)
+  override def tongHaoStaticOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,String]): mutable.Map[Array[DirectedEdge], Double] ={
+    val ksp:util.List[DirectedPath] = allKsp(targetOd)
     val passengers:Int = odMap(targetOd).toInt
     val iter = ksp.iterator()
-    var text:mutable.Map[Iterator[String],Double] = mutable.Map()
-    var text1:mutable.Map[Array[String],Double] = mutable.Map()
+    var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()
+    var text1:mutable.Map[Array[DirectedEdge], Double] = mutable.Map()
     while(iter.hasNext) {
       val p = iter.next()
       //      一条路径的站点构成
-      val nodesIter = p.getNodes.iterator()
+      val nodesIter = p.getEdges.iterator()
       //      println("费用:"  + p.getTotalCost)
       text += (nodesIter.asScala -> p.getTotalCost)   //静态费用
       //      println(text.toList)
@@ -184,10 +172,10 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
       val myArray = key.toArray
       text1 += (myArray -> text.apply(key))
     }
-    return distribution(text1, passengers)
+    return kspDistribution(text1, passengers)
   }
-  override def tongHaoDynamicOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[Path]],odMap:mutable.Map[String,String]): mutable.Map[Array[String],Double] ={
-    val ksp:util.List[Path] = allKsp(targetOd)
+  override def tongHaoDynamicOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,String]): mutable.Map[Array[String],Double] ={
+    val ksp:util.List[DirectedPath] = allKsp(targetOd)
     val passengers:Int = odMap(targetOd).toInt
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[String],Double] = mutable.Map()
@@ -204,7 +192,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
       val myArray = key.toArray
       text1 += (myArray -> text.apply(key))
     }
-    return distribution(dynamicCosting.cost_Count(text1), passengers)
+    return sectionDistribution(dynamicCosting.cost_Count1(text1), passengers)
   }
 
   override def odRegion(map: mutable.Map[Array[String], Double]): mutable.Map[String, Double] = {

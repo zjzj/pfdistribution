@@ -51,7 +51,9 @@ public class RoadDistributionDaoImpl implements RoadDistributionDao {
      */
     @Override
     public List<Section> getAllSection() {
-        String sql = "SELECT section.CZ1_NAME fromNode, section.CZ2_NAME toNode, section.QJ_LENGTH weight FROM dic_section section";
+        String sql = "SELECT QJ_ID sectionId, `CZ1_ID` fromId, CZ1_NAME fromName, \n" +
+                "\t`CZ2_ID` toId, CZ2_NAME toName, \n" +
+                "\t`QJ_SXX` direction, QJ_LENGTH weight FROM dic_section";
         RowMapper<Section>rowMapper = new BeanPropertyRowMapper<Section>(Section.class);
         List<Section>sections = jdbcTemplate.query(sql, rowMapper);
         return sections;

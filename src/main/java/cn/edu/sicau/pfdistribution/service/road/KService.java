@@ -1,13 +1,13 @@
 package cn.edu.sicau.pfdistribution.service.road;
 
-import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
-import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
+import cn.edu.sicau.pfdistribution.entity.DirectedPath;
+
 
 import java.util.List;
 import java.util.Map;
 
 public interface KService {
-    List<Path> computeStatic(String o, String d);
-    List<Path> computeDynamic(String o, String d);
-    Map<String, List<Path>> computeDynamic(Map<String, String> ods);
+    List<DirectedPath> computeStatic(String o, String d, String paramType, String resultType);
+    List<DirectedPath> computeDynamic(String o, String d, String paramType, String resultType);
+    Map<String, List<DirectedPath>> computeDynamic(Map<String, String> ods, String paramType, String resultType);
 }

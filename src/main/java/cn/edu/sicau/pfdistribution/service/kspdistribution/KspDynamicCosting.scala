@@ -4,8 +4,9 @@ import org.springframework.stereotype.Service
 
 import scala.collection.mutable
 import java.io._
+
 import scala.collection.JavaConverters._
-import cn.edu.sicau.pfdistribution.entity.{StationAndSectionPassengers, StationAndSectionRisk}
+import cn.edu.sicau.pfdistribution.entity.{DirectedEdge, StationAndSectionPassengers, StationAndSectionRisk}
 import org.springframework.beans.factory.annotation.Autowired
 
 @Service
@@ -54,7 +55,30 @@ class KspDynamicCosting @Autowired()(val getParameter:GetParameter,val stationAn
     return inPlatformCost
   }
 
-  def cost_Count(kspArray:mutable.Map[Array[String],Double]):mutable.Map[Array[String],Double] = {
+  def cost_Count(kspArray:mutable.Map[Iterator[DirectedEdge], Double]):mutable.Map[Array[String],Double] = {
+    var DynamicArray:mutable.Map[Array[String],Double] = mutable.Map()
+    /*for (key <- kspArray.keys) {
+      var count:Double = 0
+      var n:Int=1
+      //判断路径有无换乘和换乘次数
+      val CZMap:mutable.Map[Integer, Integer]=getLineID.GetCZ_ID().asScala
+      for (i <- 0 to (key.length - 3)) {
+        val a=key(i).toInt
+        val b=key(i+2).toInt
+        if(CZMap(a)!= CZMap(b)){
+          n=n+1
+        }
+      }
+      //计算总费用
+      for (i <- 0 to (key.length - 2)) {
+        count += stationOperatingCosts(key(i),key(i+1)) + n*transferFee() +perceivedCosts(key(i+1))
+      }
+      DynamicArray += (key -> count)
+    }*/   //具体实现需要更改
+    return DynamicArray
+  }
+
+  def cost_Count1(kspArray:mutable.Map[Array[String],Double]):mutable.Map[Array[String],Double] = {
     var DynamicArray:mutable.Map[Array[String],Double] = mutable.Map()
     for (key <- kspArray.keys) {
       var count:Double = 0

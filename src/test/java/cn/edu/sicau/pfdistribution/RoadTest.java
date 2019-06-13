@@ -1,6 +1,7 @@
 package cn.edu.sicau.pfdistribution;
 
 import cn.edu.sicau.pfdistribution.dao.mysqlsave.RoadDistributionDao;
+import cn.edu.sicau.pfdistribution.entity.DirectedPath;
 import cn.edu.sicau.pfdistribution.entity.Station;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
@@ -42,8 +43,8 @@ public class RoadTest {
         abadonEdge.setWeight(1.0);
         abandonEdges.add(abadonEdge);
 
-        List<Path>paths = null;
-        paths = kService.computeStatic("璧山", "较场口");
+        List<DirectedPath> paths = null;
+        paths = kService.computeStatic("199", "20","PARAM_ID","RETURN_NAME");
         System.out.println("无废弃区间========================");
         System.out.println(paths);
     }
