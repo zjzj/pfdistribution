@@ -36,16 +36,9 @@ public class RoadTest {
     }*/
     @Test
     public void kspTest(){
-        List<Edge>abandonEdges = new ArrayList<>();
-        Edge abadonEdge = new Edge();
-        abadonEdge.setFromNode("幸福广场");
-        abadonEdge.setToNode("人和");
-        abadonEdge.setWeight(1.0);
-        abandonEdges.add(abadonEdge);
-
         List<DirectedPath> paths = null;
-        paths = kService.computeStatic("199", "20","PARAM_ID","RETURN_NAME");
-        System.out.println("无废弃区间========================");
+        //                                 璧山199     较场口20
+        paths = kService.computeStatic("璧山", "较场口",Constants.PARAM_NAME,Constants.RETURN_EDGE_ID);
         System.out.println(paths);
     }
 }

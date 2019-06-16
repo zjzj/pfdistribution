@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 @Component
 public class NetRouterController {
-    @Autowired
-    private IntervalDistributionNetRouter intervalDistributionNetRouter;
+/*    @Autowired
+    private IntervalDistributionNetRouter intervalDistributionNetRouter;*/
 
     @Autowired
     private RiskLevelNetRouter riskLevelNetRouter;
@@ -15,7 +15,7 @@ public class NetRouterController {
     private StationAndSectionNetRouter stationAndSectionNetRouter;
     @PostConstruct
     public void StartAllNetRouter() throws Exception {
-        intervalDistributionNetRouter.receiver();
+/*        intervalDistributionNetRouter.receiver();*/
         riskLevelNetRouter.receiver();
         stationAndSectionNetRouter.receiver();
     }

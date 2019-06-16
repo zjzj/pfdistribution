@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -46,5 +47,20 @@ public class OracleLink {
                 "where TO_CHAR(\"进站时间\") BETWEEN TO_CHAR(TO_TIMESTAMP('"+inTime+".000000','yyyy-mm-dd hh:mi:ss.ff')) AND TO_CHAR(TO_TIMESTAMP('"+outTime+".000000','yyyy-mm-dd hh:mi:ss.ff'))\n" +
                 "GROUP BY \"进站点\",\"出站点\"\n";
         return testOD;
+    }
+    //OD矩阵路径分配结果操作
+    public void createKspRegionTable()
+    {
+        OracleImpl.createKspRegionTable();
+    }
+    public void kspRegionAdd(String route, int passenger){
+        OracleImpl.kspRegionAdd(route,passenger);
+    }
+    public void deleteAllKspRegion(){
+        OracleImpl.deleteAllKspRegion();
+    }
+    //将仿真得到的OD结果从oracle拉取出来并组成需要格式
+    public List<String> odFromOracleToList(){
+        return OracleImpl.odFromOracleToList();
     }
 }

@@ -1,6 +1,7 @@
 package cn.edu.sicau.pfdistribution.dao.mysqlsave;
 
 
+import java.util.List;
 import java.util.Map;
 
 public interface RegionSaveInterface {
@@ -14,4 +15,5 @@ public interface RegionSaveInterface {
     public Map<Integer, Integer> SelectLineId();
     //查询车站ID对应的车站名
     public String selectStationName(Integer id);
+    public Map<Integer, List<String>> selectTime();
 }

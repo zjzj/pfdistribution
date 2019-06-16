@@ -14,6 +14,7 @@ public class OracleImpl implements OracleGetod {
     @Autowired
     @Qualifier("oracleJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
+    private String pullOdFromOracleSql="select *from \"SCOTT\".\"ODFLOW_Demand\"";
 
     @Override
     public void deleteCare(){
@@ -106,5 +107,41 @@ public class OracleImpl implements OracleGetod {
             //strList.add(odIn1+" "+odOut1+" "+odPeo);
         }
         return map;
+    }
+
+    @Override
+    public void createKspRegionTable() {
+        jdbcTemplate.update("CREATE TABLE \"SCOTT\".\"test_5_28\" (   \n" +
+                "  \"route\" VARCHAR(500) ,\n" +
+                "  \"passenger\" INT \n" +
+                ")");
+    }
+
+    @Override
+    public void kspRegionAdd(String route, int passenger) {
+        jdbcTemplate.update("insert into \"SCOTT\".\"test_5_28\"values(?,?)",route,passenger);
+    }
+
+    @Override
+    public void deleteAllKspRegion() {
+        jdbcTemplate.update("delete from \"SCOTT\".\"test_5_28\" where 1=1");
+    }
+
+    @Override
+    public List<String> odFromOracleToList() {
+        List<String> strings=new ArrayList<>();
+        List rows= jdbcTemplate.queryForList(pullOdFromOracleSql);
+        Iterator it = rows.iterator();
+        while(it.hasNext()) {
+            Map odMap = (Map) it.next();
+            String startstation = (String) odMap.get("STARTSTATION");
+            String odstartstation=startstation.replace(" ", "");
+            String endstation = (String) odMap.get("ENDSTATION");
+            String odendstation=endstation.replace(" ", "");
+            String peoplenum = (String) odMap.get("PEOPLENUM");
+            String odresult=odstartstation+" "+odendstation+" "+peoplenum;
+            strings.add(odresult);
+        }
+        return strings;
     }
 }

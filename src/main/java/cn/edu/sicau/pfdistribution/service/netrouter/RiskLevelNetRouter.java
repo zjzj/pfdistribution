@@ -78,10 +78,11 @@ public class RiskLevelNetRouter {
                 RecvMessage recvMessage = new RecvMessage();
                 if (netRouterClient.receiveBlockMessage(recvMessage)) {
                    String message = recvMessage.getMessage();
+                   log.info("从riskNetRouter数据接" + message);
                    byte[] a = message.getBytes();
                    byte[] str = Arrays.copyOfRange(a,0,2);
                    System.out.println(recvMessage.getMessage());
-                   log.info("从riskNetRouter数据接" + message);
+
                    String functionCode = new String(str);
                    JsonTransfer jsonTransfer = new JsonTransfer();
                     if (functionCode=="11") {

@@ -28,7 +28,7 @@ public class RoadDistributionDaoImpl implements RoadDistributionDao {
      */
     @Override
     public List<Station> getAllStationInfo() {
-        String sql = "SELECT station.CZ_NAME stationName, station.LJM line FROM dic_station station";
+        String sql = "SELECT station.CZ_ID stationId, station.CZ_NAME stationName, station.LJM line FROM dic_station station";
         RowMapper rowMapper = new BeanPropertyRowMapper(SimpleStation.class);
         List<SimpleStation>stations = jdbcTemplate.query(sql, rowMapper);
         List<Station>stationList = new ArrayList<>();
@@ -39,7 +39,7 @@ public class RoadDistributionDaoImpl implements RoadDistributionDao {
                 if(stations.get(i).getStationName().equals(stations.get(j).getStationName()) && lines.indexOf(stations.get(j).getLine()) == -1)
                     lines.add(stations.get(j).getLine());
             }
-            Station station = new Station(stations.get(i).getStationName(), lines);
+            Station station = new Station(stations.get(i).getStationId(), stations.get(i).getStationName(), lines);
             stationList.add(station);
         }
         return stationList;

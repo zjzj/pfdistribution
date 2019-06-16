@@ -47,8 +47,7 @@ public class KServiceImpl implements KService, Serializable {
             o = od[0];
             d = od[1];
 
-        }//返回路径为name，od为id
-        else if(Constants.RETURN_EDGE_NAME.equals(resultType) && Constants.PARAM_ID.equals(paramType)){
+        }else if(Constants.RETURN_EDGE_NAME.equals(resultType) && Constants.PARAM_ID.equals(paramType)){
             String[] od = stationIdToName(o, d);
             o = od[0];
             d = od[1];
@@ -69,7 +68,7 @@ public class KServiceImpl implements KService, Serializable {
         for(int i = 1; i < path.size(); i++)
             stations.add(path.get(i).getToNode());
 
-        int k = getPathAboveK(stations);
+        int k = getPathAboveK(stations, resultType);
 
         paths = kspUtil.computeODPath(o, d, k + 1);
         List<Path>newPaths = removeWrongPaths(paths);
@@ -125,14 +124,24 @@ public class KServiceImpl implements KService, Serializable {
      * @param stations 一条路径的站点组成
      * @return
      */
-    private int getPathAboveK(List<String> stations){
+    private int getPathAboveK(List<String> stations, String resultType){
         List<Station>stationInfo = roadDistributionDao.getAllStationInfo();
         int k = 0;
-        for(int i = 0; i < stations.size(); i++){
-            String station = stations.get(i);
-            for(int j = 0; j < stationInfo.size(); j++){
-                if(station.equals(stationInfo.get(j).getName()) && stationInfo.get(j).getLines().size() >=2 )
-                    k++;
+        if(Constants.RETURN_EDGE_NAME.equals(resultType)){
+            for(int i = 0; i < stations.size(); i++){
+                String station = stations.get(i);
+                for(int j = 0; j < stationInfo.size(); j++){
+                    if(station.equals(stationInfo.get(j).getName()) && stationInfo.get(j).getLines().size() >=2 )
+                        k++;
+                }
+            }
+        }else if(Constants.RETURN_EDGE_ID.equals(resultType)){
+            for(int i = 0; i < stations.size(); i++){
+                String station = stations.get(i);
+                for(int j = 0; j < stationInfo.size(); j++){
+                    if(station.equals(stationInfo.get(j).getId()) && stationInfo.get(j).getLines().size() >=2 )
+                        k++;
+                }
             }
         }
         return k;
@@ -248,8 +257,8 @@ public class KServiceImpl implements KService, Serializable {
                 LinkedList<DirectedEdge>singlePathDirectedEdges = new LinkedList<>();
                 for(Edge edge : singlePathEdges){
                     for(Section section:sections){
-                        if(section.getFromId().equals(edge.getFromNode()) &&
-                                section.getToId().equals(edge.getToNode())){
+                        if(section.getFromId().toString().equals(edge.getFromNode()) &&
+                                section.getToId().toString().equals(edge.getToNode())){
                             DirectedEdge directedEdge = new DirectedEdge();
                             directedEdge.setEdge(edge);
                             directedEdge.setDirection(section.getDirection());
