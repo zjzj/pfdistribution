@@ -108,8 +108,32 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
 
   //rest接口调用
   def getDistribution(od:String):Object = {
-    val data1:mutable.Map[Array[DirectedEdge], Double] = calBase.dynamicOdPathSearch(od)
-    val data2:mutable.Map[Array[DirectedEdge], Double] = calBase.staticOdPathSearch(od)
+    val data1:mutable.Map[Array[DirectedEdge], Double] = calBase.staticOdPathSearch(od)
+    var result: Map[String, Double] = Map()
+    println(data1)
+    val minPathMap1:Array[DirectedEdge]=minWeightPath(data1)
+    val minDataArray:Array[Array[DirectedEdge]] = Array(minPathMap1)
+    for(i <- 0 to (minDataArray.length -1)) {
+      val minPath: Array[DirectedEdge] = minDataArray(i)
+      val directedEdge: DirectedEdge = minPath(0)
+      val edge: Edge = directedEdge.getEdge
+      var str = edge.getFromNode
+      for (i <- 1 to (minPath.length - 2)) {
+        val dEdge: DirectedEdge = minPath(i)
+        val eg: Edge = dEdge.getEdge
+        str = str + "," + eg.getFromNode
+      }
+      val dEdge2: DirectedEdge = minPath(minPath.length - 1)
+      val eg2: Edge = dEdge2.getEdge
+      str = str + "," + eg2.getToNode
+      if(i==0)
+        result += (str -> data1(minPath))
+    }
+    return result.map{case(k,v)=>(k,v)}.asJava
+  }
+  /*def getDistribution(od:String):Object = {
+    val data1:mutable.Map[Array[DirectedEdge], Double] = calBase.staticOdPathSearch(od)
+    val data2:mutable.Map[Array[DirectedEdge], Double] = calBase.dynamicOdPathSearch(od)
     var result: Map[String, Double] = Map()
     val minPathMap1:Array[DirectedEdge]=minWeightPath(data1)
     val minPathMap2:Array[DirectedEdge]=minWeightPath(data2)
@@ -132,12 +156,13 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
       else result += (str -> data2(minPath))
     }
     return result.map{case(k,v)=>(k,v)}.asJava
-  }
+  }*/
   //筛选出所有路径中权值和最小的路径
   def minWeightPath(data:mutable.Map[Array[DirectedEdge], Double]):Array[DirectedEdge]={
     var result:mutable.Map[Array[DirectedEdge],Double] = mutable.Map()
     var minPathWeight:Double = data.values.head
     for(key <- data.keys){
+      result += (key -> data(key))
       if(data(key)<minPathWeight){
         minPathWeight = data(key)
         if(result.isEmpty)
