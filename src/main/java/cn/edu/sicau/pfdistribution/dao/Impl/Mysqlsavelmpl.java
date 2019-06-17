@@ -69,4 +69,20 @@ public class  Mysqlsavelmpl implements RegionSaveInterface {
         }
         return idTime;
     }
+    @Override
+    public Map<String,List<Integer>> czNameToID(String Name){
+        Map nameToID = new HashMap();
+        List<Integer> idList=new ArrayList<>();
+        List rows= jdbcTemplate.queryForList("SELECT CZ_ID\n" +
+                "FROM dic_linestation\n" +
+                "WHERE CZ_NAME='"+Name+"'");
+        Iterator it = rows.iterator();
+        while(it.hasNext()) {
+            Map userMap = (Map) it.next();
+            Integer CZ_ID = (Integer) userMap.get("CZ_ID");
+            idList.add(CZ_ID);
+        }
+        nameToID.put(Name,idList);
+        return nameToID;
+    }
 }

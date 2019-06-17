@@ -15,5 +15,9 @@ public interface RegionSaveInterface {
     public Map<Integer, Integer> SelectLineId();
     //查询车站ID对应的车站名
     public String selectStationName(Integer id);
+    //查询id对应的车站名
     public Map<Integer, List<String>> selectTime();
+    //查询区间对应的时间
+    public Map<String,List<Integer>> czNameToID(String Name);
+    //查询车站名对应的id
 }
