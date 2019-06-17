@@ -10,9 +10,9 @@ import java.util.*;
 
 public class JsonTransfer {
 
-    public boolean stationDataAnalysis(String data) throws JSONException {
+    public boolean stationDataAnalysis(JSONObject jsonObject){
         try {
-            JSONObject jsonObject = new JSONObject(data);
+          /*  JSONObject jsonObject = new JSONObject(data);*/
             //        String record_time = jsonObject.optString("Recordtime");
             JSONArray station_loads = jsonObject.getJSONArray("Station_loads");
             JSONArray Section_loads = jsonObject.getJSONArray("Section_loads");

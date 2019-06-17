@@ -2,10 +2,13 @@ package cn.edu.sicau.pfdistribution.entity;
 
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+
 @Service
-public class StationAndSectionPassengers {
+public class StationAndSectionPassengers implements Serializable {
+
     private Map<String, List<String>> stationP;
     private Map<String, List<String>> sectionP;
 

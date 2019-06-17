@@ -2,7 +2,9 @@ package cn.edu.sicau.pfdistribution.entity;
 
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 
-public class DirectedEdge {
+import java.io.Serializable;
+
+public class DirectedEdge implements Serializable {
     private Edge edge;
     private String direction;
 

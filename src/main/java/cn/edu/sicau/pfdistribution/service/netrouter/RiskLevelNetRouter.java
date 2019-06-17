@@ -53,7 +53,7 @@ public class RiskLevelNetRouter {
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 1, (byte) 1, (short) 6);
         destAddrs.add(destaddr1);
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.4.208.73", 9003, "10.2.55.51", 9005, localaddr, "");
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.4.208.75", 9003, "10.2.55.51", 9005, localaddr, "");
         while (!netRouterClient.start()) {
             System.out.println("RiskLevelNetRouter Start fails.");
             Thread.sleep(10);
@@ -79,7 +79,7 @@ public class RiskLevelNetRouter {
                         String data = new String(str2);
                         jsonTransfer.riskDataAnalysis(data);
                         log.info("从riskNetRouter数据接收成功" + message);
-                        SendData(netRouterClient, destAddrs,"succeeds");
+                        /*SendData(netRouterClient, destAddrs,"succeeds");*/
                     }
                 }
             }

@@ -4,10 +4,11 @@ package cn.edu.sicau.pfdistribution.entity;
 
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DirectedPath {
+public class DirectedPath implements Serializable {
     private LinkedList<DirectedEdge> edges;
 
     private double totalCost;
