@@ -18,7 +18,7 @@ spring:
 #      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   datasource:
     mysql:
-      jdbc-url: jdbc:mysql://47.107.38.55:32768/dbgirl
+      jdbc-url: jdbc:mysql://47.107.38.55:32768/dbgirl?useUnicode=true&characterEncoding=utf8
       username: root
       password: 123456
       driver-class-name: com.mysql.jdbc.Driver

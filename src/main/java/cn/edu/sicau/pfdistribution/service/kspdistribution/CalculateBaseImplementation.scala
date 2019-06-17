@@ -83,7 +83,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     val Q = -1*getParameter.getDistributionCoefficient()  //分配系数
     var p = 0.0
     var fenMu = 0.0
-    val probability_Passenger = new Array[Double](10)
+    val probability_Passenger = new Array[Double](1000)
     val costMin = map.values.min
     val kspMap = scala.collection.mutable.Map[Array[DirectedEdge], Double]()
     for (value <- map.values) {

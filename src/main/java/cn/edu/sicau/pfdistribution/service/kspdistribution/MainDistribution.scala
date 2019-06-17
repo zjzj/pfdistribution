@@ -16,7 +16,7 @@ import scala.collection.mutable
 
 //该段代码把Object改成Class定义
 @Service
-case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdList: GetOdList,getParameter: GetParameter,kServiceImpl:KServiceImpl,dataDeal: DataDeal,Path:TongHaoPathType)extends Serializable { //,val getOdList: GetOdList
+case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdList: GetOdList,getParameter: GetParameter,kServiceImpl:KServiceImpl,dataDeal: DataDeal,Path:TongHaoPathType,tongHaoReturnResult: TongHaoReturnResult)extends Serializable { //,val getOdList: GetOdList
 
   @transient
   val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
@@ -57,15 +57,12 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     //从数据库获得需要计算的OD矩阵
     val od:scala.collection.mutable.Buffer[String] = getOdList.odFromOracleToList().asScala
     val odList:List[String] = od.toList
-    println(odList)
     //将OD的列表转换为Map
     val odMap = odListToOdMap(odList)
-    println(odMap)
     //将OD的Map转换为java的Map
     val odJavaMap = odMapToJavaOdMap(odMap)
     //调用路径搜索方法，获得所有OD的k路径
     val allKspMap:mutable.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(odJavaMap,"PARAM_NAME", "RETURN_NAME").asScala
-    println(allKspMap)
     if(command.equals("static")){
       return tongHaoKspStaticDistributionResult(allKspMap,odMap)
     }else
@@ -89,8 +86,8 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     val odDistributionRdd = rdd.map(String => calBase.tongHaoStaticOdDistributionResult(String,allKspMap,odMap))   //各个OD的路径分配结果
     //对OD分配结果的RDD的整合
     val rddIntegration:mutable.Map[Array[DirectedEdge], Double] = odDistributionRdd.reduce((x, y) => x ++ y)
-    //处理得到的路径分配结果
-    tongHaoKspDynamicDistributionResult(allKspMap,odMap)
+    //处理得到tonghao的路径分配结果
+    return kspDistributionTransfer(rddIntegration)
   }
 
   def tongHaoKspDynamicDistributionResult(allKspMap:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,String]):util.ArrayList[TongHaoPathType]={
@@ -99,7 +96,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     //od对，起点与终点与用空格连接
     val odDistributionRdd = rdd.map(String => calBase.tongHaoDynamicOdDistributionResult(String,allKspMap,odMap))   //各个OD的路径分配结果
     val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合
-    tongHaoKspDynamicDistributionResult(allKspMap,odMap)
+    return kspDistributionTransfer(rddIntegration)
   }
 
   //返回区间断面的分配结果（静态）
@@ -202,17 +199,17 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     for (key <- rddIntegration.keys) {
       val dEdge: DirectedEdge = key(0)
       val edge: Edge = dEdge.getEdge
-      var forMatedPath = edge.getFromNode + dEdge.getDirection + edge.getToNode
+      var forMatedPath = edge.getFromNode +"-"+ dEdge.getDirection +"-"+ edge.getToNode
       for (i <- 1 to (key.length - 1)) {
         val dEdg: DirectedEdge = key(i)
         val eg: Edge = dEdg.getEdge
-        forMatedPath = forMatedPath + eg.getFromNode + dEdg.getDirection + eg.getToNode
+        forMatedPath = forMatedPath + "-"+dEdg.getDirection +"-"+ eg.getToNode
       }
       Path.setPath(forMatedPath)
-      Path.setPassengers(rddIntegration(key).toString)
+      Path.setPassengers(rddIntegration(key).toInt.toString)
       kspArray.add(Path)
     }
-    new TongHaoReturnResult(kspArray)
+    tongHaoReturnResult.setPathDistribution(kspArray)
     return kspArray
   }
 

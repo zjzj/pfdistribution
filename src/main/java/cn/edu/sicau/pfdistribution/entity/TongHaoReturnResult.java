@@ -12,11 +12,10 @@ public class TongHaoReturnResult implements Serializable {
     private String dataTime;
     private ArrayList<TongHaoPathType> pathDistribution;
 
-    public TongHaoReturnResult(ArrayList<TongHaoPathType> pathDistribution) {
+    public TongHaoReturnResult() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
         this.dataTime = df.format(new Date());
-        this.pathDistribution = pathDistribution;
     }
 
     public String getDataTime() {

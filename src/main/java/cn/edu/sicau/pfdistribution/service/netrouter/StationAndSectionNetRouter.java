@@ -36,6 +36,8 @@ public class StationAndSectionNetRouter {
     private Gson gson = new GsonBuilder().create();
     @Autowired
     private MainDistribution distribution;
+    @Autowired
+    private TongHaoReturnResult tongHaoReturnResult;
     private static void loadJNILibDynamically() {
         try {
             System.setProperty("java.library.path", System.getProperty("java.library.path")
@@ -51,6 +53,16 @@ public class StationAndSectionNetRouter {
     }
 
     private boolean SendData(NetRouterClient netClient, List<Address> f_list, java.util.ArrayList<cn.edu.sicau.pfdistribution.entity.TongHaoPathType> data) {
+//        gson.toJson(data)
+        SendMessage f_msg = new SendMessage(f_list, gson.toJson(data));
+        if (!netClient.sendMessage(f_msg)) {
+            System.out.println("Send fail");
+            return false;
+        }
+        System.out.println("Station and section Send suc");
+        return true;
+    }
+    private boolean SendData1(NetRouterClient netClient, List<Address> f_list, TongHaoReturnResult data) {
 //        gson.toJson(data)
         SendMessage f_msg = new SendMessage(f_list, gson.toJson(data));
         if (!netClient.sendMessage(f_msg)) {
@@ -103,7 +115,7 @@ public class StationAndSectionNetRouter {
                                 log.info("数据处理异常" );
                             }*/
                             Map<String, String> message = new HashMap<>();
-                            message.put("command", "dynamic");
+                            message.put("command", "static");
                             message.put("predictionInterval", "15");
                             final List<Tuple2<String, String>> list = new java.util.ArrayList<>(message.size());
                             for (final Map.Entry<String, String> entry : message.entrySet()) {
@@ -114,6 +126,7 @@ public class StationAndSectionNetRouter {
 
                             String back = "{'time':'2019/5/30 15:54:00','staion_distribution':[{'path':'三亚湾-2-民心佳园-2-重庆北站北广场-2-重庆北站南广场-o-重庆北站南广场-2-龙头寺公园-2-红土地','passengers':'2'},{'path':'空港广场-2-双凤桥-2-碧津-2-双龙-2-回兴-2-长福路-2-翠云-2-园博园-2-鸳鸯-2-金童路-2-金渝','passengers':'5'}]}";
                             SendData(netRouterClient, destAddrs, distribution.triggerTask(abc));
+                            SendData1(netRouterClient, destAddrs,tongHaoReturnResult);
                             log.info("数据处理成功" );
                         }
                     }
