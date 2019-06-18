@@ -21,10 +21,7 @@ public class RoadTest {
     private KService kService;
     @Test
     public void sationInfoTest(){
-        List<Station> stations = roadDistributionDao.getAllStationInfo();
-        for(int i = 0; i < stations.size(); i++){
-            System.out.println(stations.get(i));
-        }
+
     }
     /*    @Test
         public void sectionTest(){

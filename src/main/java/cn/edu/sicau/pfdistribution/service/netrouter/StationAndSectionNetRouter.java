@@ -1,9 +1,11 @@
 package cn.edu.sicau.pfdistribution.service.netrouter;
 
+
 import NetRouterClient.Address;
 import NetRouterClient.NetRouterClient;
 import NetRouterClient.RecvMessage;
 import NetRouterClient.SendMessage;
+import cn.edu.sicau.pfdistribution.entity.StationAndSectionPassengers;
 import cn.edu.sicau.pfdistribution.entity.TongHaoReturnResult;
 import cn.edu.sicau.pfdistribution.service.kspdistribution.MainDistribution;
 import com.google.gson.Gson;
@@ -12,17 +14,16 @@ import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import scala.Tuple2;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
+
 /*
 测试用例内容：
 向目的客户端发送的数据，收到回复后发送下一包
@@ -38,19 +39,90 @@ public class StationAndSectionNetRouter {
     private MainDistribution distribution;
     @Autowired
     private TongHaoReturnResult tongHaoReturnResult;
-    private static void loadJNILibDynamically() {
-        try {
-            System.setProperty("java.library.path", System.getProperty("java.library.path")
-                    + ";.\\bin\\");
-            Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
-            fieldSysPath.setAccessible(true);
-            fieldSysPath.set(null, null);
+    @Autowired
+    private JsonTransfer jsonTransfer;
+    @Autowired
+    public StationAndSectionPassengers stationAndSectionPassengers;
 
-            System.loadLibrary("NetRouterCppClient");
-        } catch (Exception e) {
-            // do nothing for exception
+    public boolean stationDataAnalysis1(JSONObject jsonObject){
+        try {
+            //JSONObject jsonObject = new JSONObject(data);
+            //        String record_time = jsonObject.optString("Recordtime");
+            JSONArray station_loads = jsonObject.getJSONArray("Station_loads");
+            JSONArray Section_loads = jsonObject.getJSONArray("Section_loads");
+            Map<String, List<String>> stationP = new HashMap<>();
+            Map<String, List<String>> sectionP = new HashMap<>();
+            for (int i = 0; i < station_loads.length(); i++) {
+                List<String> stationPassengers = new ArrayList<>();
+                String str = station_loads.getString(i);
+                JSONObject s = new JSONObject(str);
+                //            stationPassengers.add(s.getString("stationid"));
+                stationPassengers.add(s.getString("crowding_rate"));
+                stationPassengers.add(s.getString("persengers"));
+                stationPassengers.add(s.getString("avgvolume"));
+                stationPassengers.add(s.getString("outvolume"));
+                stationPassengers.add(s.getString("involume"));
+                stationP.put(s.getString("stationid"), stationPassengers);
+            }
+            for (int i = 0; i < Section_loads.length(); i++) {
+                List<String> sectionPassengers = new ArrayList<>();
+                String str = Section_loads.getString(i);
+                JSONObject s = new JSONObject(str);
+                sectionPassengers.add(s.getString("utilization_rate"));
+                sectionPassengers.add(s.getString("persengers"));
+                sectionPassengers.add(s.getString("volume"));
+                sectionP.put(s.getString("startid") + " " + s.getString("startid"), sectionPassengers);
+            }
+            stationAndSectionPassengers.setStationP(stationP);
+            stationAndSectionPassengers.setSectionP(sectionP);
+            return true;
+        }catch (Exception e){
+            return false;
         }
     }
+    private static void loadJNILibDynamically(String libName) throws IOException {// synchronized static
+
+        String systemType = System.getProperty("os.name");
+        String libExtension = (systemType.toLowerCase().indexOf("win")!=-1) ? ".dll" : ".so";
+
+        String libFullName = libName + libExtension;
+
+        String nativeTempDir = System.getProperty("java.io.tmpdir");
+
+        InputStream in = null;
+        BufferedInputStream reader = null;
+        FileOutputStream writer = null;
+
+        File extractedLibFile = new File(nativeTempDir+File.separator+libFullName);
+
+        if(!extractedLibFile.exists()){
+            try {
+                if (StationAndSectionNetRouter.class.getResource("/" + libFullName) == null) {
+                    throw new IllegalStateException("Lib " + libFullName + "not found!");
+                }
+                in = StationAndSectionNetRouter.class.getResourceAsStream("/" + libFullName);
+                reader = new BufferedInputStream(in);
+                writer = new FileOutputStream(extractedLibFile);
+
+                byte[] buffer = new byte[1024];
+
+                while (reader.read(buffer) > 0){
+                    writer.write(buffer);
+                    buffer = new byte[1024];
+                }
+            }
+            finally {
+                if(in!=null) {
+                    in.close();
+                }
+                if(writer!=null) {
+                    writer.close();
+                }
+            }
+        }
+        System.load(extractedLibFile.toString());
+    }
+
 
     private boolean SendData(NetRouterClient netClient, List<Address> f_list, java.util.ArrayList<cn.edu.sicau.pfdistribution.entity.TongHaoPathType> data) {
 //        gson.toJson(data)
@@ -75,7 +147,8 @@ public class StationAndSectionNetRouter {
 
     @Async
     public void receiver() throws Exception {
-        loadJNILibDynamically();
+        //loadJNILibDynamically();
+        loadJNILibDynamically("NetRouterCppClient");
         Address localaddr = new Address((byte) 8, (byte) 1, (short) 2, (byte) 2, (short) 6);
         List<Address> destAddrs = new LinkedList<Address>();
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 4, (byte) 1, (short) 6);
@@ -91,7 +164,7 @@ public class StationAndSectionNetRouter {
                         "</rec>\n"+
                         "</in_condition>\n";*/
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.4.208.75", 9003, "10.2.55.51", 9005, localaddr, "");
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.4.208.79", 9003, "10.2.55.51", 9005, localaddr, "");
         while (!netRouterClient.start()) {
             System.out.println("StationAndSectionNetRouter  Start fails.");
             Thread.sleep(10);
@@ -105,17 +178,15 @@ public class StationAndSectionNetRouter {
                 if (netRouterClient.receiveBlockMessage(recvMessage)) {
                     String a = recvMessage.getMessage();
                     log.info("StationAndSectionNetRouter接收到的数据" + a);
-                    log.info("从NetRouter读取数据"+ a);
                         if (recvMessage != null) {
-                            /*JSONObject json = new JSONObject(a);
-                            JsonTransfer jsonTransfer = new JsonTransfer();
-                            Boolean data = jsonTransfer.stationDataAnalysis(json);
-                            System.out.println(json);
-                            if(!data) {
+                            JSONObject json = new JSONObject(a);
+                            //Boolean data = jsonTransfer.stationDataAnalysis(a);
+                            Boolean data = stationDataAnalysis1(json);
+                            if(data == false) {
                                 log.info("数据处理异常" );
-                            }*/
+                            }
                             Map<String, String> message = new HashMap<>();
-                            message.put("command", "static");
+                            message.put("command", "dynamic");
                             message.put("predictionInterval", "15");
                             final List<Tuple2<String, String>> list = new java.util.ArrayList<>(message.size());
                             for (final Map.Entry<String, String> entry : message.entrySet()) {
@@ -125,7 +196,7 @@ public class StationAndSectionNetRouter {
                             scala.collection.immutable.Map<String, String> abc = (scala.collection.immutable.Map<String, String>) scala.collection.immutable.Map$.MODULE$.apply(seq);
 
                             String back = "{'time':'2019/5/30 15:54:00','staion_distribution':[{'path':'三亚湾-2-民心佳园-2-重庆北站北广场-2-重庆北站南广场-o-重庆北站南广场-2-龙头寺公园-2-红土地','passengers':'2'},{'path':'空港广场-2-双凤桥-2-碧津-2-双龙-2-回兴-2-长福路-2-翠云-2-园博园-2-鸳鸯-2-金童路-2-金渝','passengers':'5'}]}";
-                            SendData(netRouterClient, destAddrs, distribution.triggerTask(abc));
+                            distribution.triggerTask(abc);
                             SendData1(netRouterClient, destAddrs,tongHaoReturnResult);
                             log.info("数据处理成功" );
                         }

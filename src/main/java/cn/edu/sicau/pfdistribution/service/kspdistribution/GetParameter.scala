@@ -22,8 +22,8 @@ class GetParameter extends Serializable{
     return odList
   }
 
-  def getOdMap():java.util.Map[String, Integer]={
-    val odMap:Map[String, Integer] = Map("大坪 牛角沱" -> 1000,"牛角沱 较场口" -> 1000) //,"璧山 较场口" -> 1000,"红岩村 较场口" -> 1000
+  def getOdMap():java.util.Map[String, String]={
+    val odMap:Map[String, String] = Map("20 42" -> "1000") //,"璧山 较场口" -> 1000,"红岩村 较场口" -> 1000
     return odMap.asJava
   }
 

@@ -2,10 +2,7 @@ package cn.edu.sicau.pfdistribution.service.road;
 
 import cn.edu.sicau.pfdistribution.Constants;
 import cn.edu.sicau.pfdistribution.dao.mysqlsave.RoadDistributionDao;
-import cn.edu.sicau.pfdistribution.entity.DirectedEdge;
-import cn.edu.sicau.pfdistribution.entity.DirectedPath;
-import cn.edu.sicau.pfdistribution.entity.Section;
-import cn.edu.sicau.pfdistribution.entity.Station;
+import cn.edu.sicau.pfdistribution.entity.*;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Graph;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.KSPUtil;
@@ -42,6 +39,8 @@ public class KServiceImpl implements KService, Serializable {
      */
     @Override
     public List<DirectedPath> computeStatic(String o, String d, String paramType,String resultType) {
+        List<Section>sections = roadDistributionDao.getAllSection();
+        Map<String, List<String>>stationsInfo = roadDistributionDao.getAllStationInfo();
         String newOD[] = null;
         if(Constants.PARAM_ID.equals(paramType)){
             newOD = stationIdToName(o, d);
@@ -72,7 +71,7 @@ public class KServiceImpl implements KService, Serializable {
         if(Constants.RETURN_EDGE_NAME.equals(resultType)){
             directedPath = convertPathToDirectedNamePath(newPaths);
         }else if(Constants.RETURN_EDGE_ID.equals(resultType)){
-            directedPath = convertPathToDirectedIdPath(newPaths, o, d);
+            directedPath = convertPathToDirectedIdPathTest(sections, stationsInfo, newPaths);
         }
         return directedPath;
     }
@@ -126,12 +125,13 @@ public class KServiceImpl implements KService, Serializable {
      * @return
      */
     private int getPathAboveK(List<String> stations){
-        List<Station>stationInfo = roadDistributionDao.getAllStationInfo();
+        Map<String, List<String>>stationInfo = roadDistributionDao.getAllStationInfo();
         int k = 0;
         for(int i = 0; i < stations.size(); i++){
             String station = stations.get(i);
-            for(int j = 0; j < stationInfo.size(); j++){
-                if(station.equals(stationInfo.get(j).getName()) && stationInfo.get(j).getLines().size() >=2 )
+            Iterator<String>it = stationInfo.keySet().iterator();
+            while(it.hasNext()){
+                if(station.equals(it.next()) && stationInfo.get(station).size() >=2 )
                     k++;
             }
         }
@@ -186,19 +186,6 @@ public class KServiceImpl implements KService, Serializable {
         }
         return edges;
     }
-    private String[] stationNameToId(String o, String d){
-        List<Section> sections = roadDistributionDao.getAllSection();
-        for(Section section:sections){
-            if(section.getFromName().equals(o))o = section.getFromId().toString();
-            if(section.getFromName().equals(d))d = section.getFromId().toString();
-            if(section.getToName().equals(o))o = section.getToId().toString();
-            if(section.getToName().equals(d))d = section.getToId().toString();
-        }
-        String[]od = new String[2];
-        od[0] = o;
-        od[1] = d;
-        return od;
-    }
     private String[] stationIdToName(String o, String d){
         List<Section> sections = roadDistributionDao.getAllSection();
         for(Section section:sections){
@@ -238,6 +225,43 @@ public class KServiceImpl implements KService, Serializable {
         }
         return directedPaths;
     }
+    private List<DirectedPath>convertPathToDirectedIdPathTest(List<Section>sections, Map<String, List<String>>stations,List<Path>paths){
+        List<DirectedPath>directedPaths = new ArrayList<>();
+        for(Path path:paths){
+            List<Edge>pathEdges = path.getEdges();
+            LinkedList<DirectedEdge>directedEdges = new LinkedList<>();
+            for(Edge edge:pathEdges){
+                for(Section section: sections){
+                    if(section.getFromName().equals(edge.getFromNode()) && section.getToName().equals(edge.getToNode())){
+                        Edge newEdge = new Edge();
+                        newEdge.setFromNode(section.getFromId().toString());
+                        newEdge.setToNode(section.getToId().toString());
+                        DirectedEdge directedEdge = new DirectedEdge();
+                        directedEdge.setEdge(newEdge);
+                        directedEdge.setDirection(section.getDirection());
+                        if(directedEdges.size()>=1){
+                            if(!directedEdges.getLast().getEdge().getToNode().equals(directedEdge.getEdge().getFromNode())){
+                                DirectedEdge changeDirectedEdge = new DirectedEdge();
+                                Edge changeEdge = new Edge();
+                                changeEdge.setFromNode(directedEdges.getLast().getEdge().getToNode());
+                                changeEdge.setToNode(directedEdge.getEdge().getFromNode());
+                                changeDirectedEdge.setEdge(changeEdge);
+                                changeDirectedEdge.setDirection(Constants.CHANGE_STATION);
+                                directedEdges.add(changeDirectedEdge);
+                            }
+                        }
+                        directedEdges.add(directedEdge);
+                        break;
+                    }
+                }
+            }
+            DirectedPath directedPath = new DirectedPath();
+            directedPath.setEdges(directedEdges);
+            directedPath.setTotalCost(path.getTotalCost());
+            directedPaths.add(directedPath);
+        }
+        return directedPaths;
+    }
     private List<String> getShortestPathStations(LinkedList<Edge> path){
         //路径经过的站点
         List<String> stations = new ArrayList<>();
@@ -246,49 +270,5 @@ public class KServiceImpl implements KService, Serializable {
         for(int i = 1; i < path.size(); i++)
             stations.add(path.get(i).getToNode());
         return stations;
-    }
-    private List<DirectedPath>convertPathToDirectedIdPath(List<Path> paths, String o, String d){
-        List<Section> sections = roadDistributionDao.getAllSection();
-        List<DirectedPath>directedPaths = new ArrayList<>();
-        int i = 0;
-        for(Path path:paths){
-            List<Edge>singlePathEdges = path.getEdges();
-            //一条路径
-            LinkedList<DirectedEdge>singlePathDirectedEdges = new LinkedList<>();
-            for(Edge edge : singlePathEdges){
-                i = 0;
-                for(Section section:sections){
-                    if(section.getFromName().equals(edge.getFromNode()) &&
-                            section.getToName().equals(edge.getToNode())){
-                        DirectedEdge directedEdge = new DirectedEdge();
-                        edge.setFromNode(section.getFromId().toString());
-                        directedEdge.setDirection(section.getDirection());
-                        edge.setToNode(section.getToId().toString());
-                        edge.setWeight(section.getWeight());
-                        if(i == 0){
-                            edge.setFromNode(o);
-                            directedEdge.setEdge(edge);
-                            singlePathDirectedEdges.add(directedEdge);
-                            break;
-                        }
-                        if(i == singlePathEdges.size() - 1){
-                            edge.setToNode(d);
-                            directedEdge.setEdge(edge);
-                            singlePathDirectedEdges.add(directedEdge);
-                            break;
-                        }
-                        directedEdge.setEdge(edge);
-                        singlePathDirectedEdges.add(directedEdge);
-                        break;
-                    }
-                }
-                i++;
-            }
-            DirectedPath directedPath = new DirectedPath();
-            directedPath.setEdges(singlePathDirectedEdges);
-            directedPath.setTotalCost(path.getTotalCost());
-            directedPaths.add(directedPath);
-        }
-        return directedPaths;
     }
 }

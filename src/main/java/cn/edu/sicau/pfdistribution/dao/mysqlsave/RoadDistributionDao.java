@@ -1,14 +1,13 @@
 package cn.edu.sicau.pfdistribution.dao.mysqlsave;
 
 import cn.edu.sicau.pfdistribution.entity.Section;
-import cn.edu.sicau.pfdistribution.entity.Station;
-import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface RoadDistributionDao {
-    List<Station> getAllStationInfo();
+    Map<String, List<String>> getAllStationInfo();
     List<Section>getAllSection();
 }

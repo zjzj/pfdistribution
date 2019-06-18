@@ -2,17 +2,21 @@ package cn.edu.sicau.pfdistribution.service.netrouter;
 
 import cn.edu.sicau.pfdistribution.entity.StationAndSectionPassengers;
 import cn.edu.sicau.pfdistribution.entity.StationAndSectionRisk;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
-
+@Service
 public class JsonTransfer {
+    @Autowired
+    public StationAndSectionPassengers stationAndSectionPassengers;
 
     public boolean stationDataAnalysis(JSONObject jsonObject){
         try {
-          /*  JSONObject jsonObject = new JSONObject(data);*/
+            //JSONObject jsonObject = new JSONObject(data);
             //        String record_time = jsonObject.optString("Recordtime");
             JSONArray station_loads = jsonObject.getJSONArray("Station_loads");
             JSONArray Section_loads = jsonObject.getJSONArray("Section_loads");
@@ -34,14 +38,13 @@ public class JsonTransfer {
                 List<String> sectionPassengers = new ArrayList<>();
                 String str = station_loads.getString(i);
                 JSONObject s = new JSONObject(str);
-                /*sectionPassengers.add(s.getString("startid"));
-                sectionPassengers.add(s.getString("startid"));*/
                 sectionPassengers.add(s.getString("utilization_rate"));
                 sectionPassengers.add(s.getString("persengers"));
                 sectionPassengers.add(s.getString("volume"));
                 sectionP.put(s.getString("startid") + " " + s.getString("startid"), sectionPassengers);
             }
-            new StationAndSectionPassengers(stationP, sectionP);
+            stationAndSectionPassengers.setStationP(stationP);
+            stationAndSectionPassengers.setSectionP(sectionP);
             return true;
         }catch (Exception e){
             return false;

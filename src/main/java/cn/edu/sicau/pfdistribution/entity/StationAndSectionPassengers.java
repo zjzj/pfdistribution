@@ -12,11 +12,6 @@ public class StationAndSectionPassengers implements Serializable {
     private Map<String, List<String>> stationP;
     private Map<String, List<String>> sectionP;
 
-    public StationAndSectionPassengers(Map<String, List<String>> stationP, Map<String, List<String>> sectionP) {
-        this.stationP = stationP;
-        this.sectionP = sectionP;
-    }
-
     public Map<String, List<String>> getStationP() {
         return stationP;
     }

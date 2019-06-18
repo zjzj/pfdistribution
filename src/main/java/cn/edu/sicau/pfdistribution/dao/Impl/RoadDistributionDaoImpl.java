@@ -14,7 +14,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class RoadDistributionDaoImpl implements RoadDistributionDao {
     @Autowired
@@ -27,20 +30,22 @@ public class RoadDistributionDaoImpl implements RoadDistributionDao {
      * @return
      */
     @Override
-    public List<Station> getAllStationInfo() {
-        String sql = "SELECT station.CZ_ID stationId, station.CZ_NAME stationName, station.LJM line FROM dic_station station";
+    public Map<String, List<String>> getAllStationInfo() {
+        String sql = "SELECT station.CZ_NAME stationName, station.LJM line FROM dic_station station";
         RowMapper rowMapper = new BeanPropertyRowMapper(SimpleStation.class);
         List<SimpleStation>stations = jdbcTemplate.query(sql, rowMapper);
-        List<Station>stationList = new ArrayList<>();
+        Map<String, List<String>> stationList= new HashMap<>();
         for(int i = 0; i < stations.size(); i++){
-            List<String>lines = new ArrayList<>();
-            lines.add(stations.get(i).getLine());
-            for(int j = i + 1; j < stations.size(); j++){
-                if(stations.get(i).getStationName().equals(stations.get(j).getStationName()) && lines.indexOf(stations.get(j).getLine()) == -1)
-                    lines.add(stations.get(j).getLine());
+            String stationName = stations.get(i).getStationName();
+            if(stationList.containsKey(stationName)){
+                List<String>lines = stationList.get(stationName);
+                lines.add(stations.get(i).getLine());
+                stationList.put(stationName, lines);
+            }else{
+                List<String>lines = new ArrayList<>();
+                lines.add(stations.get(i).getLine());
+                stationList.put(stationName, lines);
             }
-            Station station = new Station(stations.get(i).getStationId(), stations.get(i).getStationName(), lines);
-            stationList.add(station);
         }
         return stationList;
     }
