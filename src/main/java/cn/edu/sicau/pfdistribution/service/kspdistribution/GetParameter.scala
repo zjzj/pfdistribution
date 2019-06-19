@@ -18,7 +18,7 @@ class GetParameter extends Serializable{
   //获得OD列表
 
   def getOdList():List[String] ={
-    val odList:List[String] = List("大坪 牛角沱 1000","牛角沱 较场口 1000")
+    val odList:List[String] = List("20 42 1000") //"牛角沱 较场口 1000"
     return odList
   }
 

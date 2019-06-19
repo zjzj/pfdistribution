@@ -3,7 +3,7 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 import java.io._
 import java.util
 
-import cn.edu.sicau.pfdistribution.entity.{DirectedEdge, DirectedPath, TongHaoPathType, TongHaoReturnResult}
+import cn.edu.sicau.pfdistribution.entity._
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge
 import cn.edu.sicau.pfdistribution.service.road.KServiceImpl
 import org.apache.spark.{SparkConf, SparkContext}
@@ -16,7 +16,7 @@ import scala.collection.mutable
 
 //该段代码把Object改成Class定义
 @Service
-case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdList: GetOdList,getParameter: GetParameter,kServiceImpl:KServiceImpl,dataDeal: DataDeal,tongHaoReturnResult: TongHaoReturnResult)extends Serializable { //,val getOdList: GetOdList
+case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdList: GetOdList,getParameter: GetParameter,kServiceImpl:KServiceImpl,dataDeal: DataDeal,tongHaoReturnResult: TongHaoReturnResult,getLineID:GetLineID)extends Serializable { //,val getOdList: GetOdList
 
   @transient
   val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
@@ -30,6 +30,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
    * return  ava.util.Map（section->passengers）
    */
   def intervalTriggerTask(args: Map[String,String]): java.util.Map[String, String]= {
+    getLineID.setCZ_ID()
     val command:String = args("command")
     val time  = args("timeInterval")
     //从数据库获得AFC历史数据
@@ -52,6 +53,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
    * return  util.ArrayList[path->passengers]
    */
   def triggerTask(args: Map[String,String]):Unit= {
+    getLineID.setCZ_ID()
     val command:String = args("command")
     val time  = args("predictionInterval")
     //从数据库获得需要计算的OD矩阵
@@ -61,8 +63,12 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     val odMap = odListToOdMap(odList)
     //将OD的Map转换为java的Map
     val odJavaMap = odMapToJavaOdMap(odMap)
+
+    /*val odListTest:List[String] = getParameter.getOdList()
+    val odMapTest = odListToOdMap(odListTest)
+    val odJavaMapTest = odMapToJavaOdMap(odMapTest)*/
     //调用路径搜索方法，获得所有OD的k路径
-    val allKspMap:mutable.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(odJavaMap,"PARAM_NAME", "RETURN_ID").asScala
+    val allKspMap:mutable.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(odJavaMap,"PARAM_ID", "RETURN_ID").asScala
     if(command.equals("static")){
       tongHaoKspStaticDistributionResult(allKspMap,odMap)
     }else
@@ -132,7 +138,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
       val directedEdge: DirectedEdge = minPath(0)
       val edge: Edge = directedEdge.getEdge
       var str = edge.getFromNode
-      for (i <- 1 to (minPath.length - 2)) {
+      for (i <- 1 to (minPath.length - 1)) {
         val dEdge: DirectedEdge = minPath(i)
         val eg: Edge = dEdge.getEdge
         str = str + "," + eg.getFromNode

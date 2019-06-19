@@ -12,7 +12,7 @@ public interface RegionSaveInterface {
     //保存区间和分配的人数
     public void odRegion(String kspregion,double passenger);
     //查询出车站所在的线路ID
-    public Map<Integer, Integer> SelectLineId();
+    public Map<Integer, Integer> selectLineId();
     //查询车站ID对应的车站名
     public String selectStationName(Integer id);
     //查询id对应的车站名

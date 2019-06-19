@@ -9,14 +9,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author xieyuan
+ */
 @Service
-public class MysqlGetID implements Serializable {
+public class MysqlGetID implements Serializable{
     @Autowired
     private Mysqlsavelmpl mysqlsavelmpl;
-    public Map<Integer,Integer> CheZhanID(){
-        return mysqlsavelmpl.SelectLineId();
+    public Map<Integer,Integer> carID(){
+        Map<Integer,Integer> idLine=mysqlsavelmpl.selectLineId();
+        return idLine;
     }
     public Map<Integer, List<String>> idTime(){
-        return mysqlsavelmpl.selectTime();
+        Map<Integer, List<String>> time=mysqlsavelmpl.selectTime();
+        return time;
     }
 }

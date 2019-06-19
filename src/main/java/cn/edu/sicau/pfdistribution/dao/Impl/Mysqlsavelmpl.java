@@ -30,16 +30,16 @@ public class  Mysqlsavelmpl implements RegionSaveInterface {
         jdbcTemplate.update("insert into odregion(kspregion,passenger) values(?,?)",kspregion,passenger);
     }
     @Override
-    public Map<Integer, Integer> SelectLineId(){
+    public Map<Integer, Integer> selectLineId(){
         Map LineId = new HashMap();
         List rows= jdbcTemplate.queryForList("SELECT LINE_ID,CZ_ID\n" +
                 "from dic_linestation");
         Iterator it = rows.iterator();
         while(it.hasNext()) {
             Map userMap = (Map) it.next();
-            Integer CZ_ID = (Integer) userMap.get("CZ_ID");
-            Integer LINE_ID = (Integer) userMap.get("LINE_ID");
-            LineId.put(CZ_ID,LINE_ID);
+            Integer careID = (Integer) userMap.get("CZ_ID");
+            Integer lineID = (Integer) userMap.get("LINE_ID");
+            LineId.put(careID,lineID);
         }
         return LineId;
     }

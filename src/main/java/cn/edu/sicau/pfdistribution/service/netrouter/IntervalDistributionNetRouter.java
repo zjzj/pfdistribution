@@ -95,7 +95,7 @@ public class IntervalDistributionNetRouter {
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 2, (byte) 1, (short) 6);
         destAddrs.add(destaddr1);
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.4.208.79", 9003, "10.2.55.51", 9005, localaddr, "");
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.0.140.213", 9003, "10.4.208.74", 9005, localaddr, "");
         while (!netRouterClient.start()) {
             System.out.println("IntervalDistributionNetRouter Start fails.");
             Thread.sleep(10);
@@ -111,7 +111,7 @@ public class IntervalDistributionNetRouter {
                     try {
                         Map<String, String> message = gson.fromJson(recvMessage.getMessage(), new TypeToken<Map<String, String>>() {
                         }.getType());
-                        log.info("从NetRouter读取数据" + message);
+                        log.info("IntervalDistributionNetRouter接收到的数据数据" + message);
                         if (message != null) {
                             final List<Tuple2<String, String>> list = new java.util.ArrayList<>(message.size());
                             for (final Map.Entry<String, String> entry : message.entrySet()) {
@@ -119,11 +119,11 @@ public class IntervalDistributionNetRouter {
                             }
                             final scala.collection.Seq<Tuple2<String, String>> seq = scala.collection.JavaConverters.asScalaBufferConverter(list).asScala().toSeq();
                             scala.collection.immutable.Map<String, String> abc = (scala.collection.immutable.Map<String, String>) scala.collection.immutable.Map$.MODULE$.apply(seq);
-                            log.info("数据接受成功");
+                            log.info("IntervalDistributionNetRouter数据接受成功");
                             SendData(netRouterClient, destAddrs, distribution.intervalTriggerTask(abc));
                         }
                     }catch (Exception e){
-                        System.out.println("处理出错");
+                        System.out.println("IntervalDistributionNetRouter处理出错");
                     }
                 }
             }
