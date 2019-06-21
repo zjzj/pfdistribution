@@ -38,14 +38,12 @@ public class KServiceImpl implements KService, Serializable {
      * @return
      */
     @Override
-    public List<DirectedPath> computeStatic(String o, String d, String paramType,String resultType) {
-        List<Section>sections = roadDistributionDao.getAllSection();
-        Map<String, List<String>>stationsInfo = roadDistributionDao.getAllStationInfo();
+    public List<DirectedPath> computeStatic(List<Section>sections, Map<String, List<String>>stationsInfo, String o, String d, String paramType,String resultType) {
         String newOD[] = null;
         if(Constants.PARAM_ID.equals(paramType)){
             newOD = stationIdToName(o, d);
         }
-        List<Edge>edges = getIdOrNameEdges(Constants.RETURN_EDGE_NAME);
+        List<Edge>edges = getIdOrNameEdges(sections, Constants.RETURN_EDGE_NAME);
         Graph graph = new Graph();
         graph.addEdges(edges);
         KSPUtil kspUtil = new KSPUtil();
@@ -84,9 +82,9 @@ public class KServiceImpl implements KService, Serializable {
      * @return
      */
     @Override
-    public List<DirectedPath> computeDynamic(String o, String d, String paramType, String resultType) {
+    public List<DirectedPath> computeDynamic(List<Section>sections, Map<String, List<String>>stationsInfo, String o, String d, String paramType, String resultType) {
         List<DirectedPath> paths = null;
-        paths = computeStatic(o, d, paramType, resultType);
+        paths = computeStatic(sections, stationsInfo, o, d, paramType, resultType);
 
         List<Integer>interruptedIndex = new ArrayList<>();
         for(int i = 0; i < paths.size(); i++){
@@ -100,6 +98,14 @@ public class KServiceImpl implements KService, Serializable {
         }
         return newPaths;
     }
+
+    @Override
+    public List<DirectedPath> computeDynamic(String o, String d, String paramType, String resultType) {
+        List<Section>sections = roadDistributionDao.getAllSection();
+        Map<String, List<String>>stationsInfo = roadDistributionDao.getAllStationInfo();
+        return computeDynamic(sections, stationsInfo, o, d, paramType, resultType);
+    }
+
     /**
      * 从通号院获取废弃区间的动态计算，计算以集合形式的od的k路径搜索
      * @param ods 键为o，值为d
@@ -107,13 +113,15 @@ public class KServiceImpl implements KService, Serializable {
      */
     @Override
     public Map<String, List<DirectedPath>> computeDynamic(Map<String, String> ods, String paramType, String resultType) {
+        List<Section>sections = roadDistributionDao.getAllSection();
+        Map<String, List<String>>stationsInfo = roadDistributionDao.getAllStationInfo();
         if(ods == null) return null;
         Map<String, List<DirectedPath>>odsPaths = new HashMap<>();
         Iterator<String> it = ods.keySet().iterator();
         while(it.hasNext()){
             String o = it.next();
             String d = ods.get(o);
-            List<DirectedPath>paths = computeDynamic(o, d, paramType, resultType);
+            List<DirectedPath>paths = computeDynamic(sections, stationsInfo, o, d, paramType, resultType);
             odsPaths.put(o + " " + d, paths);
         }
         return odsPaths;
@@ -160,8 +168,7 @@ public class KServiceImpl implements KService, Serializable {
         }
         return newPaths;
     }
-    private List<Edge> getIdOrNameEdges(String edgeType){
-        List<Section> sections = roadDistributionDao.getAllSection();
+    private List<Edge> getIdOrNameEdges(List<Section> sections, String edgeType){
         List<Edge>edges = new ArrayList<>();
         if(Constants.RETURN_EDGE_ID.equals(edgeType)){
             for(Section section:sections){
@@ -271,4 +278,5 @@ public class KServiceImpl implements KService, Serializable {
             stations.add(path.get(i).getToNode());
         return stations;
     }
+
 }

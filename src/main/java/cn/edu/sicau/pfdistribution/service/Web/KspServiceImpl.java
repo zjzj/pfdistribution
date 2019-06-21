@@ -1,6 +1,7 @@
 package cn.edu.sicau.pfdistribution.service.Web;
 
 import cn.edu.sicau.pfdistribution.dao.oracle.OracleGetTransferStations;
+import cn.edu.sicau.pfdistribution.dao.oracle.OracleGetTransferStationsById;
 import cn.edu.sicau.pfdistribution.entity.KspSearchResult;
 import cn.edu.sicau.pfdistribution.entity.SWJTU_DTO;
 import cn.edu.sicau.pfdistribution.service.kspdistribution.MainDistribution;
@@ -17,7 +18,7 @@ public class KspServiceImpl implements KspService {
     private MainDistribution mainDistribution;
 
     @Autowired
-    private OracleGetTransferStations oracleGetTransferStations;
+    private OracleGetTransferStationsById oracleGetTransferStationsById;
 
     @Override
     public List<KspSearchResult> findKsp(SWJTU_DTO swjtu_dto) {
@@ -31,9 +32,9 @@ public class KspServiceImpl implements KspService {
             List<String> odstations=new ArrayList<String>();
             String odstation=it.next().toString();
             odstations=Arrays.asList(odstation.split(","));
-            System.out.println(odstations);
-            List<List<String>> transferstations=oracleGetTransferStations.getTransferStations(odstations);
-            KspSearchResult kspSearchResult = new KspSearchResult(Integer.toString(i),odstations,transferstations);
+            List<List<String>> transferstations=oracleGetTransferStationsById.getTransferStations(odstations);
+            List<String> stations=oracleGetTransferStationsById.getStationsById(odstations);
+            KspSearchResult kspSearchResult = new KspSearchResult(Integer.toString(i),stations,transferstations);
             kspSearchResults.add(kspSearchResult);
         }
         return kspSearchResults;

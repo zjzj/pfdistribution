@@ -46,7 +46,6 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     }else
       return mapTransfer(intervalResultWithTimeResult(allKsp,odMapObtain,time.toInt)).asJava
   }
-
   /*
    *intervalTriggerTask方法用于返回静态和动态的区间分配结果
    * args（默认执行命令Map）eg：Map("command", dynamic；;"predictionInterval", predictionInterval)
@@ -74,7 +73,6 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     }else
       tongHaoKspDynamicDistributionResult(allKspMap,odMap)
   }
-
   //各个OD的路径分配结果
   def kspDistributionResult(allKsp:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,Integer]):mutable.Map[Array[DirectedEdge], Double] = {
     val odList:List[String] = allKsp.keySet.toList

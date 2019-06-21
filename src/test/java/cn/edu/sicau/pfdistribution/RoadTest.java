@@ -30,17 +30,17 @@ public class RoadTest {
         }*/
     @Test
     public void kspTest(){
-        List<DirectedPath>paths = null;
-        // id -> id
-        paths = kService.computeStatic("20", "42", Constants.PARAM_ID, Constants.RETURN_EDGE_ID);
-        System.out.println(paths);
-        //name -> name
-        paths = kService.computeStatic("较场口", "璧山", Constants.PARAM_NAME, Constants.RETURN_EDGE_NAME);
-        System.out.println(paths);
-        // id -> name
-        paths = kService.computeStatic("20", "42", Constants.PARAM_ID, Constants.RETURN_EDGE_NAME);
-        System.out.println(paths);
-        paths = kService.computeStatic("较场口", "璧山", Constants.PARAM_NAME, Constants.RETURN_EDGE_ID);
-        System.out.println(paths);
+//        List<DirectedPath>paths = null;
+//        // id -> id
+//        paths = kService.computeStatic("20", "42", Constants.PARAM_ID, Constants.RETURN_EDGE_ID);
+//        System.out.println(paths);
+//        //name -> name
+//        paths = kService.computeStatic("较场口", "璧山", Constants.PARAM_NAME, Constants.RETURN_EDGE_NAME);
+//        System.out.println(paths);
+//        // id -> name
+//        paths = kService.computeStatic("20", "42", Constants.PARAM_ID, Constants.RETURN_EDGE_NAME);
+//        System.out.println(paths);
+//        paths = kService.computeStatic("较场口", "璧山", Constants.PARAM_NAME, Constants.RETURN_EDGE_ID);
+//        System.out.println(paths);
     }
 }
