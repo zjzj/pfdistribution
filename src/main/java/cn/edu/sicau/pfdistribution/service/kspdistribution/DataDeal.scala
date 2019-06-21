@@ -11,7 +11,7 @@ import scala.collection.mutable
 
 @Service
 class DataDeal @Autowired()(val getOdList: GetOdList)extends Serializable {
-/*  def tongHaoKspDataSave(kspData:mutable.Map[Array[String], Double]): Unit ={
+  def tongHaoKspDataSave(kspData:mutable.Map[Array[String], Double]): Unit ={
     getOdList.deleteAllKspRegion()
 //    getOdList.createKspRegionTable()
     for(key <- kspData.keys){
@@ -21,18 +21,5 @@ class DataDeal @Autowired()(val getOdList: GetOdList)extends Serializable {
       }
         getOdList.kspRegionAdd(str,kspData(key).toInt)
     }
-  }*/ //od矩阵处理测试
-  def function(data:mutable.Map[Iterator[DirectedEdge], Double]): Unit ={
-    for(key <-data.keys){
-      var formatedpath:String = ""
-      var firstEdge = key.next()
-      formatedpath = firstEdge.getEdge.getFromNode
-      formatedpath = formatedpath + " " + firstEdge.getDirection +" " +  firstEdge.getEdge.getToNode;
-      while(key.hasNext){
-        var edge = key.next()
-        formatedpath = formatedpath + " "+edge.getEdge.getToNode
-      }
-      return formatedpath
-    }
-}
+  } //od矩阵处理测试
 }

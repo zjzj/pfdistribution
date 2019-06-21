@@ -9,6 +9,7 @@ import cn.edu.sicau.pfdistribution.service.kspcalculation.KSPUtil;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.stringtemplate.v4.ST;
 import scala.Serializable;
 
 import java.util.*;
@@ -41,7 +42,7 @@ public class KServiceImpl implements KService, Serializable {
     public List<DirectedPath> computeStatic(List<Section>sections, Map<String, List<String>>stationsInfo, String o, String d, String paramType,String resultType) {
         String newOD[] = null;
         if(Constants.PARAM_ID.equals(paramType)){
-            newOD = stationIdToName(o, d);
+            newOD = stationIdToName(sections, o, d);
         }
         List<Edge>edges = getIdOrNameEdges(sections, Constants.RETURN_EDGE_NAME);
         Graph graph = new Graph();
@@ -118,12 +119,32 @@ public class KServiceImpl implements KService, Serializable {
         if(ods == null) return null;
         Map<String, List<DirectedPath>>odsPaths = new HashMap<>();
         Iterator<String> it = ods.keySet().iterator();
+        List<String> tmpOD = new ArrayList<>();
+        System.out.println("ods条数:" + ods.keySet().size());
+        int count = 0;
         while(it.hasNext()){
-            String o = it.next();
-            String d = ods.get(o);
+            String[] odStr = it.next().split(" ");
+            /*String o = it.next();
+            String d = ods.get(o);*/
+            String o = odStr[0];
+            String d = odStr[1];
+            if(o.equals(d)){
+                tmpOD.add(o + "->" + d);
+                continue;
+            }
+            String[] tmp = stationIdToName(sections, o, d);
+            if(tmp[0].equals(tmp[1])){
+                tmpOD.add(o + "->" + d);
+                continue;
+            }
+            count++;
             List<DirectedPath>paths = computeDynamic(sections, stationsInfo, o, d, paramType, resultType);
             odsPaths.put(o + " " + d, paths);
         }
+        System.out.println("无效od条数:" + tmpOD.size());
+        System.out.println(tmpOD);
+        System.out.println("======================================================");
+        System.out.println("有效路径条数:" + count);
         return odsPaths;
     }
 
@@ -193,8 +214,7 @@ public class KServiceImpl implements KService, Serializable {
         }
         return edges;
     }
-    private String[] stationIdToName(String o, String d){
-        List<Section> sections = roadDistributionDao.getAllSection();
+    private String[] stationIdToName(List<Section> sections, String o, String d){
         for(Section section:sections){
             if(section.getFromId().toString().equals(o))o = section.getFromName();
             if(section.getFromId().toString().equals(d))d = section.getFromName();

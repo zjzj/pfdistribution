@@ -79,7 +79,7 @@ public class RiskLevelNetRouter {
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 1, (byte) 1, (short) 6);
         destAddrs.add(destaddr1);
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.0.140.213", 9003, "10.4.208.74", 9005, localaddr, "");
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.0.140.213", 9003, "10.4.208.77", 9005, localaddr, "");
         while (!netRouterClient.start()) {
             System.out.println("RiskLevelNetRouter Start fails.");
             Thread.sleep(10);

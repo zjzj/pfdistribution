@@ -164,7 +164,7 @@ public class StationAndSectionNetRouter {
                         "</rec>\n"+
                         "</in_condition>\n";*/
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.0.140.213", 9003, "10.4.208.74", 9005, localaddr, "");
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.0.140.213", 9003, "10.4.208.77", 9005, localaddr, "");
         while (!netRouterClient.start()) {
             System.out.println("StationAndSectionNetRouter  Start fails.");
             Thread.sleep(10);
@@ -197,6 +197,7 @@ public class StationAndSectionNetRouter {
 
                             String back = "{'time':'2019/5/30 15:54:00','staion_distribution':[{'path':'三亚湾-2-民心佳园-2-重庆北站北广场-2-重庆北站南广场-o-重庆北站南广场-2-龙头寺公园-2-红土地','passengers':'2'},{'path':'空港广场-2-双凤桥-2-碧津-2-双龙-2-回兴-2-长福路-2-翠云-2-园博园-2-鸳鸯-2-金童路-2-金渝','passengers':'5'}]}";
                             distribution.triggerTask(abc);
+                            System.out.println(tongHaoReturnResult.getPathDistribution().size());
                             SendData1(netRouterClient, destAddrs,tongHaoReturnResult);
                             log.info("数据处理成功" );
                         }

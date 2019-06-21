@@ -60,16 +60,18 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     //从数据库获得需要计算的OD矩阵
     val od:scala.collection.mutable.Buffer[String] = getOdList.odFromOracleToList().asScala
     val odList:List[String] = od.toList
+    println(odList.length)
     //将OD的列表转换为Map
     val odMap = odListToOdMap(odList)
+    println("长度"+odMap.keySet.size)
     //将OD的Map转换为java的Map
-    val odJavaMap = odMapToJavaOdMap(odMap)
-
+    /*val odJavaMap = odMapToJavaOdMap(odMap)
+    println("长度"+odJavaMap.keySet().size())*/
     /*val odListTest:List[String] = getParameter.getOdList()
     val odMapTest = odListToOdMap(odListTest)
     val odJavaMapTest = odMapToJavaOdMap(odMapTest)*/
     //调用路径搜索方法，获得所有OD的k路径
-    val allKspMap:mutable.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(odJavaMap,"PARAM_ID", "RETURN_ID").asScala
+    val allKspMap:mutable.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(odMap.asJava,"PARAM_ID", "RETURN_ID").asScala
     if(command.equals("static")){
       tongHaoKspStaticDistributionResult(allKspMap,odMap)
     }else
@@ -224,7 +226,14 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     var transfer:mutable.Map[String, String] = mutable.Map()
     for (i <- odList.toArray){
       val od = i.split(" ")
-      transfer += (od(0)+" "+od(1) -> od(2))
+      val str = od(0)+" "+od(1)
+      if(transfer.contains(str)){
+        val v1:Int = transfer(str).toInt
+        val v2:Int = od(2).toInt
+        val valueAll = v1 + v2
+        transfer += (str -> valueAll.toString)
+      }
+      transfer += (str -> od(2))
     }
     return transfer
   }
@@ -249,8 +258,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
   def odMapTransfer(map:mutable.Map[String,Integer]):java.util.Map[String, String] = {
     var transfer:Map[String, String] = Map()
     for (key <- map.keys){
-      val od = key.split(" ")
-      transfer += (od(0) -> od(1))
+      transfer += (key -> map(key).toString)
     }
     return transfer.asJava
   }

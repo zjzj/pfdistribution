@@ -14,8 +14,10 @@ import java.util.Map;
  */
 @Service
 public class MysqlGetID implements Serializable{
+    transient
     @Autowired
     private Mysqlsavelmpl mysqlsavelmpl;
+
     public Map<Integer,Integer> carID(){
         Map<Integer,Integer> idLine=mysqlsavelmpl.selectLineId();
         return idLine;
