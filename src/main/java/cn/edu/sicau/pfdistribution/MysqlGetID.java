@@ -24,4 +24,7 @@ public class MysqlGetID implements Serializable{
         Map<Integer, List<String>> time=mysqlsavelmpl.selectTime();
         return time;
     }
+    public Map<String ,Integer> test_CQ_od(String da,String ti){
+        return mysqlsavelmpl.get_CQ_od(da,ti);
+    }
 }

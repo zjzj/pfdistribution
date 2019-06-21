@@ -1,5 +1,6 @@
 package cn.edu.sicau.pfdistribution.service.kspdistribution;
 
+import cn.edu.sicau.pfdistribution.MysqlGetID;
 import cn.edu.sicau.pfdistribution.OracleLink;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,15 @@ public class GetOdList implements Serializable {
     transient
     @Autowired
     OracleLink odData;
+    @Autowired
+    MysqlGetID getOD;
 
     public Map<String,Integer> getOdMap(String inTime, long time) throws Exception {
         Map<String, Integer> strMap=odData.SelectOD(inTime,time);
         return strMap;
+    }
+    public Map<String,Integer> test_od(String day,String hour){
+        return getOD.test_CQ_od(day,hour);
     }
     //OD矩阵路径分配结果操作
     public void createKspRegionTable()

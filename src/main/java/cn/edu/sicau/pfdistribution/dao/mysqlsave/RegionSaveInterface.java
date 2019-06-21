@@ -20,4 +20,8 @@ public interface RegionSaveInterface {
     //查询区间对应的时间
     public Map<String,List<Integer>> czNameToID(String Name);
     //查询车站名对应的id
+    public Map<Integer,Integer> select_CQ_LineId();
+    //重庆id线路数据查询
+    public Map<String,Integer> get_CQ_od(String day,String hour);
+    //重庆id测试
 }

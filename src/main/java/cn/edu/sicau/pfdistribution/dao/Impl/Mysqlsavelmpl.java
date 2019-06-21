@@ -44,6 +44,36 @@ public class  Mysqlsavelmpl implements RegionSaveInterface {
         return LineId;
     }
     @Override
+    public Map<Integer,Integer> select_CQ_LineId(){
+        Map CQ_LineId = new HashMap();
+        List rows= jdbcTemplate.queryForList("SELECT STATIONID,LINENAME\n" +
+                "FROM chongqing_stations_nm");
+        Iterator it = rows.iterator();
+        while(it.hasNext()) {
+            Map userMap = (Map) it.next();
+            Integer careID = (Integer) userMap.get("STATIONID");
+            String lineName = (String) userMap.get("LINENAME");
+            CQ_LineId.put(careID,lineName);
+        }
+        return CQ_LineId;
+    }
+    @Override
+    public Map<String,Integer> get_CQ_od(String day,String hour){
+        Map CQ_od = new HashMap();
+        List rows= jdbcTemplate.queryForList("SELECT GETIN_STATION,GETOUT_STATION,VOLUME\n" +
+                "FROM chongqinod\n" +
+                "WHERE GETIN_DAY='"+day+"' AND GETIN_60MIN='"+hour+"'");
+        Iterator it = rows.iterator();
+        while(it.hasNext()) {
+            Map userMap = (Map) it.next();
+            String getInStation = (String) userMap.get("GETIN_STATION");
+            String getOutStation= (String) userMap.get("GETOUT_STATION");
+            int passengers= (int) userMap.get("VOLUME");
+            CQ_od.put(getInStation+" "+getOutStation,passengers);
+        }
+        return CQ_od;
+    }
+    @Override
     public String selectStationName(Integer id){
         Map stationNameMap=jdbcTemplate.queryForMap("SELECT CZ_NAME\n" +
                 "from dic_linestation\n" +

@@ -3,6 +3,7 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 import java.io._
 import java.util
 
+import cn.edu.sicau.pfdistribution.MysqlGetID
 import cn.edu.sicau.pfdistribution.entity._
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge
 import cn.edu.sicau.pfdistribution.service.road.KServiceImpl
@@ -16,7 +17,7 @@ import scala.collection.mutable
 
 //该段代码把Object改成Class定义
 @Service
-case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdList: GetOdList,getParameter: GetParameter,kServiceImpl:KServiceImpl,dataDeal: DataDeal,tongHaoReturnResult: TongHaoReturnResult,getLineID:GetLineID)extends Serializable { //,val getOdList: GetOdList
+case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdList: GetOdList,getParameter: GetParameter,kServiceImpl:KServiceImpl,dataDeal: DataDeal,tongHaoReturnResult: TongHaoReturnResult,getLineID:GetLineID,mysqlGetID: MysqlGetID)extends Serializable { //,val getOdList: GetOdList
 
   @transient
   val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
@@ -34,7 +35,8 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     val command:String = args("command")
     val time  = args("timeInterval")
     //从数据库获得AFC历史数据
-    val odMapObtain:mutable.Map[String,Integer] = getOdList.getOdMap(args("startTime"),args("timeInterval").toLong).asScala
+    //val odMapObtain:mutable.Map[String,Integer] = getOdList.getOdMap(args("startTime"),args("timeInterval").toLong).asScala
+    val odMapObtain:mutable.Map[String,Integer] = mysqlGetID.test_CQ_od(args("20180903"),args("6")).asScala
     /*//类型转换
     val odListStaticTest = odListTransfer(odMapObtain)*/
     /*//测试od

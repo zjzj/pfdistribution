@@ -34,12 +34,12 @@ class GetParameter extends Serializable{
 
   //获得校正系数
   def getA():Double={
-    val a = 1
+    val a = 0.15
     return a
   }
 
   def getB():Double={
-    val b = 1
+    val b = 4
     return b
   }
   //获得列车最大座位数
