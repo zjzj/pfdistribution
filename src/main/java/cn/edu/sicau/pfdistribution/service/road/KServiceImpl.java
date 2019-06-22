@@ -132,10 +132,12 @@ public class KServiceImpl implements KService, Serializable {
                 tmpOD.add(o + "->" + d);
                 continue;
             }
-            String[] tmp = stationIdToName(sections, o, d);
-            if(tmp[0].equals(tmp[1])){
-                tmpOD.add(o + "->" + d);
-                continue;
+            if(paramType == "PARAM_ID") {
+                String[] tmp = stationIdToName(sections, o, d);
+                if (tmp[0].equals(tmp[1])) {
+                    tmpOD.add(o + "->" + d);
+                    continue;
+                }
             }
             count++;
             List<DirectedPath>paths = computeDynamic(sections, stationsInfo, o, d, paramType, resultType);

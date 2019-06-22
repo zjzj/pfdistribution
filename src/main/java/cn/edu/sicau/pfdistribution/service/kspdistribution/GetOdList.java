@@ -2,6 +2,7 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution;
 
 import cn.edu.sicau.pfdistribution.MysqlGetID;
 import cn.edu.sicau.pfdistribution.OracleLink;
+import cn.edu.sicau.pfdistribution.dao.Impl.Mysqlsavelmpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,16 @@ public class GetOdList implements Serializable {
     transient
     @Autowired
     OracleLink odData;
+    transient
     @Autowired
     MysqlGetID getOD;
+    transient
+    @Autowired
+    Mysqlsavelmpl saveLmpl;
+    //测试存储AFC区间分配结果
+    public void saveOD(String ksp,Double peo,String day,String hour){
+        saveLmpl.odRegion(ksp,peo,day,hour);
+    }
 
     public Map<String,Integer> getOdMap(String inTime, long time) throws Exception {
         Map<String, Integer> strMap=odData.SelectOD(inTime,time);

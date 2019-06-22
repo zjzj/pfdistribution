@@ -22,4 +22,9 @@ class DataDeal @Autowired()(val getOdList: GetOdList)extends Serializable {
         getOdList.kspRegionAdd(str,kspData(key).toInt)
     }
   } //od矩阵处理测试
+  def sectionDataSave(data:mutable.Map[String, Double],dataTimeDay:String,dataTime:String): Unit ={
+    for(key <- data.keys){
+      getOdList.saveOD(key,data(key),dataTimeDay,dataTime)
+    }
+  } //od矩阵处理测试
 }

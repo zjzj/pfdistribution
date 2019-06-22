@@ -22,7 +22,7 @@ public class  Mysqlsavelmpl implements RegionSaveInterface {
 
     @Override
     public void kspRegionAdd(String route, double passenger) {
-        jdbcTemplate.update("insert into kspregion(route,passenger) values(?,?)",route,passenger);
+        jdbcTemplate.update("insert into kspregion(route,passenger) values(?,?,?,?)",route,passenger);
     }
 
     @Override

@@ -23,6 +23,8 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
   val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
   @transient
   val sc = new SparkContext(conf)
+  val dayT = "20180903"
+  val hourT = "6"
 
 //该段代码移植到KafkaReceiver中
   /*
@@ -36,7 +38,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     val time  = args("timeInterval")
     //从数据库获得AFC历史数据
     //val odMapObtain:mutable.Map[String,Integer] = getOdList.getOdMap(args("startTime"),args("timeInterval").toLong).asScala
-    val odMapObtain:mutable.Map[String,Integer] = mysqlGetID.test_CQ_od(args("20180903"),args("6")).asScala
+    val odMapObtain:mutable.Map[String,Integer] = mysqlGetID.test_CQ_od(dayT,hourT).asScala
     /*//类型转换
     val odListStaticTest = odListTransfer(odMapObtain)*/
     /*//测试od
@@ -60,16 +62,11 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     //从数据库获得需要计算的OD矩阵
     val od:scala.collection.mutable.Buffer[String] = getOdList.odFromOracleToList().asScala
     val odList:List[String] = od.toList
-    println(odList.length)
     //将OD的列表转换为Map
     val odMap = odListToOdMap(odList)
-    println("长度"+odMap.keySet.size)
     //将OD的Map转换为java的Map
     /*val odJavaMap = odMapToJavaOdMap(odMap)
     println("长度"+odJavaMap.keySet().size())*/
-    /*val odListTest:List[String] = getParameter.getOdList()
-    val odMapTest = odListToOdMap(odListTest)
-    val odJavaMapTest = odMapToJavaOdMap(odMapTest)*/
     //调用路径搜索方法，获得所有OD的k路径
     val allKspMap:mutable.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(odMap.asJava,"PARAM_ID", "RETURN_ID").asScala
     if(command.equals("static")){
@@ -113,7 +110,9 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     val rdd = sc.makeRDD(odList)
     val odDistributionRdd = rdd.map(String => calBase.odDistributionResult(String,allKsp,odMap))   //各个OD的分配结果
     val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合
-    val regionMap = calBase.odRegion(rddIntegration)                              //各个区间的加和结果
+    val regionMap = calBase.odRegion(rddIntegration) //各个区间的加和结果
+    displayResult(regionMap)
+    dataDeal.sectionDataSave(regionMap,dayT,hourT)
     return regionMap
   }
 
@@ -125,6 +124,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     val odDistributionRdd = rdd.map(String => calBase.dynamicOdDistributionResult(String,allKsp,odMap))   //各个OD的路径分配结果
     val rddIntegration = odDistributionRdd.reduce((x, y) => x ++ y)      //对OD分配结果的RDD的整合
     val regionMap = calBase.odRegionWithTime(rddIntegration,interval:Int)
+    displayResult(regionMap)
     return regionMap
   }
 
@@ -153,32 +153,12 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     }
     return result.map{case(k,v)=>(k,v)}.asJava
   }
-  /*def getDistribution(od:String):Object = {
-    val data1:mutable.Map[Array[DirectedEdge], Double] = calBase.staticOdPathSearch(od)
-    val data2:mutable.Map[Array[DirectedEdge], Double] = calBase.dynamicOdPathSearch(od)
-    var result: Map[String, Double] = Map()
-    val minPathMap1:Array[DirectedEdge]=minWeightPath(data1)
-    val minPathMap2:Array[DirectedEdge]=minWeightPath(data2)
-    val minDataArray:Array[Array[DirectedEdge]] = Array(minPathMap1,minPathMap2)
-    for(i <- 0 to (minDataArray.length -1)) {
-      val minPath: Array[DirectedEdge] = minDataArray(i)
-      val directedEdge: DirectedEdge = minPath(0)
-      val edge: Edge = directedEdge.getEdge
-      var str = edge.getFromNode
-      for (i <- 1 to (minPath.length - 2)) {
-        val dEdge: DirectedEdge = minPath(i)
-        val eg: Edge = dEdge.getEdge
-        str = str + "," + eg.getFromNode
-      }
-      val dEdge2: DirectedEdge = minPath(minPath.length - 1)
-      val eg2: Edge = dEdge2.getEdge
-      str = str + "," + eg2.getToNode
-      if(i==0)
-        result += (str -> data1(minPath))
-      else result += (str -> data2(minPath))
-    }
-    return result.map{case(k,v)=>(k,v)}.asJava
-  }*/
+ def displayResult(data:mutable.Map[String, Double]):Unit={
+   for (key <- data.keys){
+     print("section:"+ key)
+     println("passengers:"+ data(key))
+   }
+ }
   //筛选出所有路径中权值和最小的路径
   def minWeightPath(data:mutable.Map[Array[DirectedEdge], Double]):Array[DirectedEdge]={
     var result:mutable.Map[Array[DirectedEdge],Double] = mutable.Map()

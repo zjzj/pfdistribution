@@ -182,24 +182,24 @@ public class StationAndSectionNetRouter {
                             JSONObject json = new JSONObject(a);
                             //Boolean data = jsonTransfer.stationDataAnalysis(a);
                             Boolean data = stationDataAnalysis1(json);
-                            if(data == false) {
-                                log.info("数据处理异常" );
-                            }
-                            Map<String, String> message = new HashMap<>();
-                            message.put("command", "dynamic");
-                            message.put("predictionInterval", "15");
-                            final List<Tuple2<String, String>> list = new java.util.ArrayList<>(message.size());
-                            for (final Map.Entry<String, String> entry : message.entrySet()) {
-                                list.add(Tuple2.apply(entry.getKey(), entry.getValue()));
-                            }
-                            final scala.collection.Seq<Tuple2<String, String>> seq = scala.collection.JavaConverters.asScalaBufferConverter(list).asScala().toSeq();
-                            scala.collection.immutable.Map<String, String> abc = (scala.collection.immutable.Map<String, String>) scala.collection.immutable.Map$.MODULE$.apply(seq);
+                            if(data != false) {
+                                Map<String, String> message = new HashMap<>();
+                                message.put("command", "dynamic");
+                                message.put("predictionInterval", "15");
+                                final List<Tuple2<String, String>> list = new java.util.ArrayList<>(message.size());
+                                for (final Map.Entry<String, String> entry : message.entrySet()) {
+                                    list.add(Tuple2.apply(entry.getKey(), entry.getValue()));
+                                }
+                                final scala.collection.Seq<Tuple2<String, String>> seq = scala.collection.JavaConverters.asScalaBufferConverter(list).asScala().toSeq();
+                                scala.collection.immutable.Map<String, String> abc = (scala.collection.immutable.Map<String, String>) scala.collection.immutable.Map$.MODULE$.apply(seq);
 
-                            String back = "{'time':'2019/5/30 15:54:00','staion_distribution':[{'path':'三亚湾-2-民心佳园-2-重庆北站北广场-2-重庆北站南广场-o-重庆北站南广场-2-龙头寺公园-2-红土地','passengers':'2'},{'path':'空港广场-2-双凤桥-2-碧津-2-双龙-2-回兴-2-长福路-2-翠云-2-园博园-2-鸳鸯-2-金童路-2-金渝','passengers':'5'}]}";
-                            distribution.triggerTask(abc);
-                            System.out.println(tongHaoReturnResult.getPathDistribution().size());
-                            SendData1(netRouterClient, destAddrs,tongHaoReturnResult);
-                            log.info("数据处理成功" );
+                                String back = "{'time':'2019/5/30 15:54:00','staion_distribution':[{'path':'三亚湾-2-民心佳园-2-重庆北站北广场-2-重庆北站南广场-o-重庆北站南广场-2-龙头寺公园-2-红土地','passengers':'2'},{'path':'空港广场-2-双凤桥-2-碧津-2-双龙-2-回兴-2-长福路-2-翠云-2-园博园-2-鸳鸯-2-金童路-2-金渝','passengers':'5'}]}";
+                                distribution.triggerTask(abc);
+                                System.out.println(tongHaoReturnResult.getPathDistribution().size());
+                                SendData1(netRouterClient, destAddrs,tongHaoReturnResult);
+                                log.info("数据处理成功" );
+                            }else log.info("数据处理异常" );
+
                         }
                     }
                 }
