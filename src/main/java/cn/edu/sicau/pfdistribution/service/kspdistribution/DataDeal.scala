@@ -24,7 +24,11 @@ class DataDeal @Autowired()(val getOdList: GetOdList)extends Serializable {
   } //od矩阵处理测试
   def sectionDataSave(data:mutable.Map[String, Double],dataTimeDay:String,dataTime:String): Unit ={
     for(key <- data.keys){
-      getOdList.saveOD(key,data(key),dataTimeDay,dataTime)
+      val v = data(key)
+      var v1:Int = v.toInt
+      if(v1 == 0)
+        v1 = v1 +1
+      getOdList.saveOD(key,v1.toDouble,dataTimeDay,dataTime)
     }
   } //od矩阵处理测试
 }

@@ -26,10 +26,9 @@ public class DirectedEdge implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        return "edge:{" +
-                "edge=" + edge +
-                ", direction='" + direction + '\'' +
+        return "{" +
+                "\"edge\":" + "{"+ "\"fromNode\":\"" + edge.getFromNode()  + "\",\"toNode\":\"" +edge.getToNode() + "\", \"weight\":" + edge.getWeight() + "}" +
+                ", \"direction\":'" + direction + '\'' +
                 '}';
     }
 }

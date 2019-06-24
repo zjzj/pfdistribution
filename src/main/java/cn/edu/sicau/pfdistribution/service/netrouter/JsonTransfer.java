@@ -54,13 +54,9 @@ public class JsonTransfer {
 
 
 
-    public void riskDataAnalysis(String data) throws JSONException {
-        String data1 = data.substring(1);
-        String data2 = "{data:"+ data1;
-        JSONObject jsonObject = new JSONObject(data2);
+    public void riskDataAnalysis(JSONArray dataArray) throws JSONException {
         List<List<String>> stationList = new ArrayList<>();
         List<List<String>> sectionList = new ArrayList<>();
-        JSONArray dataArray = jsonObject.getJSONArray("data");
         for (int i = 0; i < dataArray.length(); i++) {
             String str = dataArray.getString(i);
             JSONObject s = new JSONObject(str);
@@ -80,6 +76,6 @@ public class JsonTransfer {
                 sectionList.add(message);
             }
         }
-        new StationAndSectionRisk(stationList,sectionList);
+        StationAndSectionRisk data = new StationAndSectionRisk(stationList,sectionList);
     }
 }

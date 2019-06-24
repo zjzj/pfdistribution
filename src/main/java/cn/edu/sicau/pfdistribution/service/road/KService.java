@@ -9,7 +9,10 @@ import java.util.Map;
 
 public interface KService {
     List<DirectedPath> computeStatic(List<Section>sections, Map<String, List<String>>stationsInfo,String o, String d, String paramType, String resultType);
+    Map<String, List<DirectedPath>> computeStatic(Map<String, String> ods, String paramType, String resultType);
     List<DirectedPath> computeDynamic(List<Section>sections, Map<String, List<String>>stationsInfo, String o, String d, String paramType, String resultType);
     List<DirectedPath> computeDynamic(String o, String d, String paramType, String resultType);
     Map<String, List<DirectedPath>> computeDynamic(Map<String, String> ods, String paramType, String resultType);
+    Map<String, List<DirectedPath>> computeDynamicFromDB(Map<String, String> ods, String paramType, String resultType);
+    String[] stationIdToName(List<Section> sections, String o, String d);
 }

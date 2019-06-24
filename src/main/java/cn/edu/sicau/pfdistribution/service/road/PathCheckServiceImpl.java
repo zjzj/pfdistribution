@@ -7,10 +7,11 @@ import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Service
-public class PathCheckServiceImpl implements PathCheckService{
+public class PathCheckServiceImpl implements PathCheckService, Serializable {
 
     /**
      * 返回false表示路径不通

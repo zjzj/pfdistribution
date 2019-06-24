@@ -2,12 +2,14 @@ package cn.edu.sicau.pfdistribution.entity;
 
 
 
-import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "totalCost")
 public class DirectedPath implements Serializable {
     private LinkedList<DirectedEdge> edges;
 
@@ -33,19 +35,29 @@ public class DirectedPath implements Serializable {
         this.totalCost = totalCost;
     }
 
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(edges.get(0).getEdge().getFromNode());
+//        sb.append("+" + edges.get(0).getEdge().getToNode());
+//        for(int i = 1; i < edges.size(); i++){
+//            sb.append("+" + edges.get(i).getEdge().getToNode());
+//        }
+//        return "{" +
+//                "path:" + sb +
+//                ", totalCost:" + totalCost +
+//                '}';
+//    }
+
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(edges.get(0).getEdge().getFromNode());
-        sb.append("+" + edges.get(0).getEdge().getToNode());
-        for(int i = 1; i < edges.size(); i++){
-            sb.append("+" + edges.get(i).getEdge().getToNode());
-        }
         return "{" +
-                "path:" + sb +
-                ", totalCost:" + totalCost +
+                "\"path\":" + edges +
+                ", \"totalCost\":" + totalCost +
                 '}';
     }
+
     public List<String> getNodes() {
         LinkedList<String> nodes = new LinkedList<String>();
 

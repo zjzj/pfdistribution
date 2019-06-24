@@ -95,7 +95,7 @@ public class IntervalDistributionNetRouter {
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 2, (byte) 1, (short) 6);
         destAddrs.add(destaddr1);
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.0.140.213", 9003, "10.4.208.77", 9005, localaddr, "");
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.0.140.213", 9003, "10.4.208.80", 9005, localaddr, "");
         while (!netRouterClient.start()) {
             System.out.println("IntervalDistributionNetRouter Start fails.");
             Thread.sleep(10);
@@ -108,18 +108,22 @@ public class IntervalDistributionNetRouter {
             if (netRouterClient.isNet1Connected() || netRouterClient.isNet2Connected()) {
                 RecvMessage recvMessage = new RecvMessage();
                 if (netRouterClient.receiveBlockMessage(recvMessage)) {
+                    try {
                     Map<String, String> message = gson.fromJson(recvMessage.getMessage(), new TypeToken<Map<String, String>>() {
                     }.getType());
-                    log.info("IntervalDistributionNetRouter接收到的数据数据" + message);
                     if (message != null) {
-                        final List<Tuple2<String, String>> list = new java.util.ArrayList<>(message.size());
-                        for (final Map.Entry<String, String> entry : message.entrySet()) {
-                            list.add(Tuple2.apply(entry.getKey(), entry.getValue()));
-                        }
-                        final scala.collection.Seq<Tuple2<String, String>> seq = scala.collection.JavaConverters.asScalaBufferConverter(list).asScala().toSeq();
-                        scala.collection.immutable.Map<String, String> abc = (scala.collection.immutable.Map<String, String>) scala.collection.immutable.Map$.MODULE$.apply(seq);
-                        log.info("IntervalDistributionNetRouter数据接受成功");
-                        SendData(netRouterClient, destAddrs, distribution.intervalTriggerTask(abc));
+                            final List<Tuple2<String, String>> list = new java.util.ArrayList<>(message.size());
+                            for (final Map.Entry<String, String> entry : message.entrySet()) {
+                                list.add(Tuple2.apply(entry.getKey(), entry.getValue()));
+                            }
+                            final scala.collection.Seq<Tuple2<String, String>> seq = scala.collection.JavaConverters.asScalaBufferConverter(list).asScala().toSeq();
+                            scala.collection.immutable.Map<String, String> abc = (scala.collection.immutable.Map<String, String>) scala.collection.immutable.Map$.MODULE$.apply(seq);
+                            log.info("IntervalDistributionNetRouter数据接受成功");
+                            distribution.intervalTriggerTask(abc);
+                            SendData(netRouterClient, destAddrs, null);
+                    }
+                    }catch (Exception e){
+                        log.debug("IntervalDistributionNetRouter数据不对应");
                     }
                 }
             }

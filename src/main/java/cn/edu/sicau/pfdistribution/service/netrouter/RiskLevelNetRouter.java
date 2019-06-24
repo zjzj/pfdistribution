@@ -5,8 +5,11 @@ import NetRouterClient.NetRouterClient;
 import NetRouterClient.RecvMessage;
 import NetRouterClient.SendMessage;
 
+import cn.edu.sicau.pfdistribution.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,8 @@ import java.util.List;
 @Service
 public class RiskLevelNetRouter {
     Logger log = LoggerFactory.getLogger(StationAndSectionNetRouter.class);
+    @Autowired
+    private JsonTransfer jsonTransfer;
 
     private static void loadJNILibDynamically(String libName) throws IOException {// synchronized static
 
@@ -79,7 +84,7 @@ public class RiskLevelNetRouter {
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 1, (byte) 1, (short) 6);
         destAddrs.add(destaddr1);
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.0.140.213", 9003, "10.4.208.77", 9005, localaddr, "");
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.0.140.213", 9003, "10.4.208.80", 9005, localaddr, "");
         while (!netRouterClient.start()) {
             System.out.println("RiskLevelNetRouter Start fails.");
             Thread.sleep(10);
@@ -92,20 +97,16 @@ public class RiskLevelNetRouter {
             if (netRouterClient.isNet1Connected() || netRouterClient.isNet2Connected()) {
                 RecvMessage recvMessage = new RecvMessage();
                 if (netRouterClient.receiveBlockMessage(recvMessage)) {
-                   String message = recvMessage.getMessage();
-                   log.info("从riskNetRouter数据接" + message);
-                   byte[] a = message.getBytes();
-                   byte[] str = Arrays.copyOfRange(a,0,2);
-                   /*byte[] str3 = Arrays.copyOfRange(a,2,a.length);
-                   String data1 = new String(str3);*/
-                   byte[] functionCode = {34,92};
-                   JsonTransfer jsonTransfer = new JsonTransfer();
-                    if (str==functionCode) {
-                        byte[] str2 = Arrays.copyOfRange(a,2,a.length);
-                        String data = new String(str2);
-                        jsonTransfer.riskDataAnalysis(data);
-                        log.info("riskNetRouter数据接收成功");
-                        /*SendData(netRouterClient, destAddrs,"succeeds");*/
+                    try{
+                       String message = recvMessage.getMessage();
+                       String[] fields = message.split("\\[");
+                       String risk = fields[0];
+                       if(Constants.ENVIRONMENT_RISK.equals(risk)){
+                           JSONArray jsonArray = new JSONArray("[" + fields[1]);
+                           jsonTransfer.riskDataAnalysis(jsonArray);
+                        }
+                    }catch (Exception e) {
+                        log.debug("RiskNetRouter数据不对应");
                     }
                 }
             }

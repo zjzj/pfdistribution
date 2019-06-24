@@ -7,16 +7,19 @@ import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Graph;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.KSPUtil;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
+import com.google.gson.JsonArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Service;
 import org.stringtemplate.v4.ST;
 import scala.Serializable;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Service
 public class KServiceImpl implements KService, Serializable {
-
     transient
     @Autowired
     private RoadDistributionDao roadDistributionDao;
@@ -24,6 +27,15 @@ public class KServiceImpl implements KService, Serializable {
     transient
     @Autowired
     private PathCheckService pathCheckService;
+
+    public static List<Section> sections;
+
+    public static Map<String, List<String>> stationInfo;
+    @PostConstruct
+    public void init(){
+        sections = roadDistributionDao.getAllSection();
+        stationInfo = roadDistributionDao.getAllStationInfo();
+    }
 
     /**
      * 静态k路径计算：
@@ -75,6 +87,40 @@ public class KServiceImpl implements KService, Serializable {
         return directedPath;
     }
 
+    @Override
+    public Map<String, List<DirectedPath>> computeStatic(Map<String, String> ods, String paramType, String resultType) {
+        if(ods == null) return null;
+        Map<String, List<DirectedPath>>odsPaths = new HashMap<>();
+        Iterator<String> it = ods.keySet().iterator();
+        while(it.hasNext()){
+            String[] odStr = it.next().split(" ");
+            String o = odStr[0];
+            String d = odStr[1];
+            if(o.equals(d)){
+                continue;
+            }
+            if(Constants.PARAM_ID.equals(paramType)) {
+                String[] tmp = stationIdToName(sections, o, d);
+                if(tmp[0].equals(tmp[1])){
+                    DirectedPath directedPath = new DirectedPath();
+                    Edge edge = new Edge();DirectedEdge directedEdge = new DirectedEdge();
+                    edge.setFromNode(o);edge.setToNode(d);edge.setWeight(0);
+                    directedEdge.setEdge(edge);directedEdge.setDirection(Constants.CHANGE_STATION);
+                    LinkedList<DirectedEdge>edges = new LinkedList<>();
+                    edges.add(directedEdge);
+                    directedPath.setEdges(edges);directedPath.setTotalCost(Constants.CHANGE_LENGTH);
+                    List<DirectedPath>directedPaths = new ArrayList<>();
+                    directedPaths.add(directedPath);
+                    odsPaths.put(o + " " + d, directedPaths);
+                    continue;
+                }
+            }
+            List<DirectedPath>paths = computeStatic(sections, stationInfo, o, d, paramType, resultType);
+            odsPaths.put(o + " " + d, paths);
+        }
+        return odsPaths;
+    }
+
 
     /**
      * 从通号院获取废弃区间的动态计算,可额外添加废弃区间
@@ -88,10 +134,12 @@ public class KServiceImpl implements KService, Serializable {
         paths = computeStatic(sections, stationsInfo, o, d, paramType, resultType);
 
         List<Integer>interruptedIndex = new ArrayList<>();
-        for(int i = 0; i < paths.size(); i++){
-            if(!pathCheckService.checkPath(paths.get(i)))
-            interruptedIndex.add(i);
-        }
+        //判断区间是否正在运营
+//        for(int i = 0; i < paths.size(); i++){
+//            if(!pathCheckService.checkPath(paths.get(i)))
+//                interruptedIndex.add(i);
+//        }
+
         List<DirectedPath>newPaths = new ArrayList<>();
         for(int i = 0; i < paths.size(); i++){
             if(interruptedIndex.indexOf(i) == -1)
@@ -102,9 +150,9 @@ public class KServiceImpl implements KService, Serializable {
 
     @Override
     public List<DirectedPath> computeDynamic(String o, String d, String paramType, String resultType) {
-        List<Section>sections = roadDistributionDao.getAllSection();
-        Map<String, List<String>>stationsInfo = roadDistributionDao.getAllStationInfo();
-        return computeDynamic(sections, stationsInfo, o, d, paramType, resultType);
+        //List<Section>sections = roadDistributionDao.getAllSection();
+        //Map<String, List<String>>stationsInfo = roadDistributionDao.getAllStationInfo();
+        return computeDynamic(sections, stationInfo, o, d, paramType, resultType);
     }
 
     /**
@@ -114,40 +162,64 @@ public class KServiceImpl implements KService, Serializable {
      */
     @Override
     public Map<String, List<DirectedPath>> computeDynamic(Map<String, String> ods, String paramType, String resultType) {
-        List<Section>sections = roadDistributionDao.getAllSection();
-        Map<String, List<String>>stationsInfo = roadDistributionDao.getAllStationInfo();
         if(ods == null) return null;
         Map<String, List<DirectedPath>>odsPaths = new HashMap<>();
         Iterator<String> it = ods.keySet().iterator();
-        List<String> tmpOD = new ArrayList<>();
-        System.out.println("ods条数:" + ods.keySet().size());
-        int count = 0;
         while(it.hasNext()){
             String[] odStr = it.next().split(" ");
-            /*String o = it.next();
-            String d = ods.get(o);*/
             String o = odStr[0];
             String d = odStr[1];
             if(o.equals(d)){
-                tmpOD.add(o + "->" + d);
                 continue;
             }
-            if(paramType == "PARAM_ID") {
+            if(Constants.PARAM_ID.equals(paramType)) {
                 String[] tmp = stationIdToName(sections, o, d);
-                if (tmp[0].equals(tmp[1])) {
-                    tmpOD.add(o + "->" + d);
+                if(tmp[0].equals(tmp[1])){
+                    DirectedPath directedPath = new DirectedPath();
+                    Edge edge = new Edge();DirectedEdge directedEdge = new DirectedEdge();
+                    edge.setFromNode(o);edge.setToNode(d);edge.setWeight(0);
+                    directedEdge.setEdge(edge);directedEdge.setDirection(Constants.CHANGE_STATION);
+                    LinkedList<DirectedEdge>edges = new LinkedList<>();
+                    edges.add(directedEdge);
+                    directedPath.setEdges(edges);directedPath.setTotalCost(Constants.CHANGE_LENGTH);
+                    List<DirectedPath>directedPaths = new ArrayList<>();
+                    directedPaths.add(directedPath);
+                    odsPaths.put(o + " " + d, directedPaths);
                     continue;
                 }
             }
-            count++;
-            List<DirectedPath>paths = computeDynamic(sections, stationsInfo, o, d, paramType, resultType);
+            List<DirectedPath>paths = computeDynamic(sections, stationInfo, o, d, paramType, resultType);
             odsPaths.put(o + " " + d, paths);
         }
-        System.out.println("无效od条数:" + tmpOD.size());
-        System.out.println(tmpOD);
-        System.out.println("======================================================");
-        System.out.println("有效路径条数:" + count);
         return odsPaths;
+    }
+
+    @Override
+    public Map<String, List<DirectedPath>> computeDynamicFromDB(Map<String, String> ods, String paramType, String resultType) {
+        if(Constants.PARAM_ID.equals(paramType)){
+            List<ODPathWithJson>idPath = roadDistributionDao.getAllODPathById();
+            Iterator<String>it = ods.keySet().iterator();
+            while(it.hasNext()){
+                String o = it.next();
+                String d = ods.get(o);
+                String tmp = o + " " + d;
+                for(ODPathWithJson odPathWithJson:idPath){
+                    if(tmp.equals(odPathWithJson.getOd())){
+                        String json = odPathWithJson.getPathWithNameAndId();
+                        if(Constants.RETURN_EDGE_NAME.equals(resultType)){
+                            try {
+                                JSONArray nameJson = new JSONArray(json.split("\\s+")[1]);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        }else if(Constants.PARAM_NAME.equals(paramType)){
+
+        }
+        return null;
     }
 
     /**
@@ -156,7 +228,7 @@ public class KServiceImpl implements KService, Serializable {
      * @return
      */
     private int getPathAboveK(List<String> stations){
-        Map<String, List<String>>stationInfo = roadDistributionDao.getAllStationInfo();
+        //Map<String, List<String>>stationInfo = roadDistributionDao.getAllStationInfo();
         int k = 0;
         for(int i = 0; i < stations.size(); i++){
             String station = stations.get(i);
@@ -216,7 +288,8 @@ public class KServiceImpl implements KService, Serializable {
         }
         return edges;
     }
-    private String[] stationIdToName(List<Section> sections, String o, String d){
+    @Override
+    public String[] stationIdToName(List<Section> sections, String o, String d){
         for(Section section:sections){
             if(section.getFromId().toString().equals(o))o = section.getFromName();
             if(section.getFromId().toString().equals(d))d = section.getFromName();
@@ -265,6 +338,7 @@ public class KServiceImpl implements KService, Serializable {
                         Edge newEdge = new Edge();
                         newEdge.setFromNode(section.getFromId().toString());
                         newEdge.setToNode(section.getToId().toString());
+                        newEdge.setWeight(section.getWeight());
                         DirectedEdge directedEdge = new DirectedEdge();
                         directedEdge.setEdge(newEdge);
                         directedEdge.setDirection(section.getDirection());
@@ -300,5 +374,4 @@ public class KServiceImpl implements KService, Serializable {
             stations.add(path.get(i).getToNode());
         return stations;
     }
-
 }

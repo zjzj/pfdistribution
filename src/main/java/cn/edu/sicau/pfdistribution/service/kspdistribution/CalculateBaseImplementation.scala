@@ -21,7 +21,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
   val graph = readExcel.buildGrapgh("data/stationLine.xls", "data/edge.xls")
   val kspUtil = new KSPUtil()
   kspUtil.setGraph(graph)*/
- override def staticOdPathSearch(targetOd: String):mutable.Map[Array[DirectedEdge], Double] = {
+  override def staticOdPathSearch(targetOd: String):mutable.Map[Array[DirectedEdge], Double] = {
    val aList = targetOd.split(" ")
    val sou = aList(0)
    val tar = aList(1)
@@ -126,10 +126,37 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     }
     return kspDistribution(text1, passengers)
   }
+  override def odDistributionResultTest(targetOd: String,odMap:mutable.Map[String,Integer]): mutable.Map[Array[DirectedEdge], Double] ={
+    /*val OD = targetOd.split(" ")
+    val O:String = OD(0)
+    val D:String = OD(1)*/
+    val OD:Map[String, String] = Map(targetOd -> targetOd)
+    val ksp1:util.Map[String, util.List[DirectedPath]] = kServiceImpl.computeStatic(OD.asJava, "PARAM_NAME", "RETURN_ID")
+    val ksp:util.List[DirectedPath] = ksp1.get(targetOd)
+    val passengers:Int = odMap(targetOd).toInt
+      val iter = ksp.iterator()
+      var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()
+      var text1:mutable.Map[Array[DirectedEdge], Double] = mutable.Map()
+      while(iter.hasNext) {
+        val p = iter.next()
+        //      一条路径的站点构成
+        val nodesIter = p.getEdges.iterator()
+        //      println("费用:"  + p.getTotalCost)
+        text += (nodesIter.asScala -> p.getTotalCost)   //静态费用
+      }
+      //      println(text.toList)
+      for (key <- text.keys) {
+        val myArray = key.toArray
+        text1 += (myArray -> text.apply(key))
+      }
+      return kspDistribution(text1, passengers)
+  }
 
   //动态路径分配
-  override def dynamicOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,Integer]): mutable.Map[Array[DirectedEdge], Double] ={
-    val ksp:util.List[DirectedPath] = allKsp(targetOd)
+  override def dynamicOdDistributionResult(targetOd: String,odMap:mutable.Map[String,Integer]): mutable.Map[Array[DirectedEdge], Double] ={
+    val OD:Map[String, String] = Map(targetOd -> targetOd)
+    val ksp1:util.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(OD.asJava, "PARAM_NAME", "RETURN_ID")
+    val ksp:util.List[DirectedPath] = ksp1.get(targetOd)
     val passengers:Int = odMap(targetOd).toInt
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()
@@ -148,8 +175,10 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     }
     return kspDistribution(dynamicCosting.cost_Count(text1), passengers)
   }
-  override def tongHaoStaticOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,String]): mutable.Map[Array[DirectedEdge], Double] ={
-    val ksp:util.List[DirectedPath] = allKsp(targetOd)
+  override def tongHaoStaticOdDistributionResult(targetOd: String,odMap:mutable.Map[String,String]): mutable.Map[Array[DirectedEdge], Double] ={
+    val OD:Map[String, String] = Map(targetOd -> targetOd)
+    val ksp1:util.Map[String, util.List[DirectedPath]] = kServiceImpl.computeStatic(OD.asJava, "PARAM_ID", "RETURN_ID")
+    val ksp:util.List[DirectedPath] = ksp1.get(targetOd)
     val passengers:Int = odMap(targetOd).toInt
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()
@@ -168,8 +197,13 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     }
     return kspDistribution(text1, passengers)
   }
-  override def tongHaoDynamicOdDistributionResult(targetOd: String,allKsp:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,String]): mutable.Map[Array[DirectedEdge], Double] ={
-    val ksp:util.List[DirectedPath] = allKsp(targetOd)
+  override def tongHaoDynamicOdDistributionResult(targetOd: String,odMap:mutable.Map[String,String]): mutable.Map[Array[DirectedEdge], Double] ={
+    val OD:Map[String, String] = Map(targetOd -> targetOd)
+    val ksp1:util.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(OD.asJava, "PARAM_ID", "RETURN_ID")
+    val ksp:util.List[DirectedPath] = ksp1.get(targetOd)
+    if(ksp == null){
+      println("错误OD"+targetOd)
+    }
     val passengers:Int = odMap(targetOd).toInt
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()
