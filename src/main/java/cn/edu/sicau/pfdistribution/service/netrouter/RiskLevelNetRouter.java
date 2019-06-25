@@ -4,7 +4,6 @@ import NetRouterClient.Address;
 import NetRouterClient.NetRouterClient;
 import NetRouterClient.RecvMessage;
 import NetRouterClient.SendMessage;
-
 import cn.edu.sicau.pfdistribution.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,10 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
 @Component
 @Service
 public class RiskLevelNetRouter {
@@ -69,7 +67,7 @@ public class RiskLevelNetRouter {
     private boolean SendData(NetRouterClient netClient, List<Address> f_list, String data) {
         SendMessage f_msg = new SendMessage(f_list,data);
         if (!netClient.sendMessage(f_msg)) {
-            System.out.println("Send fail");
+            log.info("Send fail");
             return false;
         }
         System.out.println("Risk Send suc");
@@ -79,17 +77,28 @@ public class RiskLevelNetRouter {
     @Async
     public void receiver() throws Exception {
         loadJNILibDynamically("NetRouterCppClient");
+        loadJNILibDynamically("NetRouterCppClient");
         Address localaddr = new Address((byte) 8, (byte) 1, (short) 2, (byte) 2, (short) 6);
         List<Address> destAddrs = new LinkedList<Address>();
-        Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 1, (byte) 1, (short) 6);
+        Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 4, (byte) 1, (short) 6);
         destAddrs.add(destaddr1);
+//注册信息
+/*        String reginfo =
+                "<in_condition>\n"+
+                        "<rec>\n"+
+                        "<protocol418_condition>\n"+
+                        "<type_func>0x04,0x09</type_func>\n"+
+                        "<type_func>0x04,0x09</type_func>\n"+
+                        "</protocol418_condition>\n"+
+                        "</rec>\n"+
+                        "</in_condition>\n";*/
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "192.168.43.82", 9003, "10.4.208.80", 9005, localaddr, "");
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.2.55.70", 9003, "192.168.69.108", 9005, localaddr, "");
         while (!netRouterClient.start()) {
-            System.out.println("RiskLevelNetRouter Start fails.");
+            log.info("RiskLevelNetRouter Start fails.");
             Thread.sleep(10);
         }
-        System.out.println("RiskLevelNetRouter Start succeeds.");
+        log.info("RiskLevelNetRouter Start succeeds.");
 
 //        SendData(netRouterClient, destAddrs,args);
 
@@ -99,11 +108,15 @@ public class RiskLevelNetRouter {
                 if (netRouterClient.receiveBlockMessage(recvMessage)) {
                     try{
                        String message = recvMessage.getMessage();
+//                       log.info("RiskNetRouter"+message);
                        String[] fields = message.split("\\[");
                        String risk = fields[0];
+                       byte[] risk1 = risk.getBytes();
+                       System.out.println("数据的前两个类型码"+risk1[0]+" "+risk1[1]);
                        if(Constants.ENVIRONMENT_RISK.equals(risk)){
                            JSONArray jsonArray = new JSONArray("[" + fields[1]);
                            jsonTransfer.riskDataAnalysis(jsonArray);
+                           log.info("RiskNetRouter数据处理成功");
                         }
                     }catch (Exception e) {
                         log.debug("RiskNetRouter数据不对应");

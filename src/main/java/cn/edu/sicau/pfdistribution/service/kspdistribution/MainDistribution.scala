@@ -31,12 +31,14 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
    * args（需要传入的执行命令Map）eg：Map("command", command；"startTime", startTime;"timeInterval", timeInterval;"predictionInterval", predictionInterval)
    * return  ava.util.Map（section->passengers）
    */
-  def intervalTriggerTask(args: Map[String,String],dayT:Int,hourT:Int): java.util.Map[String, String]= {
+  val dayT = "20190901"
+  val hourT = "6"
+  def intervalTriggerTask(args: Map[String,String]): java.util.Map[String, String]= {
     getLineID.setCZ_ID()
     val command:String = args("command")
     val time  = args("timeInterval")
     //从数据库获得AFC历史数据
-    val odMapObtain:mutable.Map[String,Integer] = mysqlGetID.test_CQ_od(dayT.toString,hourT.toString).asScala
+    val odMapObtain:mutable.Map[String,Integer] = mysqlGetID.test_CQ_od(dayT,hourT).asScala
     val odMap = odMapTransferScala(odMapObtain)
     println("OD条数"+odMap.keys.size)
     if(command.equals("static")){
@@ -138,11 +140,13 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
 
   //rest接口调用
   def getDistribution(od:String):Object = {
+    getLineID.setCZ_ID()
     val data1:mutable.Map[Array[DirectedEdge], Double] = calBase.staticOdPathSearch(od)
+    val data2:mutable.Map[Array[DirectedEdge], Double] = calBase.dynamicOdPathSearch(od)
     var result: Map[String, Double] = Map()
-    println(data1)
     val minPathMap1:Array[DirectedEdge]=minWeightPath(data1)
-    val minDataArray:Array[Array[DirectedEdge]] = Array(minPathMap1)
+    val minPathMap2:Array[DirectedEdge]=minWeightPath(data2)
+    val minDataArray:Array[Array[DirectedEdge]] = Array(minPathMap1,minPathMap2)
     for(i <- 0 to (minDataArray.length -1)) {
       val minPath: Array[DirectedEdge] = minDataArray(i)
       val directedEdge: DirectedEdge = minPath(0)

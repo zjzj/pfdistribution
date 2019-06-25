@@ -12,15 +12,12 @@ import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import scala.Tuple2;
 
-
 import java.io.*;
-import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -79,10 +76,10 @@ public class IntervalDistributionNetRouter {
 
         SendMessage f_msg = new SendMessage(f_list, gson.toJson(data));
         if (!netClient.sendMessage(f_msg)) {
-            System.out.println("Send fail");
+            log.info("Send fail");
             return false;
         }
-        System.out.println("Interval Send suc");
+        log.info("Interval Send suc");
         return true;
     }
 
@@ -95,12 +92,12 @@ public class IntervalDistributionNetRouter {
         Address destaddr1 = new Address((byte) 8, (byte) 1, (short) 2, (byte) 1, (short) 6);
         destAddrs.add(destaddr1);
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "192.168.43.82", 9003, "10.4.208.80", 9005, localaddr, "");
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.2.55.70", 9003, "192.168.69.108", 9005, localaddr, "");
         while (!netRouterClient.start()) {
-            System.out.println("IntervalDistributionNetRouter Start fails.");
+            log.info("IntervalDistributionNetRouter Start fails.");
             Thread.sleep(10);
         }
-        System.out.println("IntervalDistributionNetRouter Start succeeds.");
+        log.info("IntervalDistributionNetRouter Start succeeds.");
 
 //        SendData(netRouterClient, destAddrs,args);
 
@@ -119,19 +116,11 @@ public class IntervalDistributionNetRouter {
                             final scala.collection.Seq<Tuple2<String, String>> seq = scala.collection.JavaConverters.asScalaBufferConverter(list).asScala().toSeq();
                             scala.collection.immutable.Map<String, String> abc = (scala.collection.immutable.Map<String, String>) scala.collection.immutable.Map$.MODULE$.apply(seq);
                             log.info("IntervalDistributionNetRouter数据接受成功");
-                            int day = 20180902;
-                            int i,j;
-                            for(i = 2;i<7;i++){
-                                ++day;
-                                for(j=6;j<24;j++){
-                                    System.out.println("运行数据时间"+day+j);
-                                    distribution.intervalTriggerTask(abc,day,j);
-                                }
-                            }
+                            distribution.intervalTriggerTask(abc);
                             SendData(netRouterClient, destAddrs, null);
                     }
                     }catch (Exception e){
-                        log.debug("IntervalDistributionNetRouter数据不对应");
+                        log.info("IntervalDistributionNetRouter数据不对应");
                     }
                 }
             }

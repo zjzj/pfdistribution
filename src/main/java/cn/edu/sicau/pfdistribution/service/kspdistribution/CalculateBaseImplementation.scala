@@ -58,8 +58,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     val kspUtil = new KSPUtil()
     kspUtil.setGraph(graph)
     val ksp = kspUtil.computeODPath(sou,tar,2)*/
-    println(risk)
-    val ksp = kServiceImpl.computeDynamic(sou,tar, "PARAM_NAME", "RETURN_NAME",risk)
+    val ksp = kServiceImpl.computeDynamic(sou,tar, "PARAM_NAME", "RETURN_ID",risk)
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()
     var text1:mutable.Map[Array[DirectedEdge], Double] = mutable.Map()

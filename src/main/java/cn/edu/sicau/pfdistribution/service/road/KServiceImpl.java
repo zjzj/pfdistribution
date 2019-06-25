@@ -145,9 +145,9 @@ public class KServiceImpl implements KService, Serializable {
 //            if(interruptedIndex.indexOf(i) == -1)
 //                newPaths.add(paths.get(i));
 //        }
-        System.out.println(risk);
-        if(risk == null) return paths;
+        if(risk.getSectionRisks() == null && risk.getStationsRisks() ==null) return paths;
         else {
+            System.out.println(risk.getStationsRisks());
             List<DirectedPath> newPaths = removeAlarmPath(paths, sections, resultType, risk);
             return newPaths;
         }
@@ -496,7 +496,6 @@ public class KServiceImpl implements KService, Serializable {
                     edge.setToNode(section.getToId().toString());
                     alarmIdEdge.add(edge);
                     break;
-                    
                 }
             }
         }

@@ -18,6 +18,10 @@ public class JsonTransfer {
     @Autowired
     public StationAndSectionPassengers stationAndSectionPassengers;
 
+    @Autowired
+
+    public Risk risk;
+
     public boolean stationDataAnalysis(JSONObject jsonObject){
         try {
             //JSONObject jsonObject = new JSONObject(data);
@@ -72,7 +76,6 @@ public class JsonTransfer {
                 sectionRisk.setAlarmLevel(tmp.getInt(Constants.ALARM_LEVEL));
             }
         }
-        Risk risk = new Risk();
         risk.setSectionRisks(sectionRisks);
         risk.setStationsRisks(stationRisks);
     }
