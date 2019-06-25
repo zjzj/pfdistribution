@@ -209,6 +209,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()
     var text1:mutable.Map[Array[DirectedEdge], Double] = mutable.Map()
     while(iter.hasNext) {
+
       val p = iter.next()
       //      一条路径的站点构成
       val nodesIter = p.getEdges.iterator()
