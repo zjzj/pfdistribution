@@ -3,7 +3,7 @@ package cn.edu.sicau.pfdistribution.service.kspdistribution
 import java.io._
 import java.util
 
-import cn.edu.sicau.pfdistribution.entity.{DirectedEdge, DirectedPath}
+import cn.edu.sicau.pfdistribution.entity.{DirectedEdge, DirectedPath, Risk}
 import cn.edu.sicau.pfdistribution.service.kspcalculation.{Edge, KSPUtil, ReadExcel}
 import cn.edu.sicau.pfdistribution.service.road.KServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +14,7 @@ import scala.collection.JavaConverters._
 import scala.collection.mutable.Map
 
 @Service
-class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCosting,val getParameter:GetParameter,val kServiceImpl: KServiceImpl) extends CalculateBaseInterface with Serializable { //,val kServiceImpl:KServiceImpl
+class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCosting,val getParameter:GetParameter,val kServiceImpl: KServiceImpl,val risk: Risk) extends CalculateBaseInterface with Serializable { //,val kServiceImpl:KServiceImpl
  /* @transient
   val readExcel = new ReadExcel()
   @transient
@@ -30,7 +30,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
        val kspUtil = new KSPUtil()
        kspUtil.setGraph(graph)
        val ksp = kspUtil.computeODPath(sou,tar,2)*/
-   val ksp = kServiceImpl.computeDynamic(sou,tar, "PARAM_NAME", "RETURN_ID")
+   val ksp = kServiceImpl.computeDynamic(sou,tar, "PARAM_NAME", "RETURN_ID",risk)
    val iter = ksp.iterator()
    var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()
    var text1:mutable.Map[Array[DirectedEdge], Double] = mutable.Map()
@@ -58,7 +58,8 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     val kspUtil = new KSPUtil()
     kspUtil.setGraph(graph)
     val ksp = kspUtil.computeODPath(sou,tar,2)*/
-    val ksp = kServiceImpl.computeDynamic(sou,tar, "PARAM_NAME", "RETURN_NAME")
+    println(risk)
+    val ksp = kServiceImpl.computeDynamic(sou,tar, "PARAM_NAME", "RETURN_NAME",risk)
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()
     var text1:mutable.Map[Array[DirectedEdge], Double] = mutable.Map()
@@ -155,7 +156,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
   //动态路径分配
   override def dynamicOdDistributionResult(targetOd: String,odMap:mutable.Map[String,Integer]): mutable.Map[Array[DirectedEdge], Double] ={
     val OD:Map[String, String] = Map(targetOd -> targetOd)
-    val ksp1:util.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(OD.asJava, "PARAM_NAME", "RETURN_ID")
+    val ksp1:util.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(OD.asJava, "PARAM_NAME", "RETURN_ID",risk)
     val ksp:util.List[DirectedPath] = ksp1.get(targetOd)
     val passengers:Int = odMap(targetOd).toInt
     val iter = ksp.iterator()
@@ -199,7 +200,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
   }
   override def tongHaoDynamicOdDistributionResult(targetOd: String,odMap:mutable.Map[String,String]): mutable.Map[Array[DirectedEdge], Double] ={
     val OD:Map[String, String] = Map(targetOd -> targetOd)
-    val ksp1:util.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(OD.asJava, "PARAM_ID", "RETURN_ID")
+    val ksp1:util.Map[String, util.List[DirectedPath]] = kServiceImpl.computeDynamic(OD.asJava, "PARAM_ID", "RETURN_ID",risk)
     val ksp:util.List[DirectedPath] = ksp1.get(targetOd)
     if(ksp == null){
       println("错误OD"+targetOd)

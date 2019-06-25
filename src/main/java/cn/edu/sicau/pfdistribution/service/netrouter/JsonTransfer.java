@@ -22,8 +22,8 @@ public class JsonTransfer {
         try {
             //JSONObject jsonObject = new JSONObject(data);
             //        String record_time = jsonObject.optString("Recordtime");
-            JSONArray station_loads = jsonObject.getJSONArray("Station_loads");
-            JSONArray Section_loads = jsonObject.getJSONArray("Section_loads");
+            JSONArray station_loads = jsonObject.getJSONArray("StationLoads");
+            JSONArray Section_loads = jsonObject.getJSONArray("SectionLoads");
             Map<String, List<String>> stationP = new HashMap<>();
             Map<String, List<String>> sectionP = new HashMap<>();
             for (int i = 0; i < station_loads.length(); i++) {
@@ -31,21 +31,21 @@ public class JsonTransfer {
                 String str = station_loads.getString(i);
                 JSONObject s = new JSONObject(str);
                 //            stationPassengers.add(s.getString("stationid"));
-                stationPassengers.add(s.getString("crowding_rate"));
-                stationPassengers.add(s.getString("persengers"));
-                stationPassengers.add(s.getString("avgvolume"));
-                stationPassengers.add(s.getString("outvolume"));
-                stationPassengers.add(s.getString("involume"));
-                stationP.put(s.getString("stationid"), stationPassengers);
+                stationPassengers.add(s.getString("CrowdingRate"));
+                stationPassengers.add(s.getString("Passengers"));
+                stationPassengers.add(s.getString("AvgVolume"));
+                stationPassengers.add(s.getString("OutVolume"));
+                stationPassengers.add(s.getString("InVolume"));
+                stationP.put(s.getString("StationId"), stationPassengers);
             }
             for (int i = 0; i < Section_loads.length(); i++) {
                 List<String> sectionPassengers = new ArrayList<>();
                 String str = station_loads.getString(i);
                 JSONObject s = new JSONObject(str);
-                sectionPassengers.add(s.getString("utilization_rate"));
-                sectionPassengers.add(s.getString("persengers"));
-                sectionPassengers.add(s.getString("volume"));
-                sectionP.put(s.getString("startid") + " " + s.getString("startid"), sectionPassengers);
+                sectionPassengers.add(s.getString("UtilizationRate"));
+                sectionPassengers.add(s.getString("Passengers"));
+                sectionPassengers.add(s.getString("Volume"));
+                sectionP.put(s.getString("StartId") + " " + s.getString("EndId"), sectionPassengers);
             }
             stationAndSectionPassengers.setStationP(stationP);
             stationAndSectionPassengers.setSectionP(sectionP);
@@ -56,9 +56,7 @@ public class JsonTransfer {
     }
 
 
-
-
-    public Risk riskDataAnalysis(JSONArray dataArray) throws JSONException {
+    public void riskDataAnalysis(JSONArray dataArray) throws JSONException {
         List<SectionRisk>sectionRisks = new ArrayList<>();
         List<StationRisk>stationRisks = new ArrayList<>();
         for(int i = 0; i < dataArray.length(); i++){
@@ -77,6 +75,5 @@ public class JsonTransfer {
         Risk risk = new Risk();
         risk.setSectionRisks(sectionRisks);
         risk.setStationsRisks(stationRisks);
-        return risk;
     }
 }

@@ -28,7 +28,7 @@ spring:
       password: orcl
       driver-class-name: oracle.jdbc.driver.OracleDriver
 server:
-  port: 12345
+  port: 12123
 #  datasource:
 #    driver-class-name: com.mysql.jdbc.Driver
 #    url: jdbc:mysql://47.107.38.55:32768/dbgirl

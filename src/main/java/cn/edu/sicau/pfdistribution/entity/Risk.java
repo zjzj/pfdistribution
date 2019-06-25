@@ -1,8 +1,11 @@
 package cn.edu.sicau.pfdistribution.entity;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
-public class Risk {
+import java.io.Serializable;
+import java.util.List;
+@Service
+public class Risk implements Serializable {
     private List<SectionRisk> sectionRisks;
     private List<StationRisk> stationsRisks;
     public List<SectionRisk> getSectionRisks() {
