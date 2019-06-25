@@ -30,11 +30,6 @@ public class RoadTest {
     public void sationInfoTest(){
 
     }
-    /*    @Test
-        public void sectionTest(){
-            List<Section>sections = roadDistributionDao.getAllSection();
-            System.out.println(sections);
-        }*/
     @Test
     public void nameOdKspTest(){
         List<Section> sections = roadDistributionDao.getAllSection();

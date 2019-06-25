@@ -1,7 +1,7 @@
 package cn.edu.sicau.pfdistribution.service.netrouter;
 
-import cn.edu.sicau.pfdistribution.entity.StationAndSectionPassengers;
-import cn.edu.sicau.pfdistribution.entity.StationAndSectionRiskLevel;
+import cn.edu.sicau.pfdistribution.Constants;
+import cn.edu.sicau.pfdistribution.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -58,28 +58,25 @@ public class JsonTransfer {
 
 
 
-    public void riskDataAnalysis(JSONArray dataArray) throws JSONException {
-        List<List<String>> stationList = new ArrayList<>();
-        List<List<String>> sectionList = new ArrayList<>();
-        for (int i = 0; i < dataArray.length(); i++) {
-            String str = dataArray.getString(i);
-            JSONObject s = new JSONObject(str);
-            if(s.getString("StationId") != ""){ //!!!!!""
-                List<String> message = new ArrayList<>();
-                message.add(s.getString("StationId"));
-                message.add(s.getString("AlarmLevel"));
-                message.add(s.getString("StartTime"));
-                message.add(s.getString("EndTime"));
-                stationList.add(message);
-            } else if(s.getString("SectionId") != ""){ //!!!!!""
-                List<String> message = new ArrayList<>();
-                message.add(s.getString("SectionId"));
-                message.add(s.getString("AlarmLevel"));
-                message.add(s.getString("StartTime"));
-                message.add(s.getString("EndTime"));
-                sectionList.add(message);
+    public Risk riskDataAnalysis(JSONArray dataArray) throws JSONException {
+        List<SectionRisk>sectionRisks = new ArrayList<>();
+        List<StationRisk>stationRisks = new ArrayList<>();
+        for(int i = 0; i < dataArray.length(); i++){
+            JSONObject tmp = dataArray.getJSONObject(i);
+            if(tmp.has(Constants.STATION_ID)){
+                StationRisk stationRisk = new StationRisk();
+                stationRisk.setStationId(tmp.getInt(Constants.STATION_ID));
+                stationRisk.setAlarmLevel(tmp.getInt(Constants.ALARM_LEVEL));
+                stationRisks.add(stationRisk);
+            }else if(tmp.has(Constants.SECTION_ID)){
+                SectionRisk sectionRisk = new SectionRisk();
+                sectionRisk.setSectionId(tmp.getInt(Constants.SECTION_ID));
+                sectionRisk.setAlarmLevel(tmp.getInt(Constants.ALARM_LEVEL));
             }
         }
-        StationAndSectionRiskLevel data = new StationAndSectionRiskLevel(stationList,sectionList);
+        Risk risk = new Risk();
+        risk.setSectionRisks(sectionRisks);
+        risk.setStationsRisks(stationRisks);
+        return risk;
     }
 }
