@@ -2,11 +2,11 @@ package cn.edu.sicau.pfdistribution.entity;
 
 import java.util.List;
 
-public class StationAndSectionRisk {
+public class StationAndSectionRiskLevel {
     private List<List<String>> stationRisk;
     private List<List<String>> sectionRisk;
 
-    public StationAndSectionRisk(List<List<String>> stationRisk, List<List<String>> sectionRisk) {
+    public StationAndSectionRiskLevel(List<List<String>> stationRisk, List<List<String>> sectionRisk) {
         this.stationRisk = stationRisk;
         this.sectionRisk = sectionRisk;
     }

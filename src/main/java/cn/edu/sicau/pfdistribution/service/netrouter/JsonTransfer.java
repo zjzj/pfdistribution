@@ -1,7 +1,7 @@
 package cn.edu.sicau.pfdistribution.service.netrouter;
 
 import cn.edu.sicau.pfdistribution.entity.StationAndSectionPassengers;
-import cn.edu.sicau.pfdistribution.entity.StationAndSectionRisk;
+import cn.edu.sicau.pfdistribution.entity.StationAndSectionRiskLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -80,6 +80,6 @@ public class JsonTransfer {
                 sectionList.add(message);
             }
         }
-        StationAndSectionRisk data = new StationAndSectionRisk(stationList,sectionList);
+        StationAndSectionRiskLevel data = new StationAndSectionRiskLevel(stationList,sectionList);
     }
 }
