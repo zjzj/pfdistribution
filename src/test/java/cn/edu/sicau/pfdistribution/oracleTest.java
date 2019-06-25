@@ -20,11 +20,23 @@ public class oracleTest implements Serializable {
     @Autowired
     @Qualifier("mysqlJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
-    //MysqlGetID GetID;
-
+    @Autowired
+    MysqlGetID GetID;
+    @Autowired
+    Mysqlsavelmpl save;
     @Test
     public void test()throws Exception{
-        Map idTime = new HashMap();
+        Map<String,String> time=save.SelectAvgTime();
+        Map<String,Integer> peo=save.SelectAvgPeo();
+        double peoCount=0,timeCount=0;
+        for(String test : time.keySet()){
+            peoCount=peoCount + Double.valueOf(peo.get(test));
+            timeCount=timeCount+Double.valueOf(time.get(test))*Double.valueOf(peo.get(test));
+        }
+        System.out.println("20180904 星期三 乘车出行平均时间："+(timeCount/peoCount));
+
+        //save.odRegion("武汉 北京",2.3,"20180309","6");
+        /*Map idTime = new HashMap();
         List rows= jdbcTemplate.queryForList("SELECT CZ_ID,ARR_TIME,DEP_TIME\n" +
                 "from base_khsk");
         Iterator it = rows.iterator();
@@ -37,9 +49,9 @@ public class oracleTest implements Serializable {
             String DEP_TIME1=DEP_TIME.replace(" ", "");
             List<String> timeList= Arrays.asList(ARR_TIME1, DEP_TIME1);
             idTime.put(CZ_ID,timeList);
-        }
+        }*/
         System.out.println("###########################################################");
-        System.out.println(idTime);
+        System.out.println("ok");
         System.out.println("###########################################################");
        /* Map<Integer,Integer> idLine=GetID.carID();
         System.out.println("###########################################################");

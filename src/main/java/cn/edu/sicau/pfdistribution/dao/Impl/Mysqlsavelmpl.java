@@ -115,4 +115,33 @@ public class  Mysqlsavelmpl implements RegionSaveInterface {
         nameToID.put(Name,idList);
         return nameToID;
     }
+    public Map<String,String> SelectAvgTime(){
+        Map peoMap = new HashMap();
+        List rows= jdbcTemplate.queryForList("SELECT GETIN_STATION,GETOUT_STATION,AVGTIME\n" +
+                "FROM chongqinod\n" +
+                "WHERE GETIN_DAY='20180905'");
+        Iterator it = rows.iterator();
+        while(it.hasNext()) {
+            Map userMap = (Map) it.next();
+            String in= (String) userMap.get("GETIN_STATION");
+            String out= (String) userMap.get("GETOUT_STATION");
+            String time = (String) userMap.get("AVGTIME");
+            peoMap.put(in+" "+out,time);
+        }
+        return peoMap;
+    } public Map<String,Integer> SelectAvgPeo(){
+        Map timeMap = new HashMap();
+        List rows= jdbcTemplate.queryForList("SELECT GETIN_STATION,GETOUT_STATION,VOLUME\n" +
+                "FROM chongqinod\n" +
+                "WHERE GETIN_DAY='20180905'");
+        Iterator it = rows.iterator();
+        while(it.hasNext()) {
+            Map userMap = (Map) it.next();
+            String in= (String) userMap.get("GETIN_STATION");
+            String out= (String) userMap.get("GETOUT_STATION");
+            Integer pessengers = (Integer) userMap.get("VOLUME");
+            timeMap.put(in+" "+out,pessengers);
+        }
+        return timeMap;
+    }
 }

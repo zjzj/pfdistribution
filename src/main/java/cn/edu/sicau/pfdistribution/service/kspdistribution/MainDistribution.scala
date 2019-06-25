@@ -25,24 +25,22 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
   val conf = new SparkConf().setAppName("PfAllocationApp").setMaster("local[*]")
   @transient
   val sc = new SparkContext(conf)
-  val dayT = "20181001"
-  val hourT = "13"
 //该段代码移植到KafkaReceiver中
   /*
    *intervalTriggerTask方法用于返回静态和动态的区间分配结果
    * args（需要传入的执行命令Map）eg：Map("command", command；"startTime", startTime;"timeInterval", timeInterval;"predictionInterval", predictionInterval)
    * return  ava.util.Map（section->passengers）
    */
-  def intervalTriggerTask(args: Map[String,String]): java.util.Map[String, String]= {
+  def intervalTriggerTask(args: Map[String,String],dayT:Int,hourT:Int): java.util.Map[String, String]= {
     getLineID.setCZ_ID()
     val command:String = args("command")
     val time  = args("timeInterval")
     //从数据库获得AFC历史数据
-    val odMapObtain:mutable.Map[String,Integer] = mysqlGetID.test_CQ_od(dayT,hourT).asScala
+    val odMapObtain:mutable.Map[String,Integer] = mysqlGetID.test_CQ_od(dayT.toString,hourT.toString).asScala
     val odMap = odMapTransferScala(odMapObtain)
     println("OD条数"+odMap.keys.size)
     if(command.equals("static")){
-      return mapTransfer(intervalResultTest(odMap)).asJava
+      return mapTransfer(intervalResultTest(odMap,dayT.toString,hourT.toString)).asJava
     }else
       return mapTransfer(intervalResultWithTimeResult(odMap,time.toInt)).asJava
   }
@@ -111,10 +109,9 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     val regionMap = calBase.odRegion(rddIntegration) //各个区间的加和结果
     println("section:"+regionMap.keys.size)
     displayResult(regionMap)
-    dataDeal.sectionDataSave(regionMap,dayT,hourT)
     return regionMap
   }
-  def intervalResultTest(odMap:mutable.Map[String,Integer]):mutable.Map[String, Double] = {
+  def intervalResultTest(odMap:mutable.Map[String,Integer],dayT:String,hourT:String):mutable.Map[String, Double] = {
     val odList:List[String] = odMap.keySet.toList
       val rdd = sc.makeRDD(odList)
       val odDistributionRdd = rdd.map(String => calBase.odDistributionResultTest(String,odMap))   //各个OD的分配结果
@@ -122,7 +119,7 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
       println("ksp"+rddIntegration.keys.size)
       val regionMap = calBase.odRegion(rddIntegration) //各个区间的加和结果
       println("section:"+regionMap.keys.size)
-      displayResult(regionMap)
+      //displayResult(regionMap)
       dataDeal.sectionDataSave(regionMap,dayT,hourT)
       return regionMap
   }
