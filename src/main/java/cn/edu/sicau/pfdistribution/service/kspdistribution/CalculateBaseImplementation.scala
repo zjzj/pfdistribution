@@ -205,6 +205,7 @@ class CalculateBaseImplementation @Autowired() (val dynamicCosting:KspDynamicCos
     if(ksp == null){
       println("错误OD"+targetOd)
     }
+
     val passengers:Int = odMap(targetOd).toInt
     val iter = ksp.iterator()
     var text:mutable.Map[Iterator[DirectedEdge], Double] = mutable.Map()

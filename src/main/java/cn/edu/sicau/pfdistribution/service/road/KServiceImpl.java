@@ -496,6 +496,7 @@ public class KServiceImpl implements KService, Serializable {
                     edge.setToNode(section.getToId().toString());
                     alarmIdEdge.add(edge);
                     break;
+                    
                 }
             }
         }
