@@ -70,7 +70,10 @@ public class OracleGetTransferStationsByIdImpl implements OracleGetTransferStati
                 Iterator czit = cz_name.iterator();
                 Map czMap = (Map) czit.next();
                 Cz_name = (String) czMap.get("CZ_NAME");
-                transferStationsList.add(Cz_name);
+                int len = transferStationsList.size();
+                if(len !=0 && Cz_name.equals(transferStationsList.get(len - 1)))
+                    continue;
+                else transferStationsList.add(Cz_name);
             }
         }
         for(int i=0;i<transferStationsList.size()-1;i++){
@@ -91,7 +94,11 @@ public class OracleGetTransferStationsByIdImpl implements OracleGetTransferStati
             Iterator czit = cz_name.iterator();
             Map czMap = (Map) czit.next();
             Cz_name = (String) czMap.get("CZ_NAME");
-            stations.add(Cz_name);
+            int len = stations.size();
+            //筛出重复站点
+            if(len !=0 && Cz_name.equals(stations.get(len-1)))
+                continue;
+            else stations.add(Cz_name);
         }
         return stations;
     }
