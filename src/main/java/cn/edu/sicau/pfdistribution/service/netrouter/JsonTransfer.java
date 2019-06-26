@@ -69,10 +69,14 @@ public class JsonTransfer {
                 StationRisk stationRisk = new StationRisk();
                 stationRisk.setStationId(tmp.getInt(Constants.STATION_ID));
                 stationRisk.setAlarmLevel(tmp.getInt(Constants.ALARM_LEVEL));
+                stationRisk.setStartTime(tmp.getString(Constants.ALARM_START_TIME));
+                stationRisk.setEndTime(tmp.getString(Constants.ALARM_END_TIME));
                 stationRisks.add(stationRisk);
             }else if(tmp.has(Constants.SECTION_ID)){
                 SectionRisk sectionRisk = new SectionRisk();
                 sectionRisk.setSectionId(tmp.getInt(Constants.SECTION_ID));
+                sectionRisk.setStartTime(tmp.getString(Constants.ALARM_START_TIME));
+                sectionRisk.setEndTime(tmp.getString(Constants.ALARM_END_TIME));
                 sectionRisk.setAlarmLevel(tmp.getInt(Constants.ALARM_LEVEL));
             }
         }
