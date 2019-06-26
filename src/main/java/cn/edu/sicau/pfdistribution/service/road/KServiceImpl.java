@@ -165,6 +165,10 @@ public class KServiceImpl implements KService, Serializable {
      */
     @Override
     public List<DirectedPath> computeDynamic(List<Section>sections, Map<String, List<String>>stationsInfo, String o, String d, String paramType, String resultType, Risk risk) {
+        if(risk.getStationsRisks() ==null && risk.getSectionRisks() ==null) {
+            List<DirectedPath> paths = computeStatic(sections,stationInfo, o, d, paramType,resultType);
+            return paths;
+        }
         List<Path> paths = null;
         paths = computeDynamicRemoveAlarmPath(sections, stationsInfo, o, d, paramType, risk);
         if(paths == null)return null;
@@ -216,7 +220,7 @@ public class KServiceImpl implements KService, Serializable {
                     //continue;
                 }
             }
-            List<DirectedPath>paths = computeDynamic(sections, stationInfo, o, d, paramType, resultType,risk);
+            List<DirectedPath> paths = computeDynamic(sections, stationInfo, o, d, paramType, resultType,risk);
             odsPaths.put(o + " " + d, paths);
         }
         return odsPaths;

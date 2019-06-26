@@ -56,14 +56,13 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     val command:String = args("command")
     val time  = args("predictionInterval")
     //从数据库获得需要计算的OD矩阵
-    //val od:scala.collection.mutable.Buffer[String] = getOdList.odFromOracleToList().asScala
-
-    //测试OD
-    val od:scala.collection.mutable.Buffer[String] = getOdList.testOdList().asScala
+    val od:scala.collection.mutable.Buffer[String] = getOdList.odFromOracleToList().asScala
     val odList:List[String] = od.toList
-    val odMap = test(odList)
-    /*//将OD的列表转换为Map
-    val odMap = odListToOdMap(odList)*/
+    /*val od:scala.collection.mutable.Buffer[String] = getOdList.testOdList().asScala
+    val odList:List[String] = od.toList
+    val odMap = test(odList)*/
+    //将OD的列表转换为Map
+    val odMap = odListToOdMap(odList)
     println("OD条数"+odMap.keys.size)
     //将OD的Map转换为java的Map
     /*val odJavaMap = odMapToJavaOdMap(odMap)
