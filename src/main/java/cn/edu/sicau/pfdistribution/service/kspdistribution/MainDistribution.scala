@@ -56,10 +56,14 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
     val command:String = args("command")
     val time  = args("predictionInterval")
     //从数据库获得需要计算的OD矩阵
-    val od:scala.collection.mutable.Buffer[String] = getOdList.odFromOracleToList().asScala
+    //val od:scala.collection.mutable.Buffer[String] = getOdList.odFromOracleToList().asScala
+
+    //测试OD
+    val od:scala.collection.mutable.Buffer[String] = getOdList.testOdList().asScala
     val odList:List[String] = od.toList
-    //将OD的列表转换为Map
-    val odMap = odListToOdMap(odList)
+    val odMap = test(odList)
+    /*//将OD的列表转换为Map
+    val odMap = odListToOdMap(odList)*/
     println("OD条数"+odMap.keys.size)
     //将OD的Map转换为java的Map
     /*val odJavaMap = odMapToJavaOdMap(odMap)
@@ -70,6 +74,18 @@ case class MainDistribution @Autowired() (calBase:CalculateBaseInterface,getOdLi
       tongHaoKspStaticDistributionResult(odMap)
     }else
       tongHaoKspDynamicDistributionResult(odMap)
+  }
+  def test(ID:List[String]):mutable.Map[String, String]={
+    var transfer:mutable.Map[String, String] = mutable.Map()
+    val id:Array[String] = ID.toArray
+    for(i<-id){
+      for(j<-id){
+        val str = i + " " + j
+        if(!i.equals(j))
+          transfer += (str -> "1000")
+      }
+    }
+    return transfer
   }
   //各个OD的路径分配结果
   def kspDistributionResult(allKsp:mutable.Map[String, util.List[DirectedPath]],odMap:mutable.Map[String,Integer]):mutable.Map[Array[DirectedEdge], Double] = {

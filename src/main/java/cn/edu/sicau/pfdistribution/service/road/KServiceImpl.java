@@ -172,10 +172,10 @@ public class KServiceImpl implements KService, Serializable {
             String[] odStr = it.next().split(" ");
             String o = odStr[0];
             String d = odStr[1];
-            if(o.equals(d)){
+            if(o.equals(d) && Constants.PARAM_NAME.equals(paramType)){
                 continue;
             }
-            if(Constants.PARAM_ID.equals(paramType)) {
+            if(o.equals(d) && Constants.PARAM_ID.equals(paramType)) {
                 String[] tmp = stationIdToName(sections, o, d);
                 if(tmp[0].equals(tmp[1])){
                     DirectedPath directedPath = new DirectedPath();
@@ -188,7 +188,8 @@ public class KServiceImpl implements KService, Serializable {
                     List<DirectedPath>directedPaths = new ArrayList<>();
                     directedPaths.add(directedPath);
                     odsPaths.put(o + " " + d, directedPaths);
-                    continue;
+                    return odsPaths;
+                    //continue;
                 }
             }
             List<DirectedPath>paths = computeDynamic(sections, stationInfo, o, d, paramType, resultType,risk);

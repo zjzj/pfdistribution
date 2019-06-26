@@ -164,7 +164,7 @@ public class StationAndSectionNetRouter {
                         "</rec>\n"+
                         "</in_condition>\n";*/
 
-        NetRouterClient netRouterClient = new NetRouterClient("Test", "10.2.55.70", 9003, "192.168.69.108", 9005, localaddr, "");
+        NetRouterClient netRouterClient = new NetRouterClient("Test", "192.168.43.82", 9003, "192.168.69.108", 9005, localaddr, "");
         while (!netRouterClient.start()) {
             log.info("StationAndSectionNetRouter  Start fails.");
             Thread.sleep(10);
@@ -183,6 +183,7 @@ public class StationAndSectionNetRouter {
                             JSONObject json = new JSONObject(data);
                             //Boolean data = jsonTransfer.stationDataAnalysis(a);
                             Boolean deal = stationDataAnalysis1(json);
+                            log.info("StationAndSectionNetRouter数据处理成功" );
                             if(deal != false) {
                                 Map<String, String> message = new HashMap<>();
                                 message.put("command", "dynamic");
@@ -198,7 +199,7 @@ public class StationAndSectionNetRouter {
                                 distribution.triggerTask(abc);
                                 System.out.println(tongHaoReturnResult.getPathDistribution().size());
                                 SendData1(netRouterClient, destAddrs,tongHaoReturnResult);
-                                log.info("StationAndSectionNetRouter数据处理成功" );
+                                log.info("StationAndSectionNetRouter成功" );
                             }else {
                                 log.info("StationAndSectionNetRouter数据不对应" );
                             }

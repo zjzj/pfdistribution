@@ -22,11 +22,11 @@ spring:
       username: root
       password: 123456
       driver-class-name: com.mysql.jdbc.Driver
-    oracle:
-      jdbc-url: jdbc:oracle:thin:@localhost:1521:orcl
-      username: system
-      password: orcl
-      driver-class-name: oracle.jdbc.driver.OracleDriver
+#    oracle:
+#      jdbc-url: jdbc:oracle:thin:@localhost:1521:myorcl
+#      username: system
+#      password: password
+#      driver-class-name: oracle.jdbc.driver.OracleDriver
 server:
   port: 12123
 #  datasource:

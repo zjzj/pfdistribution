@@ -101,7 +101,7 @@ public class  Mysqlsavelmpl implements RegionSaveInterface {
     }
     @Override
     public Map<String,List<Integer>> czNameToID(String Name){
-        Map nameToID = new HashMap();
+        Map<String,List<Integer>> nameToID = new HashMap();
         List<Integer> idList=new ArrayList<>();
         List rows= jdbcTemplate.queryForList("SELECT CZ_ID\n" +
                 "FROM dic_linestation\n" +
@@ -143,5 +143,18 @@ public class  Mysqlsavelmpl implements RegionSaveInterface {
             timeMap.put(in+" "+out,pessengers);
         }
         return timeMap;
+    }
+    public List<String> idGet(){
+        List<String> idList1=new ArrayList<>();
+        List rows= jdbcTemplate.queryForList("SELECT CZ_ID\n" +
+                "FROM dic_station");
+        Iterator it = rows.iterator();
+        while(it.hasNext()) {
+            Map userMap = (Map) it.next();
+            Integer id= Integer.parseInt(userMap.get("CZ_ID").toString());
+            String ID=id.toString();
+            idList1.add(ID);
+        }
+        return idList1;
     }
 }

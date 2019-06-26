@@ -2,6 +2,7 @@ package cn.edu.sicau.pfdistribution;
 
 
 import cn.edu.sicau.pfdistribution.dao.Impl.Mysqlsavelmpl;
+import cn.edu.sicau.pfdistribution.dao.Impl.OracleImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +25,20 @@ public class oracleTest implements Serializable {
     MysqlGetID GetID;
     @Autowired
     Mysqlsavelmpl save;
+    @Autowired
+    OracleImpl oracle;
+
     @Test
     public void test()throws Exception{
-        Map<String,String> time=save.SelectAvgTime();
+        System.out.println(oracle.idTest());
+        /*Map<String,String> time=save.SelectAvgTime();
         Map<String,Integer> peo=save.SelectAvgPeo();
         double peoCount=0,timeCount=0;
         for(String test : time.keySet()){
             peoCount=peoCount + Double.valueOf(peo.get(test));
             timeCount=timeCount+Double.valueOf(time.get(test))*Double.valueOf(peo.get(test));
         }
-        System.out.println("20180904 星期三 乘车出行平均时间："+(timeCount/peoCount));
+        System.out.println("20180904 星期三 乘车出行平均时间："+(timeCount/peoCount));*/
 
         //save.odRegion("武汉 北京",2.3,"20180309","6");
         /*Map idTime = new HashMap();

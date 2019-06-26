@@ -23,5 +23,6 @@ public interface OracleGetod {
     public void deleteAllKspRegion();
     //将仿真得到的OD结果从oracle拉取出来并组成需要格式
     public List<String> odFromOracleToList();
+    public List<String> idTest();
 }
 

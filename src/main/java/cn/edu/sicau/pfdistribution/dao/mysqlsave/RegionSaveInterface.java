@@ -28,4 +28,5 @@ public interface RegionSaveInterface {
     //计算测试时间
     public Map<String,Integer> SelectAvgPeo();
     //计算人数
+    public List<String> idGet();
 }
