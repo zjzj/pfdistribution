@@ -84,7 +84,7 @@ public class KServiceImpl implements KService, Serializable {
         if(Constants.RETURN_EDGE_NAME.equals(resultType)){
             directedPath = convertPathToDirectedNamePath(newPaths);
         }else if(Constants.RETURN_EDGE_ID.equals(resultType)){
-            directedPath = convertPathToDirectedIdPathTest(sections, stationsInfo, newPaths);
+            directedPath = convertPathToDirectedIdPathTest(sections, newPaths);
         }
         return directedPath;
     }
@@ -118,7 +118,6 @@ public class KServiceImpl implements KService, Serializable {
         }
         List<Path>newPaths = removeWrongPaths(paths);
         if(risk == null)return newPaths;
-        List<Integer>removeIndex = getAlarmIndexFromNamePath(newPaths, sections, risk);
         newPaths = removeAlarmPath(newPaths, sections, risk);
         return newPaths;
     }
@@ -173,7 +172,7 @@ public class KServiceImpl implements KService, Serializable {
         if(Constants.RETURN_EDGE_NAME.equals(resultType)){
             directedPaths = convertPathToDirectedNamePath(paths);
         }else if(Constants.RETURN_EDGE_ID.equals(resultType)){
-            directedPaths = convertPathToDirectedIdPathTest(sections, stationsInfo, paths);
+            directedPaths = convertPathToDirectedIdPathTest(sections, paths);
         }
         return directedPaths;
     }
@@ -229,7 +228,6 @@ public class KServiceImpl implements KService, Serializable {
      * @return
      */
     private int getPathAboveK(List<String> stations){
-        //Map<String, List<String>>stationInfo = roadDistributionDao.getAllStationInfo();
         int k = 0;
         for(int i = 0; i < stations.size(); i++){
             String station = stations.get(i);
@@ -328,7 +326,7 @@ public class KServiceImpl implements KService, Serializable {
         }
         return directedPaths;
     }
-    private List<DirectedPath>convertPathToDirectedIdPathTest(List<Section>sections, Map<String, List<String>>stations,List<Path>paths){
+    private List<DirectedPath>convertPathToDirectedIdPathTest(List<Section>sections,List<Path>paths){
         List<DirectedPath>directedPaths = new ArrayList<>();
         for(Path path:paths){
             List<Edge>pathEdges = path.getEdges();
@@ -343,7 +341,9 @@ public class KServiceImpl implements KService, Serializable {
                         DirectedEdge directedEdge = new DirectedEdge();
                         directedEdge.setEdge(newEdge);
                         directedEdge.setDirection(section.getDirection());
-                        if(directedEdges.size()>=1){
+                        if(directedEdges.size() == 0){
+                            //
+                        }else{
                             if(!directedEdges.getLast().getEdge().getToNode().equals(directedEdge.getEdge().getFromNode())){
                                 DirectedEdge changeDirectedEdge = new DirectedEdge();
                                 Edge changeEdge = new Edge();
@@ -391,6 +391,7 @@ public class KServiceImpl implements KService, Serializable {
 
     //section index
     private List<Integer> getAlarmSectionIdxWithNamePath(List<Path>paths, List<Edge>alarmSection){
+        if(alarmSection == null)return null;
         List<Integer>index = new ArrayList<>();
         int i = 0;
         for(Path path:paths){
@@ -410,6 +411,7 @@ public class KServiceImpl implements KService, Serializable {
 
     //station index
     private List<Integer> getAlarmStationIdxWithNamePath(List<Path>paths,List<Section>sections, List<StationRisk>stationRisks){
+        if(stationRisks == null)return null;
         List<String>alarmNameStations = getStationNameFromAlarmStationId(sections, stationRisks);
         int i = 0;
         List<Integer>alarmStationIndex = new ArrayList<>();
@@ -434,7 +436,6 @@ public class KServiceImpl implements KService, Serializable {
         if(sectionRisks == null)return null;
         List<Edge>alarmNameEdge = new ArrayList<>();
         for(SectionRisk sectionRisk:sectionRisks){
-            if(sectionRisk.getAlarmLevel() == 0)return null;
             long currentTime = TimeUtil.getCurrentUnixTime();
             long alarmStart = TimeUtil.getUnixTime(Constants.ALARM__TIME_FORMAT, sectionRisk.getStartTime());
             long alarmEnd = TimeUtil.getUnixTime(Constants.ALARM__TIME_FORMAT, sectionRisk.getEndTime());
@@ -458,10 +459,10 @@ public class KServiceImpl implements KService, Serializable {
         if(stationRisks == null)return null;
         List<String>alarmStation = new ArrayList<>();
         for(StationRisk stationRisk:stationRisks){
-            if(stationRisk.getAlarmLevel() == 0)return null;
             long currentTime = TimeUtil.getCurrentUnixTime();
             long alarmStart = TimeUtil.getUnixTime(Constants.ALARM__TIME_FORMAT, stationRisk.getStartTime());
             long alarmEnd = TimeUtil.getUnixTime(Constants.ALARM__TIME_FORMAT, stationRisk.getEndTime());
+            //currentTime >=alarmStart && currentTime < alarmEnd
             if(currentTime >=alarmStart && currentTime < alarmEnd){
                 for(Section section:sections){
                     if(stationRisk.getAlarmLevel() == 1 && stationRisk.getStationId() == section.getFromId()){
@@ -487,9 +488,14 @@ public class KServiceImpl implements KService, Serializable {
         List<Integer>tmp1 = getAlarmSectionIdxWithNamePath(paths, alarmNameEdges);
         //station
         List<Integer>tmp2 = getAlarmStationIdxWithNamePath(paths, sections, risk.getStationsRisks());
-        for(Integer tmp:tmp2){
-            tmp1.add(tmp);
+        if(tmp1 == null && tmp2 == null)return null;
+        else if(tmp1 == null)return tmp2;
+        else if(tmp2 == null)return tmp1;
+        else{
+            for(Integer tmp:tmp2){
+                tmp1.add(tmp);
+            }
+            return tmp1;
         }
-        return tmp1;
     }
 }

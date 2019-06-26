@@ -7,20 +7,20 @@ import javax.annotation.PostConstruct;
 /**
  * @author 谭华波
  */
-@Component
+//@Component
 public class NetRouterController {
 
-    @Autowired
-    private IntervalDistributionNetRouter intervalDistributionNetRouter;
-
-    @Autowired
-    private RiskLevelNetRouter riskLevelNetRouter;
-    @Autowired
-    private StationAndSectionNetRouter stationAndSectionNetRouter;
-    @PostConstruct
-    public void StartAllNetRouter() throws Exception {
-        intervalDistributionNetRouter.receiver();
-        riskLevelNetRouter.receiver();
-        stationAndSectionNetRouter.receiver();
-    }
+//    @Autowired
+//    private IntervalDistributionNetRouter intervalDistributionNetRouter;
+//
+//    @Autowired
+//    private RiskLevelNetRouter riskLevelNetRouter;
+//    @Autowired
+//    private StationAndSectionNetRouter stationAndSectionNetRouter;
+//    @PostConstruct
+//    public void StartAllNetRouter() throws Exception {
+//        intervalDistributionNetRouter.receiver();
+//        riskLevelNetRouter.receiver();
+//        stationAndSectionNetRouter.receiver();
+//    }
 }
