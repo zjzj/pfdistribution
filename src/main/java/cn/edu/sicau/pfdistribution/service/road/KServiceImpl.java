@@ -1,6 +1,7 @@
 package cn.edu.sicau.pfdistribution.service.road;
 
 import cn.edu.sicau.pfdistribution.Constants;
+import cn.edu.sicau.pfdistribution.Utils.TimeUtil;
 import cn.edu.sicau.pfdistribution.dao.mysqlsave.RoadDistributionDao;
 import cn.edu.sicau.pfdistribution.entity.*;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.Edge;
@@ -89,6 +90,40 @@ public class KServiceImpl implements KService, Serializable {
     }
 
     @Override
+    public List<Path> computeDynamicRemoveAlarmPath(List<Section> sections, Map<String, List<String>> stationsInfo, String o, String d, String paramType, Risk risk) {
+        String newOD[] = null;
+        if(Constants.PARAM_ID.equals(paramType)){
+            newOD = stationIdToName(sections, o, d);
+        }
+        List<Edge>edges = getIdOrNameEdges(sections, Constants.RETURN_EDGE_NAME);
+        Graph graph = new Graph();
+        graph.addEdges(edges);
+        KSPUtil kspUtil = new KSPUtil();
+        kspUtil.setEdges(edges);
+        kspUtil.setGraph(graph);
+        List<Path> paths = null;
+        if(newOD == null){
+            paths = kspUtil.computeODPath(o, d, 1);
+        }else{
+            paths = kspUtil.computeODPath(newOD[0], newOD[1], 1);
+        }
+        if(paths == null)return null;
+
+        List<String>stations = getShortestPathStations(paths.get(0).getEdges());
+        int k = getPathAboveK(stations);
+        if(newOD == null){
+            paths = kspUtil.computeODPath(o, d, k + 1);
+        }else{
+            paths = kspUtil.computeODPath(newOD[0], newOD[1], k + 1);
+        }
+        List<Path>newPaths = removeWrongPaths(paths);
+        if(risk == null)return newPaths;
+        List<Integer>removeIndex = getAlarmIndexFromNamePath(newPaths, sections, risk);
+        newPaths = removeAlarmPath(newPaths, sections, risk);
+        return newPaths;
+    }
+
+    @Override
     public Map<String, List<DirectedPath>> computeStatic(Map<String, String> ods, String paramType, String resultType) {
         if(ods == null) return null;
         Map<String, List<DirectedPath>>odsPaths = new HashMap<>();
@@ -131,26 +166,16 @@ public class KServiceImpl implements KService, Serializable {
      */
     @Override
     public List<DirectedPath> computeDynamic(List<Section>sections, Map<String, List<String>>stationsInfo, String o, String d, String paramType, String resultType, Risk risk) {
-        List<DirectedPath> paths = null;
-        paths = computeStatic(sections, stationsInfo, o, d, paramType, resultType);
-
-        List<Integer>interruptedIndex = new ArrayList<>();
-        //判断区间是否正在运营
-//        for(int i = 0; i < paths.size(); i++){
-//            if(!pathCheckService.checkPath(paths.get(i)))
-//                interruptedIndex.add(i);
-//        }
-//        List<DirectedPath>newPaths = new ArrayList<>();
-//        for(int i = 0; i < paths.size(); i++){
-//            if(interruptedIndex.indexOf(i) == -1)
-//                newPaths.add(paths.get(i));
-//        }
-        if(risk.getSectionRisks() == null && risk.getStationsRisks() ==null) return paths;
-        else {
-            System.out.println(risk.getStationsRisks());
-            List<DirectedPath> newPaths = removeAlarmPath(paths, sections, resultType, risk);
-            return newPaths;
+        List<Path> paths = null;
+        paths = computeDynamicRemoveAlarmPath(sections, stationsInfo, o, d, paramType, risk);
+        if(paths == null)return null;
+        List<DirectedPath>directedPaths = null;
+        if(Constants.RETURN_EDGE_NAME.equals(resultType)){
+            directedPaths = convertPathToDirectedNamePath(paths);
+        }else if(Constants.RETURN_EDGE_ID.equals(resultType)){
+            directedPaths = convertPathToDirectedIdPathTest(sections, stationsInfo, paths);
         }
+        return directedPaths;
     }
 
     @Override
@@ -195,34 +220,6 @@ public class KServiceImpl implements KService, Serializable {
             odsPaths.put(o + " " + d, paths);
         }
         return odsPaths;
-    }
-
-    @Override
-    public Map<String, List<DirectedPath>> computeDynamicFromDB(Map<String, String> ods, String paramType, String resultType) {
-        if(Constants.PARAM_ID.equals(paramType)){
-            List<ODPathWithJson>idPath = roadDistributionDao.getAllODPathById();
-            Iterator<String>it = ods.keySet().iterator();
-            while(it.hasNext()){
-                String o = it.next();
-                String d = ods.get(o);
-                String tmp = o + " " + d;
-                for(ODPathWithJson odPathWithJson:idPath){
-                    if(tmp.equals(odPathWithJson.getOd())){
-                        String json = odPathWithJson.getPathWithNameAndId();
-                        if(Constants.RETURN_EDGE_NAME.equals(resultType)){
-                            try {
-                                JSONArray nameJson = new JSONArray(json.split("\\s+")[1]);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }
-            }
-        }else if(Constants.PARAM_NAME.equals(paramType)){
-
-        }
-        return null;
     }
 
     /**
@@ -378,49 +375,29 @@ public class KServiceImpl implements KService, Serializable {
         return stations;
     }
 
-    private List<DirectedPath>removeAlarmPath(List<DirectedPath>directedPaths, List<Section>sections, String edgeType, Risk risk){
-        List<DirectedPath>newDirectedPaths = new ArrayList<>();
+    private List<Path>removeAlarmPath(List<Path>paths, List<Section>sections, Risk risk){
+        List<Path>newPaths = new ArrayList<>();
         List<Integer>removeIndex = null;
-        if(Constants.RETURN_EDGE_ID.equals(edgeType)){
-            removeIndex = getAlarmIndexFromIdPath(directedPaths, sections, risk);
-        }
-        if(Constants.RETURN_EDGE_NAME.equals(edgeType)){
-            removeIndex = getAlarmIndexFromNamePath(directedPaths, sections, risk);
-        }
-        if(removeIndex == null)return directedPaths;
-        for(int i = 0; i < directedPaths.size(); i++){
+            removeIndex = getAlarmIndexFromNamePath(paths, sections, risk);
+        if(removeIndex == null)return paths;
+        for(int i = 0; i < paths.size(); i++){
             if((removeIndex.indexOf(i)) == -1){
-                newDirectedPaths.add(directedPaths.get(i));
+                newPaths.add(paths.get(i));
             }
         }
-        return newDirectedPaths;
+        return newPaths;
     }
 
     //section index
-    private List<Integer> getAlarmSectionIdxWithIdPath(List<DirectedPath>directedPaths, List<Edge>alarmSection){
-        List<Integer>removeIdx = new ArrayList<>();
-        for(int i = 0; i < directedPaths.size(); i++){
-            LinkedList<DirectedEdge>directedEdges = directedPaths.get(i).getEdges();
-            for(DirectedEdge directedEdge:directedEdges){
-                for(Edge edge:alarmSection){
-                    if(edge.getFromNode().equals(directedEdge.getEdge().getFromNode())&& edge.getToNode().equals(directedEdge.getEdge().getToNode())){
-                        removeIdx.add(i);
-                        break;
-                    }
-                }
-            }
-        }
-        return removeIdx;
-    }
-    private List<Integer> getAlarmSectionIdxWithNamePath(List<DirectedPath>directedPaths, List<Edge>alarmSection){
+    private List<Integer> getAlarmSectionIdxWithNamePath(List<Path>paths, List<Edge>alarmSection){
         List<Integer>index = new ArrayList<>();
         int i = 0;
-        for(DirectedPath directedPath:directedPaths){
-            List<DirectedEdge>directedEdges = directedPath.getEdges();
-            for(DirectedEdge directedEdge:directedEdges){
-                for(Edge edge:alarmSection){
-                     if(directedEdge.getEdge().getFromNode().equals(edge.getFromNode()) &&
-                             directedEdge.getEdge().getToNode().equals(edge.getToNode())){
+        for(Path path:paths){
+            List<Edge>edges = path.getEdges();
+            for(Edge edge:edges){
+                for(Edge alarmEdge:alarmSection){
+                     if(alarmEdge.getFromNode().equals(edge.getFromNode()) &&
+                             alarmEdge.getToNode().equals(edge.getToNode())){
                          index.add(i);break;
                      }
                 }
@@ -431,34 +408,16 @@ public class KServiceImpl implements KService, Serializable {
     }
 
     //station index
-    private List<Integer> getAlarmStationIdxWithIdPath(List<DirectedPath>directedPaths, List<StationRisk>stationRisks){
-        int i = 0;
-        List<Integer>alarmStationIndex = new ArrayList<>();
-        for(DirectedPath directedPath:directedPaths){
-            List<DirectedEdge>directedEdges = directedPath.getEdges();
-            for(DirectedEdge directedEdge:directedEdges){
-                for(StationRisk stationRisk:stationRisks){
-                    if(stationRisk.getAlarmLevel() == 1 && (directedEdge.getEdge().getFromNode().equals(""+stationRisk.getStationId()) ||
-                            directedEdge.getEdge().getToNode().equals(""+stationRisk.getStationId()))){
-                        alarmStationIndex.add(i);
-                        break;
-                    }
-                }
-            }
-            i++;
-        }
-        return alarmStationIndex;
-    }
-    private List<Integer> getAlarmStationIdxWithNamePath(List<DirectedPath>directedPaths,List<Section>sections, List<StationRisk>stationRisks){
+    private List<Integer> getAlarmStationIdxWithNamePath(List<Path>paths,List<Section>sections, List<StationRisk>stationRisks){
         List<String>alarmNameStations = getStationNameFromAlarmStationId(sections, stationRisks);
         int i = 0;
         List<Integer>alarmStationIndex = new ArrayList<>();
-        for(DirectedPath directedPath:directedPaths){
-            List<DirectedEdge>directedEdges = directedPath.getEdges();
-            for(DirectedEdge directedEdge:directedEdges){
+        for(Path path:paths){
+            List<Edge>edges = path.getEdges();
+            for(Edge edge:edges){
                 for(String station:alarmNameStations){
-                    if(directedEdge.getEdge().getFromNode().equals(station) ||
-                            directedEdge.getEdge().getToNode().equals(station)){
+                    if(edge.getFromNode().equals(station) ||
+                            edge.getToNode().equals(station)){
                         alarmStationIndex.add(i);
                         break;
                     }
@@ -471,77 +430,62 @@ public class KServiceImpl implements KService, Serializable {
 
     //alarm edge
     private List<Edge> getNameEdgeFromAlarmSectionId(List<Section>sections, List<SectionRisk>sectionRisks){
+        if(sectionRisks == null)return null;
         List<Edge>alarmNameEdge = new ArrayList<>();
         for(SectionRisk sectionRisk:sectionRisks){
-            for(Section section:sections){
-                if(sectionRisk.getAlarmLevel() == 1 && sectionRisk.getSectionId() == section.getSectionId()){
-                    Edge edge = new Edge();
-                    edge.setFromNode(section.getFromName());
-                    edge.setToNode(section.getToName());
-                    alarmNameEdge.add(edge);
-                    break;
+            if(sectionRisk.getAlarmLevel() == 0)return null;
+            long currentTime = TimeUtil.getCurrentUnixTime();
+            long alarmStart = TimeUtil.getUnixTime(Constants.ALARM__TIME_FORMAT, sectionRisk.getStartTime());
+            long alarmEnd = TimeUtil.getUnixTime(Constants.ALARM__TIME_FORMAT, sectionRisk.getEndTime());
+            if(currentTime >=alarmStart && currentTime < alarmEnd){
+                for(Section section:sections){
+                    if(sectionRisk.getAlarmLevel() == 1 && sectionRisk.getSectionId() == section.getSectionId()){
+                        Edge edge = new Edge();
+                        edge.setFromNode(section.getFromName());
+                        edge.setToNode(section.getToName());
+                        alarmNameEdge.add(edge);
+                        break;
+                    }
                 }
             }
         }
         return alarmNameEdge;
     }
-    private List<Edge> getIdEdgeFromAlarmSectionId(List<Section>sections, List<SectionRisk>sectionRisks){
-        List<Edge>alarmIdEdge = new ArrayList<>();
-        for(SectionRisk sectionRisk:sectionRisks){
-            for(Section section:sections){
 
-                if(sectionRisk.getAlarmLevel() == 1 && sectionRisk.getSectionId() == section.getSectionId()){
-                    Edge edge = new Edge();
-                    edge.setFromNode(section.getFromId().toString());
-                    edge.setToNode(section.getToId().toString());
-                    alarmIdEdge.add(edge);
-                    break;
-                }
-            }
-        }
-        return alarmIdEdge;
-    }
-
-    //alarm stationName
+    //alarm station
     private List<String> getStationNameFromAlarmStationId(List<Section>sections, List<StationRisk>stationRisks){
+        if(stationRisks == null)return null;
         List<String>alarmStation = new ArrayList<>();
         for(StationRisk stationRisk:stationRisks){
-            for(Section section:sections){
-                if(stationRisk.getAlarmLevel() == 1 && stationRisk.getStationId() == section.getFromId()){
-                    String stationName = section.getFromName();
-                    alarmStation.add(stationName);
-                    break;
-                }
-                if(stationRisk.getAlarmLevel() == 1 && stationRisk.getStationId() == section.getToId()){
-                    String stationName = section.getToName();
-                    alarmStation.add(stationName);
-                    break;
+            if(stationRisk.getAlarmLevel() == 0)return null;
+            long currentTime = TimeUtil.getCurrentUnixTime();
+            long alarmStart = TimeUtil.getUnixTime(Constants.ALARM__TIME_FORMAT, stationRisk.getStartTime());
+            long alarmEnd = TimeUtil.getUnixTime(Constants.ALARM__TIME_FORMAT, stationRisk.getEndTime());
+            if(currentTime >=alarmStart && currentTime < alarmEnd){
+                for(Section section:sections){
+                    if(stationRisk.getAlarmLevel() == 1 && stationRisk.getStationId() == section.getFromId()){
+                        String stationName = section.getFromName();
+                        alarmStation.add(stationName);
+                        break;
+                    }
+                    if(stationRisk.getAlarmLevel() == 1 && stationRisk.getStationId() == section.getToId()){
+                        String stationName = section.getToName();
+                        alarmStation.add(stationName);
+                        break;
+                    }
                 }
             }
         }
         return alarmStation;
     }
 
-    // remove idPath index
-    private List<Integer> getAlarmIndexFromIdPath(List<DirectedPath>directedPaths, List<Section>sections, Risk risk){
-        //section
-        List<Edge> alarmIdEdges = getIdEdgeFromAlarmSectionId(sections, risk.getSectionRisks());
-        List<Integer>tmp1 = getAlarmSectionIdxWithIdPath(directedPaths, alarmIdEdges);
-        //station
-        List<Integer>tmp2 = getAlarmStationIdxWithIdPath(directedPaths, risk.getStationsRisks());
-        for(Integer tmp:tmp2){
-            tmp1.add(tmp);
-        }
-        return tmp1;
-    }
-
     //remove namePath index
-    private List<Integer>getAlarmIndexFromNamePath(List<DirectedPath>directedPaths, List<Section>sections, Risk risk){
+    private List<Integer>getAlarmIndexFromNamePath(List<Path>paths, List<Section>sections, Risk risk){
         //section
         List<Edge> alarmNameEdges = getNameEdgeFromAlarmSectionId(sections, risk.getSectionRisks());
-        List<Integer>tmp1 = getAlarmSectionIdxWithNamePath(directedPaths, alarmNameEdges);
+        List<Integer>tmp1 = getAlarmSectionIdxWithNamePath(paths, alarmNameEdges);
         //station
-        List<Integer>tmp2 = getAlarmStationIdxWithNamePath(directedPaths, sections, risk.getStationsRisks());
+        List<Integer>tmp2 = getAlarmStationIdxWithNamePath(paths, sections, risk.getStationsRisks());
         for(Integer tmp:tmp2){
             tmp1.add(tmp);
         }

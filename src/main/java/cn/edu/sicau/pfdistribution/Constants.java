@@ -14,4 +14,7 @@ public class Constants {
     public static final String STATION_ID = "StationId";
     public static final String SECTION_ID = "SectionId";
     public static final String ALARM_LEVEL = "AlarmLevel";
+    public static final String ALARM_START_TIME = "StartTime";
+    public static final String ALARM_END_TIME = "EndTime";
+    public static final String ALARM__TIME_FORMAT = "yyyy/MM/DD HH:mm:ss";
 }
