@@ -1,6 +1,7 @@
 package cn.edu.sicau.pfdistribution.service.kspcalculation;
 
 import cn.edu.sicau.pfdistribution.service.kspcalculation.ksp.Eppstein;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.ksp.Yen;
 import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,8 @@ public class KSPUtil{
     private List<Edge>edges;//构建路网图的边
     private List<Edge>abadonEdges;
     public List<Path> computeODPath(String source, String target, int k){
-        Eppstein eppsteinAlgorithm = new Eppstein();
-        List<Path>ksp = eppsteinAlgorithm.ksp(graph, source, target, k);
+        Yen yenAlgorithm = new Yen();
+        List<Path>ksp = yenAlgorithm.ksp(graph, source, target, k);
         return ksp;
     }
 

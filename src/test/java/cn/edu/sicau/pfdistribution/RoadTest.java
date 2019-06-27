@@ -1,6 +1,7 @@
 package cn.edu.sicau.pfdistribution;
 import cn.edu.sicau.pfdistribution.dao.mysqlsave.RoadDistributionDao;
 import cn.edu.sicau.pfdistribution.entity.*;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
 import cn.edu.sicau.pfdistribution.service.kspdistribution.GetOdList;
 import cn.edu.sicau.pfdistribution.service.road.KService;
 import org.junit.Test;
@@ -106,7 +107,8 @@ public class RoadTest {
     public void kspTest(){
         List<Section>sections = roadDistributionDao.getAllSection();
         Map<String, List<String>>stations = roadDistributionDao.getAllStationInfo();
-        List<DirectedPath>path = kService.computeStatic(sections, stations, "174", "9", Constants.PARAM_ID, Constants.RETURN_EDGE_ID);
+        List<Path>path = kService.computeDynamicRemoveAlarmPath(sections, stations, "冉家坝", "歇台子",Constants.PARAM_NAME, null);
+        System.out.println("搜出的路径条数:" + path.size());
         System.out.println(path);
     }
 

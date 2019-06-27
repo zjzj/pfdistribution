@@ -54,6 +54,7 @@ public class KServiceImpl implements KService, Serializable {
      */
     @Override
     public List<DirectedPath> computeStatic(List<Section>sections, Map<String, List<String>>stationsInfo, String o, String d, String paramType,String resultType) {
+//        int k = 5;
         String newOD[] = null;
         if(Constants.PARAM_ID.equals(paramType)){
             newOD = stationIdToName(sections, o, d);
@@ -91,6 +92,7 @@ public class KServiceImpl implements KService, Serializable {
 
     @Override
     public List<Path> computeDynamicRemoveAlarmPath(List<Section> sections, Map<String, List<String>> stationsInfo, String o, String d, String paramType, Risk risk) {
+//        int k = 5;
         String newOD[] = null;
         if(Constants.PARAM_ID.equals(paramType)){
             newOD = stationIdToName(sections, o, d);
@@ -248,6 +250,7 @@ public class KServiceImpl implements KService, Serializable {
             List<Edge> p = paths.get(i).getEdges();
             Map<String, Integer> deletePathMap = new HashMap<>();
             deletePathMap.put(p.get(0).getFromNode(), 1);
+            deletePathMap.put(p.get(0).getToNode(), 1);
             for(int j = 1; j < p.size(); j++){
                 if(deletePathMap.containsKey(p.get(j).getToNode())){
                     flag = false;
