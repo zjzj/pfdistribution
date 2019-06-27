@@ -165,6 +165,22 @@ public class KServiceImpl implements KService, Serializable {
      */
     @Override
     public List<DirectedPath> computeDynamic(List<Section>sections, Map<String, List<String>>stationsInfo, String o, String d, String paramType, String resultType, Risk risk) {
+        if(o.equals(d))return null;
+        if(Constants.PARAM_ID.equals(paramType)) {
+            String[] tmp = stationIdToName(sections, o, d);
+            if(tmp[0].equals(tmp[1])){
+                DirectedPath directedPath = new DirectedPath();
+                Edge edge = new Edge();DirectedEdge directedEdge = new DirectedEdge();
+                edge.setFromNode(o);edge.setToNode(d);edge.setWeight(0);
+                directedEdge.setEdge(edge);directedEdge.setDirection(Constants.CHANGE_STATION);
+                LinkedList<DirectedEdge>edges = new LinkedList<>();
+                edges.add(directedEdge);
+                directedPath.setEdges(edges);directedPath.setTotalCost(Constants.CHANGE_LENGTH);
+                List<DirectedPath>directedPaths = new ArrayList<>();
+                directedPaths.add(directedPath);
+                return directedPaths;
+            }
+        }
         List<Path> paths = null;
         paths = computeDynamicRemoveAlarmPath(sections, stationsInfo, o, d, paramType, risk);
         if(paths == null)return null;
@@ -196,26 +212,6 @@ public class KServiceImpl implements KService, Serializable {
             String[] odStr = it.next().split(" ");
             String o = odStr[0];
             String d = odStr[1];
-            if(o.equals(d) && Constants.PARAM_NAME.equals(paramType)){
-                continue;
-            }
-            if(o.equals(d) && Constants.PARAM_ID.equals(paramType)) {
-                String[] tmp = stationIdToName(sections, o, d);
-                if(tmp[0].equals(tmp[1])){
-                    DirectedPath directedPath = new DirectedPath();
-                    Edge edge = new Edge();DirectedEdge directedEdge = new DirectedEdge();
-                    edge.setFromNode(o);edge.setToNode(d);edge.setWeight(0);
-                    directedEdge.setEdge(edge);directedEdge.setDirection(Constants.CHANGE_STATION);
-                    LinkedList<DirectedEdge>edges = new LinkedList<>();
-                    edges.add(directedEdge);
-                    directedPath.setEdges(edges);directedPath.setTotalCost(Constants.CHANGE_LENGTH);
-                    List<DirectedPath>directedPaths = new ArrayList<>();
-                    directedPaths.add(directedPath);
-                    odsPaths.put(o + " " + d, directedPaths);
-                    return odsPaths;
-                    //continue;
-                }
-            }
             List<DirectedPath>paths = computeDynamic(sections, stationInfo, o, d, paramType, resultType,risk);
             odsPaths.put(o + " " + d, paths);
         }

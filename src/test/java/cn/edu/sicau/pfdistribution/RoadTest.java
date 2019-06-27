@@ -1,6 +1,7 @@
 package cn.edu.sicau.pfdistribution;
 import cn.edu.sicau.pfdistribution.dao.mysqlsave.RoadDistributionDao;
 import cn.edu.sicau.pfdistribution.entity.*;
+import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
 import cn.edu.sicau.pfdistribution.service.road.KService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -109,27 +110,29 @@ public class RoadTest {
     @Test
     public void AlarmTest(){
         Risk risk = new Risk();
-        StationRisk stationRisk = new StationRisk();
-        List<StationRisk>stationRisks = new ArrayList<>();
-        stationRisk.setStationId(199);
-        stationRisk.setAlarmLevel(1);
-        stationRisk.setStartTime("2019/6/26 6:33:44");
-        stationRisk.setEndTime("2019/6/26 22:53:44");
-        stationRisks.add(stationRisk);
-        risk.setStationsRisks(stationRisks);
+//        StationRisk stationRisk = new StationRisk();
+//        List<StationRisk>stationRisks = new ArrayList<>();
+//        stationRisk.setStationId(199);
+//        stationRisk.setAlarmLevel(1);
+//        stationRisk.setStartTime("2019/6/26 6:33:44");
+//        stationRisk.setEndTime("2019/6/26 22:53:44");
+//        stationRisks.add(stationRisk);
+//        risk.setStationsRisks(stationRisks);
+//
+//        List<SectionRisk>sectionRisks = new ArrayList<>();
+//        SectionRisk sectionRisk = new SectionRisk();
+//        sectionRisk.setAlarmLevel(1);
+//        sectionRisk.setSectionId(575);
+//        sectionRisk.setStartTime("2019/6/26 6:33:44");
+//        sectionRisk.setEndTime("2019/6/26 22:53:44");
+//        sectionRisks.add(sectionRisk);
+//        risk.setSectionRisks(sectionRisks);
+//        risk.setStationsRisks(stationRisks);
 
-        List<SectionRisk>sectionRisks = new ArrayList<>();
-        SectionRisk sectionRisk = new SectionRisk();
-        sectionRisk.setAlarmLevel(1);
-        sectionRisk.setSectionId(575);
-        sectionRisk.setStartTime("2019/6/26 6:33:44");
-        sectionRisk.setEndTime("2019/6/26 22:53:44");
-        sectionRisks.add(sectionRisk);
-        risk.setSectionRisks(sectionRisks);
-        risk.setStationsRisks(stationRisks);
-
-        String o = "12",d = "20";
-        List<DirectedPath>directedPathLIst = kService.computeDynamic(sections, stationInfo, o, d, Constants.PARAM_ID, Constants.RETURN_EDGE_ID, risk);
-        System.out.println(directedPathLIst);
+        String o = "198",d = "12";
+        //List<DirectedPath>directedPathLIst = kService.computeDynamic(sections, stationInfo, o, d, Constants.PARAM_ID, Constants.RETURN_EDGE_NAME, risk);
+        //System.out.println(directedPathLIst);
+        List<DirectedPath>staticPath = kService.computeDynamic(sections, stationInfo, o, d, Constants.PARAM_ID, Constants.RETURN_EDGE_NAME, null);
+        System.out.println(staticPath);
     }
 }
