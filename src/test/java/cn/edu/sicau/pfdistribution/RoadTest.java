@@ -1,7 +1,7 @@
 package cn.edu.sicau.pfdistribution;
 import cn.edu.sicau.pfdistribution.dao.mysqlsave.RoadDistributionDao;
 import cn.edu.sicau.pfdistribution.entity.*;
-import cn.edu.sicau.pfdistribution.service.kspcalculation.util.Path;
+import cn.edu.sicau.pfdistribution.service.kspdistribution.GetOdList;
 import cn.edu.sicau.pfdistribution.service.road.KService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,16 +11,19 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import java.*;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RoadTest {
+    @Autowired
+    private GetOdList getOdList;
     @Autowired
     private RoadDistributionDao roadDistributionDao;
     @Autowired
@@ -110,29 +113,35 @@ public class RoadTest {
     @Test
     public void AlarmTest(){
         Risk risk = new Risk();
-//        StationRisk stationRisk = new StationRisk();
-//        List<StationRisk>stationRisks = new ArrayList<>();
-//        stationRisk.setStationId(199);
-//        stationRisk.setAlarmLevel(1);
-//        stationRisk.setStartTime("2019/6/26 6:33:44");
-//        stationRisk.setEndTime("2019/6/26 22:53:44");
-//        stationRisks.add(stationRisk);
-//        risk.setStationsRisks(stationRisks);
-//
-//        List<SectionRisk>sectionRisks = new ArrayList<>();
-//        SectionRisk sectionRisk = new SectionRisk();
-//        sectionRisk.setAlarmLevel(1);
-//        sectionRisk.setSectionId(575);
-//        sectionRisk.setStartTime("2019/6/26 6:33:44");
-//        sectionRisk.setEndTime("2019/6/26 22:53:44");
-//        sectionRisks.add(sectionRisk);
-//        risk.setSectionRisks(sectionRisks);
-//        risk.setStationsRisks(stationRisks);
+        StationRisk stationRisk = new StationRisk();
+        List<StationRisk>stationRisks = new ArrayList<>();
+        stationRisk.setStationId(199);
+        stationRisk.setAlarmLevel(1);
+        stationRisk.setStartTime("2019/6/26 6:33:44");
+        stationRisk.setEndTime("2019/6/26 22:53:44");
+        stationRisks.add(stationRisk);
+        risk.setStationsRisks(stationRisks);
 
-        String o = "198",d = "12";
-        //List<DirectedPath>directedPathLIst = kService.computeDynamic(sections, stationInfo, o, d, Constants.PARAM_ID, Constants.RETURN_EDGE_NAME, risk);
-        //System.out.println(directedPathLIst);
-        List<DirectedPath>staticPath = kService.computeDynamic(sections, stationInfo, o, d, Constants.PARAM_ID, Constants.RETURN_EDGE_NAME, null);
-        System.out.println(staticPath);
+        List<SectionRisk>sectionRisks = new ArrayList<>();
+        SectionRisk sectionRisk = new SectionRisk();
+        sectionRisk.setAlarmLevel(1);
+        sectionRisk.setSectionId(575);
+        sectionRisk.setStartTime("2019/6/26 6:33:44");
+        sectionRisk.setEndTime("2019/6/26 22:53:44");
+        sectionRisks.add(sectionRisk);
+        risk.setSectionRisks(sectionRisks);
+        risk.setStationsRisks(stationRisks);
+        List<String> odList = getOdList.odFromOracleToList();
+        String o = "o",d="d";
+        for(int i = 0;i<odList.size()-1;i++) {
+            try {
+                List<String> od = Arrays.asList(odList.get(i).split(" "));
+                o = od.get(0); d = od.get(1);
+                List<DirectedPath> directedPathLIst = kService.computeDynamic(sections, stationInfo, o, d, Constants.PARAM_ID, Constants.RETURN_EDGE_ID, risk);
+                /*System.out.println(directedPathLIst);*/
+            }catch (Exception e){
+                System.out.println("错误OD对："+o+" "+d);
+            }
+        }
     }
 }
